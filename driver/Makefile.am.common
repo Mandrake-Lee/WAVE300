@@ -1,0 +1,146 @@
+# $Id: Makefile.am.common 11918 2011-11-08 17:02:07Z fleytman $
+
+qstrip_func=$(strip $(subst ",,$(1)))
+
+tools_srcdir=$(top_srcdir)/tools
+abs_tools_srcdir=$(abs_top_srcdir)/tools
+
+tools_shared_srcdir=$(tools_srcdir)/shared
+abs_tools_shared_srcdir=$(abs_tools_srcdir)/shared
+
+root_driver_linux_srcdir=$(tools_srcdir)/mtlkroot/linux
+abs_root_driver_linux_srcdir=$(abs_tools_srcdir)/mtlkroot/linux
+
+root_driver_shared_srcdir=$(tools_srcdir)/mtlkroot/shared
+abs_root_driver_shared_srcdir=$(abs_tools_srcdir)/mtlkroot/shared
+
+root_driver_builddir=$(tools_builddir)/mtlkroot/linux
+abs_root_driver_builddir=$(abs_tools_builddir)/mtlkroot/linux
+
+wireless_srcdir=$(top_srcdir)/wireless
+abs_wireless_srcdir=$(abs_top_srcdir)/wireless
+
+fw_shared_srcdir=$(wireless_srcdir)/shared_mbss_mac
+abs_fw_shared_srcdir=$(abs_wireless_srcdir)/shared_mbss_mac
+
+wireless_shared_srcdir=$(wireless_srcdir)/shared
+abs_wireless_shared_srcdir=$(abs_wireless_srcdir)/shared
+
+driver_srcdir=$(wireless_srcdir)/driver
+abs_driver_srcdir=$(abs_wireless_srcdir)/driver
+
+driver_shared_srcdir=$(driver_srcdir)/shared
+abs_driver_shared_srcdir=$(abs_driver_srcdir)/shared
+
+driver_linux_srcdir=$(driver_srcdir)/linux
+abs_driver_linux_srcdir=$(abs_driver_srcdir)/linux
+
+tools_builddir=$(top_builddir)/tools
+abs_tools_builddir=$(abs_top_builddir)/tools
+
+tools_shared_builddir=$(tools_builddir)/shared
+abs_tools_shared_builddir=$(abs_tools_builddir)/shared
+
+wireless_builddir=$(top_builddir)/wireless
+abs_wireless_builddir=$(abs_top_builddir)/wireless
+
+wireless_shared_builddir=$(wireless_builddir)/shared
+abs_wireless_shared_builddir=$(abs_wireless_builddir)/shared
+
+driver_builddir=$(wireless_builddir)/driver
+abs_driver_builddir=$(abs_wireless_builddir)/driver
+
+driver_shared_builddir=$(driver_builddir)/shared
+abs_driver_shared_builddir=$(abs_driver_builddir)/shared
+
+driver_rflib_builddir=$(driver_builddir)/rflib
+
+driver_rflib_linux_builddir=$(driver_builddir)/rflib/linux
+abs_driver_rflib_linux_builddir=$(abs_driver_builddir)/rflib/linux
+
+driver_rflib_shared_builddir=$(driver_builddir)/rflib/shared
+abs_driver_rflib_shared_builddir=$(abs_driver_builddir)/rflib/shared
+
+driver_rflib_srcdir=$(driver_srcdir)/rflib
+
+driver_rflib_linux_srcdir=$(driver_srcdir)/rflib/linux
+abs_driver_rflib_linux_srcdir=$(abs_driver_srcdir)/rflib/linux
+
+driver_rflib_shared_srcdir=$(driver_srcdir)/rflib/shared
+abs_driver_rflib_shared_srcdir=$(abs_driver_srcdir)/rflib/shared
+
+driver_linux_builddir=$(driver_builddir)/linux
+abs_driver_linux_builddir=$(abs_driver_builddir)/linux
+
+rtlogger_srcdir=$(tools_srcdir)/rtlogger
+abs_rtlogger_srcdir=$(abs_tools_srcdir)/rtlogger
+
+rtlogger_shared_builddir=$(tools_builddir)/rtlogger/shared
+abs_rtlogger_shared_builddir=$(abs_tools_builddir)/rtlogger/shared
+
+rtlogger_scripts_srcdir=$(rtlogger_srcdir)/scripts
+abs_rtlogger_scripts_srcdir=$(abs_rtlogger_srcdir)/scripts
+
+rtlogger_shared_srcdir=$(rtlogger_srcdir)/shared
+abs_rtlogger_shared_srcdir=$(abs_rtlogger_srcdir)/shared
+
+rebase_copy_cmd := cp -R --remove-destination -p -u
+
+_SVN_VERSION:=
+_MTLK_VERSION:=$(shell $(abs_top_srcdir)/support/mtlk_ver.pl -g < $(abs_top_srcdir)/mtlk_version)
+
+MTLK_COMMON_CPP_FLAGS=-DMTLK_SOURCE_VERSION="\"$(_MTLK_VERSION).$(_SVN_VERSION)\"" \
+                      -DLOG_LOCAL_OID=MTLKFRONT_WILL_FILL_IT \
+                      -include $(abs_top_builddir)/config.h \
+                      -include $(abs_top_builddir)/.config.h
+
+_MTLK_ALLLANG_FLAGS=-Wall -Wno-multichar -fno-strict-aliasing -Werror
+
+MTLK_COMMON_C_FLAGS=$(_MTLK_ALLLANG_FLAGS)
+MTLK_COMMON_CXX_FLAGS=$(_MTLK_ALLLANG_FLAGS)
+MTLK_COMMON_KERNEL_C_FLAGS=$(_MTLK_ALLLANG_FLAGS)
+MTLK_COMMON_LD_FLAGS=
+
+#Variables for drv_info.c/app_info.c/(app|drv)_toolchain_info files generation
+MTLK_COMPRESSED_CONFIG:=$(shell cat $(abs_top_builddir)/.config | grep -v '^\#.*'         | \
+                                                                  grep -v '^$$'           | \
+                                                                  sed -e's/^CONFIG_//'      \
+                                                                      -e's/=y//'            \
+                                                                      -e's/\"/\\\\\\\"/g' | \
+                                                                  awk '{printf $$0 " ";}')
+TOOLCHAIN_INFO_FILTER_CMD:=awk '/[^\\]\".+[^\\]\"/{print gensub(/.*[^\\]\"(.+[^\\])\".*/, "\\1", 1, $$0)}' | \
+                           sed -e's/\\\"/\"/g'
+
+include $(abs_top_builddir)/.config
+
+.PRECIOUS: %logmacros.c logmacros.c
+
+%logmacros.c:
+	@echo -n
+
+logmacros.c:
+	@echo -n
+
+#Install tree layout
+wlsdir=${prefix}/wls
+driverdir=${wlsdir}/driver
+mttoolsdir=${wlsdir}/mttools
+wlsprebultdir=${wlsdir}
+testsdir=${prefix}/tests
+rtloggerdir=${wlsdir}/rtlogger
+utdir=${prefix}/ut
+dutdir=${prefix}/dut
+toolsdir=${prefix}/tools
+hlprtoolsdir=${prefix}/hlprtools
+rflibdir=${prefix}/rflib
+
+#Variables for mtlkfront.sh
+export abs_builddir
+export abs_top_srcdir
+export abs_top_builddir
+export abs_tools_srcdir
+
+export logger_origin_name logger_origin_id
+
+LD_LIBRARY_PATH=@env_lib_path@
+export LD_LIBRARY_PATH

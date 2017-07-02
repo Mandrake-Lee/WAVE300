@@ -1,0 +1,32 @@
+include $(abs_top_srcdir)/Makefile.am.kbuild
+
+obj-m := mtlkroot.o
+
+mtlkroot-objs := ../log_drv.o logdrv_osdep.o mtlkroot.o     \
+                 mtlkirbd_root.o nlmsgs.o mtlkcdev.o        \
+                 mtlk_assert.o                              \
+                 $(driver_linux_builddir)/osal_defs.o       \
+                 $(driver_linux_builddir)/log_osdep.o       \
+                 $(driver_shared_builddir)/mtlk_snprintf.o  \
+                 $(wireless_shared_builddir)/mtlkstartup.o  \
+                 $(tools_shared_builddir)/mtlkirbhash.o
+
+ifeq ($(CONFIG_ENABLE_OBJPOOL), y)
+  mtlkroot-objs += $(wireless_shared_builddir)/mem_leak.o $(wireless_shared_builddir)/mtlk_objpool.o
+endif
+
+EXTRA_CFLAGS += -I$(abs_srcdir)/..                 \
+                -I$(abs_rtlogger_shared_srcdir)    \
+                -I$(abs_driver_linux_srcdir)       \
+                -I$(abs_wireless_shared_srcdir)    \
+                -I$(abs_driver_shared_srcdir)      \
+                -I$(abs_root_driver_shared_srcdir) \
+                -I$(abs_tools_shared_srcdir) \
+                -I$(abs_root_driver_linux_srcdir) 
+                
+                
+
+logger_origin_name = mtlkroot
+logger_origin_id = 7
+
+include $(abs_top_srcdir)/Makefile.am.module_helper

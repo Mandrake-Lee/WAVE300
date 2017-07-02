@@ -1,0 +1,125 @@
+include $(abs_top_srcdir)/Makefile.am.kbuild
+
+_FW_SBSS_API_VERSION:=$(shell $(abs_top_srcdir)/support/svn_info.sh $(abs_top_srcdir) fw_sbss_api)
+_FW_MBSS_API_VERSION:=$(shell $(abs_top_srcdir)/support/svn_info.sh $(abs_top_srcdir) fw_mbss_api)
+
+EXTRA_CFLAGS+=-DMTLK_FW_SBSS_API_VERSION=$(_FW_SBSS_API_VERSION)
+EXTRA_CFLAGS+=-DMTLK_FW_MBSS_API_VERSION=$(_FW_MBSS_API_VERSION)
+
+obj-m := mtlk.o
+
+mtlk-objs := core.o core_ab.o core_pdb.o\
+   mcast.o utils.o osal_defs.o l2nat.o compat.o \
+   wpa.o mtlk_serializer_osdep.o mtlk_fast_mem.o \
+   mib_osdep.o \
+   progmodel.o log_osdep.o mtlk_df_linux.o mtlk_dfg_linux.o \
+   mtlk_sq_osdep.o mtlk_df_user.o mtlk_df_fw.o \
+   mtlk_df_proc_impl.o \
+   mtlk_df_user_tbl.o \
+   mtlk_vap_manager.o \
+   $(driver_shared_builddir)/mtlk_param_db.o \
+   $(driver_shared_builddir)/mtlk_param_db_def.o \
+   $(driver_shared_builddir)/hw_mmb.o \
+   $(driver_shared_builddir)/mtlkmib.o \
+   $(driver_shared_builddir)/scan.o \
+   $(driver_shared_builddir)/txmm.o \
+   $(driver_shared_builddir)/addba.o \
+   $(driver_shared_builddir)/frame.o \
+   $(driver_shared_builddir)/mtlkaux.o \
+   $(driver_shared_builddir)/mtlkflctrl.o \
+   $(driver_shared_builddir)/mtlk_clipboard.o \
+   $(driver_shared_builddir)/mtlk_ab_manager.o \
+   $(driver_shared_builddir)/cache.o \
+   $(driver_shared_builddir)/rod.o \
+   $(driver_shared_builddir)/stadb.o \
+   $(driver_shared_builddir)/iperf_debug.o \
+   $(driver_shared_builddir)/aocshistory.o \
+   $(driver_shared_builddir)/mtlk_snprintf.o \
+   $(driver_shared_builddir)/mtlkqos.o \
+   $(wireless_shared_builddir)/mtlkstartup.o \
+   $(wireless_shared_builddir)/pattern.o \
+   $(wireless_shared_builddir)/mtlkhash_ieee_addr.o \
+   $(wireless_shared_builddir)/mtlk_algorithms.o \
+   $(driver_shared_builddir)/bitrate.o \
+   $(driver_shared_builddir)/mtlk_sq.o \
+   $(driver_shared_builddir)/mtlk_serializer.o \
+   $(driver_shared_builddir)/mtlk_coc.o \
+   $(driver_shared_builddir)/mtlknbufstats.o \
+   $(driver_shared_builddir)/mtlk_analyzer.o \
+   $(wireless_shared_builddir)/mtlk_wss.o \
+   $(driver_shared_builddir)/mtlk_wssd.o
+
+
+mtlk-libs := $(driver_rflib_builddir)/mtlk_rflib.a
+
+EXTRA_CFLAGS += -I$(abs_driver_shared_srcdir)       \
+                -I$(abs_wireless_shared_srcdir)     \
+                -I$(abs_fw_shared_srcdir)           \
+                -I$(abs_rtlogger_shared_srcdir)     \
+                -I$(abs_driver_linux_srcdir)        \
+                -I$(abs_tools_shared_srcdir)        \
+                -I$(abs_tools_srcdir)/mtidl         \
+                -I$(abs_root_driver_shared_srcdir)  \
+                -I$(abs_root_driver_linux_srcdir)
+
+$(warning EXTRA_CFLAGS = $(EXTRA_CFLAGS))
+
+ifeq ($(CONFIG_BUS_PCI_PCIE),y)
+  mtlk-objs += mtlk_pci_drv.o $(driver_shared_builddir)/mtlk_pcie_ccr.o
+endif
+
+ifeq ($(CONFIG_BUS_AHB),y)
+  mtlk-objs += mtlk_ahb_drv.o
+endif
+
+ifeq ($(CONFIG_ENABLE_OBJPOOL), y)
+  mtlk-objs += $(wireless_shared_builddir)/mem_leak.o $(wireless_shared_builddir)/mtlk_objpool.o
+endif
+
+ifeq ($(CONFIG_RF_MANAGEMENT_MTLK),y)
+  $(warning Metalink RF MGMT is ON)
+else
+  $(warning Metalink RF MGMT is OFF)
+endif
+
+ifeq ($(CONFIG_IRB_DEBUG),y)
+  $(warning CONFIG_IRB_DEBUG is enabled...)
+  mtlk-objs += $(driver_shared_builddir)/mtlk_irb_pinger.o mtlk_dbg_osdep.o
+endif
+
+ifeq ($(CONFIG_CPU_STAT),y)
+  $(warning CPU Statistics enabled! Driver is for debugging purposes only!)
+  mtlk-objs += $(driver_shared_builddir)/cpu_stat.o mtlk_dbg_osdep.o
+endif
+
+ifeq ($(CONFIG_BUS_PCI_PCIE),y)
+
+ifeq "$(MMB_OPS)" ""
+$(warning MMB_OPS is not defined! Forcing 'DEFAULT'...)
+MMB_OPS:=DEFAULT
+endif
+
+ifeq "$(MMB_OPS)" "DEFAULT"
+$(warning Defaults are used for MMB access)
+else
+$(warning $(MMB_OPS) MMB ACCESS USED - CAREFULLY CHECK ON CUSTOMER PLATFORMS)
+endif
+
+EXTRA_CFLAGS += -DMMB_USE_KERNEL_$(MMB_OPS)_OPS
+
+endif
+
+# some Fedora kernels have wireless-pending changes (including 
+# iwe_stream_add_* prototypes change) merged much earlier than
+# mainline. if the kernel looks likes Fedora one, try to provide
+# compatibility
+ifneq (,$(strip $(findstring .fc, $(KERNELRELEASE))))
+  ifneq (,$(strip $(wildcard $(obj)/fedora_iwe_stream_add_fix.kbuild)))
+    include $(obj)/fedora_iwe_stream_add_fix.kbuild
+  endif 
+endif
+
+logger_origin_name = driver
+logger_origin_id = 0
+
+include $(abs_top_srcdir)/Makefile.am.module_helper

@@ -1,0 +1,39 @@
+# $Id: Makefile.am.module_build 11632 2011-09-18 14:33:30Z fleytman $
+
+define $(module_canonical_name)_BUILD_CMD
+    (mkdir -p $($(module_canonical_name)_src_dir) && \
+     (test -e $(abs_builddir)/$($(module_canonical_name)_src_dir)/Kbuild || \
+      ln -s $(abs_srcdir)/$($(module_canonical_name)_src_dir)/Kbuild $(abs_builddir)/$($(module_canonical_name)_src_dir)/Kbuild) && \
+     cd $($(module_canonical_name)_src_dir) && \
+     echo -n > .mtlk_kernel_target && \
+     { test x"$(mtlk_build_kernel_library)" = x"y" || echo modules > .mtlk_kernel_target; } && \
+         $(MAKE) $(KERNEL_MAKE_EXT_PARAMS) -C @kernel_dir@ SUBDIRS=$(CURDIR)/$($(module_canonical_name)_src_dir) `cat .mtlk_kernel_target` \
+                                  abs_srcdir=$(abs_srcdir)/$($(module_canonical_name)_src_dir)/ \
+                                  top_srcdir=../$(top_srcdir)/ \
+                                  abs_top_builddir=$(abs_top_builddir)/ \
+                                  abs_builddir=$(abs_builddir)/$($(module_canonical_name)_src_dir)/ \
+                                  top_builddir=../$(top_builddir)/ \
+                                  abs_top_srcdir=$(abs_top_srcdir)/ \
+                                  srcdir=../$(srcdir)/$($(module_canonical_name)_src_dir)/ \
+                                  KERNELDIR=@kernel_dir@ \
+                                  MTLK_KERNEL_CFLAGS="@kernel_cflags@" \
+                                  @kernel_arch_var@ \
+                                  CROSS_COMPILE="$(abs_top_srcdir)/support/mtlkfront.sh @kernel_cross_compile@" \
+                                  CUSTOM_DRV_ENV_INFO=@CUSTOM_DRV_ENV_INFO@ \
+                                  LD_LIBRARY_PATH=@env_lib_path@ \
+                                  mtlk_build_kernel_library=$(mtlk_build_kernel_library) && \
+     { { test x"$(mtlk_build_kernel_library)" != x"y"; } || echo lib.a > .built_binary_name; } && \
+     { { test x"$(mtlk_build_kernel_library)" = x"y"; } || echo $($(module_canonical_name)_binary_name) > .built_binary_name; } && \
+     ( @kernel_cross_compile@strip -dx `cat .built_binary_name` ) && \
+     ( $(rebase_copy_cmd) drv_toolchain_info $(abs_builddir)) && \
+     $(rebase_copy_cmd) `cat .built_binary_name` $(abs_builddir)/$($(module_canonical_name)_binary_name) || \
+     ( rm -f $(abs_builddir)/$($(module_canonical_name)_binary_name) && exit 11 ) )
+endef
+
+define $(module_canonical_name)_CLEAN_CMD
+    test ! -d $($(module_canonical_name)_src_dir) || \
+      (find $($(module_canonical_name)_src_dir) \! -name Makefile -type f -delete && \
+       find $($(module_canonical_name)_src_dir) \! -name Makefile -type l -delete && \
+       find $($(module_canonical_name)_src_dir) -depth -type d -empty -exec rmdir \{\} \; ); \
+    rm -f $(abs_builddir)/drv_toolchain_info
+endef

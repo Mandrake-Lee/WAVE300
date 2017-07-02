@@ -1,0 +1,38 @@
+include $(abs_top_srcdir)/Makefile.am.kbuild
+
+lib-y := $(driver_rflib_shared_builddir)/mtlk_channels.o \
+		 $(driver_rflib_shared_builddir)/mtlk_eeprom.o \
+		 $(driver_rflib_shared_builddir)/mtlk_dfs.o \
+		 $(driver_rflib_shared_builddir)/mtlk_aocs.o \
+		 $(driver_rflib_shared_builddir)/rdlim.o \
+		 $(driver_rflib_shared_builddir)/mtlk_tpcv4.o \
+		 $(driver_rflib_shared_builddir)/mtlk_scan.o \
+		 $(driver_rflib_shared_builddir)/mtlk_gpl_helper.o \
+		 $(driver_rflib_shared_builddir)/coex20_40.o \
+		 $(driver_rflib_shared_builddir)/coexlve.o \
+		 $(driver_rflib_shared_builddir)/cbsmgr.o \
+		 $(driver_rflib_shared_builddir)/scexempt.o \
+		 $(driver_rflib_shared_builddir)/coexfrgen.o 
+
+ifeq ($(CONFIG_RF_MANAGEMENT_MTLK),y)
+  $(warning RF Lib: Metalink RF MGMT is ON)
+  lib-y += $(driver_rflib_shared_builddir)/mtlk_rfmgmt.o
+else
+  $(warning RF Lib: Metalink RF MGMT is OFF)
+endif
+
+EXTRA_CFLAGS += -I$(abs_driver_rflib_shared_srcdir) \
+                -I$(abs_driver_rflib_linux_srcdir) \
+                -I$(abs_driver_shared_srcdir) \
+                -I$(abs_wireless_shared_srcdir) \
+                -I$(abs_fw_shared_srcdir) \
+                -I$(abs_tools_srcdir)/mtidl \
+                -I$(abs_rtlogger_shared_srcdir) \
+                -I$(abs_driver_shared_srcdir) \
+                -I$(abs_driver_linux_srcdir) \
+                -I$(abs_root_driver_shared_srcdir)
+
+logger_origin_name = rflib
+logger_origin_id = 2
+
+include $(abs_top_srcdir)/Makefile.am.module_helper

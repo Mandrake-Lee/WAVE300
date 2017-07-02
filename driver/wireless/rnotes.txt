@@ -1,0 +1,2730 @@
+Version 3.2.1.1.48, 2012-04-10
+- WAVE300_SW-1630 fixed: Linux hang on deactivate - AP
+- WAVE300_SW-1508 fixed: No channel available in Auto Channel mode
+
+Version 3.2.1.1.47, 2012-03-19
+- WAVE300_SW-1564 done: Add aggregation statistics
+
+Version 3.2.1.1.46, 2012-03-06
+- WAVE300_SW-1564 statistic: behalf on Anton add statistic for skb re-allocation.
+- WAVE300_SW-1465 additional fix: AP Initial Scan to be optional
+- WAVE300_SW-1529 fixed: Channel cannot be changed on-the-fly or by ifconfig up-down when sUpRescanExmpTm is set
+- WAVE300_SW-1466 fixed: Wrong MBSS activation sequence: initial channel validity check
+- WAVE300_SW-1338 Kernel crash over RT288 in the 32 STA setup
+- WAVE300_SW-1415 fixed: Slave VAP pre-activation checks master VAP's ESSID instead of its own
+- WAVE300_SW-1479 fixed: Privacy bit in beacon not working correctly
+
+Version 3.2.1.1.45, 2012-02-21
+- WAVE300_SW-1485 implemented: WAVE300_SW-1459 Driver should implement restrictions for iwprivs sAddVap sDelVap during channel switch.
+- WAVE300_SW-1396 fixed: Change AocsIsEnabled default in the code
+
+Version 3.2.1.1.44, 2012-02-17
+- WAVE300_SW-1475 fixed: PACE - Kernel crash by enabling PPE is driver
+- WAVE300_SW-1488 fixed: mtdump sometimes fails
+- WAVE300_SW-1392 fixed: RT logger: MAC address prints full 32bit negative number instead of 8 bits
+- WAVE300_SW-1490 fixed: STA asserted on _mtlk_core_deactivate
+
+Version 3.2.1.1.43, 2012-02-08
+- WAVE300_SW-1495 fixed: mtdump PeerList to show total number of peers connected
+
+Version 3.2.1.1.42, 2012-02-07
+- WAVE300_SW-1491 fixed: SendQueue Round-Robbing mechanism to be implemented
+- WAVE300_SW-1278 fixed: WAVE driver should support channel 14 for country Japan
+
+Version 3.2.1.1.41, 2012-02-05
+- WAVE300_SW-1465 fixed: AP Initial Scan to be optional
+- WAVE300_SW-1443 fixed: AP: Kernel panic  with Linksys on different scenarios
+- WAVE300_SW-1420 fixed: Logger - Can't export the logger results file when the file is big
+
+Version 3.2.1.1.40, 2012-01-30
+- WAVE300_SW-1441 fixed: Statistics: Incorrect Supported network modes in the PeerCapabilities
+
+Version 3.2.1.1.39, 2012-01-25
+- Shared files adjusted to 5089
+
+Version 3.2.1.1.38, 2012-01-23
+- Shared files adjusted to 5066
+
+Version 3.2.1.1.37, 2012-01-22
+- WAVE300_SW-1393 fixed: AP: Interface 2.4Ghz failed up with channel selected and Coexistence enabled. ver 03.02.01.46 When ap Apple Airport extreme is on
+
+Version 3.2.1.1.36, 2012-01-19
+- WAVE300_SW-982 fixed: assert and unconfirmed message notification
+
+Version 3.2.1.1.35, 2012-01-12
+- WAVE300_SW-1379 fixed: Add Wlan Interface Indication to asserts and logs
+- WAVE300_SW-1379 partially fixed: Add Wlan Interface Indication to asserts and logs
+
+Version 3.2.1.1.34, 2012-01-10
+- remove temporary workaround for compilation
+
+Version 3.2.1.1.33, 2012-01-10
+- WAVE300_SW-1384 fixed: Log converter: Unknown record type error
+- WAVE300_SW-1368 partially fixed: 3.2.1 WLS High CPU consumption while running MC
+- WAVE300_SW-1374 additional fix: CPU Stat to work on UGW platforms
+
+Version 3.2.1.1.32, 2012-01-06
+- WAVE300_SW-1265 fixed: RT Logger stops due to invalid format string
+
+Version 3.2.1.1.31, 2012-01-06
+- WAVE300_SW-1377 fixed: UMI_MBSS_PRE_ACTIVATE add interface number and update shared files to rev 4888
+- WAVE300_SW-1374 fixed: CPU Stat to work on UGW platforms
+- WAVE300_SW-1365 fixed: ActionTec: Update rdlim.c to 11470.3173 hw release
+
+Version 3.2.1.1.30, 2012-01-05
+- temporary workaround for compilation-should be removed"
+
+Version 3.2.1.1.29, 2012-01-04
+- WAVE300_SW-1245 fixed: AP: Unconfirmed messages on Multicast
+- WAVE300_SW-1367 fixed: Advanced TXMM Messages History mechanism to be implemented
+- WAVE300_SW-1307 fixed: STA: Kernel panic in STA VB300 after executing QoS T/P for 20H
+- WAVE300_SW-1204 fixed: Statistics - Incorrect error message after activating 'mtdump listen' or any statistics request with wrong interface name
+
+Version 3.2.1.1.28, 2011-12-29
+- WAVE300_SW-1309 fixed: Driver crashes during rmmod
+
+Version 3.2.1.1.27, 2011-12-29
+-WAVE300_SW-1343 fixed: Wrong MAX Aggregations/Reorderings
+
+Version 3.2.1.1.26, 2011-12-28
+- WAVE300_SW-1302 fixed: Statistics - The new and old channels are identical in the event display after the AP switch channel (Arcd)
+- WAVE300_SW-1276 fixed: Statistics: In Peer authentication event its written: 'Successful : Association status' instead of ''Successful : Authentication status' (Arcd)
+- WAVE300_SW-1154 fixed: Statistics - transmission/receive rates in the peerstatus statistics are incorrect
+- WAVE300_SW-1323 fixed: MAC fatal error [GroupID: 6, FileID: 6, Line: 896] over RT288 in the 32 STA setup
+
+Version 3.2.1.1.25, 2011-12-25
+- WAVE300_SW-1323 parial fix: MAC fatal error [GroupID: 6, FileID: 6, Line: 896] over RT288 in the 32 STA setup
+
+Version 3.2.1.1.24, 2011-12-23
+- WAVE300_SW-1329 fixed: Kernel panic over VRX NAND 
+
+Version 3.2.1.1.23, 2011-12-22
+- WAVE300_SW-1282 fixed: Statistics - No events display in AP regarding different data rate set between AP and STA Intel (Arcd)
+
+Version 3.2.1.1.22, 2011-12-22
+- hared Header files adjustment: Firmware Version FW_3.2.1 r4774
+
+Version 3.2.1.1.21, 2011-12-22
+- WAVE300_SW-1245 additional fix: AP: Unconfirmed messages on Multicast
+
+Version 3.2.1.1.20, 2011-12-21
+- WAVE300_SW-1313 partial fix: AP: kernel panic after start
+
+Version 3.2.1.1.19, 2011-12-20
+- WAVE300_SW-1245 fixed: AP: Unconfirmed messages on Multicast
+- WAVE300_SW-1188 additional fix: Test case 4.2.41 20/40 MHz Coexistence
+
+Version 3.2.1.1.18, 2011-12-20
+- WAVE300_SW-825 additional fix: Add coexistence-related parsing capabilities to the Frame Parser
+
+Version 3.2.1.1.17, 2011-12-19
+- WAVE300_SW-1292 fixed: WI-FI 4.2.41 "STA Channel Width" or "Secondary Channel Offset" fields of HT Operation Element in the Beacon is not set to 0 in case of association STA in 40 MHz intolerant mode
+- WAVE300_SW-1299 fixed: Weather Radar Check time is 60 sec instead of 600 sec.
+- WAVE300_SW-125  fixed: Enable Germany regulatory domain support in branches 3.1.1/3.2.0/3.2.1
+- WAVE300_SW-1293 fixed: Loggers till does not dsiplay latest logs from FW before Assert
+- WAVE300_SW-1291 fixed: AP: MAC fatal error on setting 20/40 CoexistenceMode
+- WAVE300_SW-1294 fixed: When FW issues an assert it can take up to 20 seconds until it is seen on console
+
+Version 3.2.1.1.16, 2011-12-15
+- WAVE300_SW-1256 - fixed: T/P UDP fails after a few seconds with MAC fatal error in STA
+- WAVE300_SW-1281 fixed: G.hn platform to be supported
+- WAVE300_SW-1268 partially fixed: Unconfirmed messages and MAC fatal error in the AP startup while 'Auto Channel Select' is Enable
+- WAVE300_SW-1214 fixed: Inserting a STA into the MAC filtering list, added automatically redundant MAC address FF:FF:FF:FF:FF:FF
+- WAVE300_SW-768 fixed: Jungo - Initial channel selection scheme in 2.4GHz is showing bad results - algorithm needs to be 
+updated/changed
+- WAVE300_SW-1270 fixed: Statistics: Arcadian peers to be identified
+
+Version 3.2.1.1.15, 2011-12-13
+- WAVE300_SW-1212 fixed: Statistics - Disconnection events should display the disconnect causes
+- WAVE300_SW-1234 fixed: Restricted channel pairs table on AOCS - should restrict coexistence 20/40 channel pairs table?
+- WAVE300_SW-1230 fixed: killall hostapd doesn't down the interface
+- WAVE300_SW-1249 fixed: Kernel Panic on AP restarting during configuration by ER
+- WAVE300_SW-1253 additional fix: Assertion happens consistently upon station disconnection
+- WAVE300_SW-1253 fixed: Assertion happens consistently upon station disconnection
+- WAVE300_SW-1246 fixed: Page allocation failures happen during attempt to take MAC dumps
+
+Version 3.2.1.1.14, 2011-12-08
+- WAVE300_SW-1244 fixed: Update FW headers to rev r4610
+- WAVE300_SW-1144 additional fix: Statistics - missing statistics in the peer status statistics
+- WAVE300_SW-1243 fixed: Driver Wave300: to map 5 RAM blocks to Upper MAC
+- WAVE300_SW-1238 fixed: Incorrect 20/40 behavior when working on a pair of channels forced by the user
+- WAVE300_SW-1098 fixed: Statistics - incorrect behavior of the disconnect event after HW reset
+- WAVE300_SW-1239 fixed: Notify user on bad input for iwpriv sDelayFactor and sOBSSScnIntrvl
+- WAVE300_SW-1229 fixed: PS3 can not connect to Wave(53.43) in security mode
+- WAVE300_SW-1204 fixed: Statistics - Incorrect error message after activating 'mtdump listen' with wrong interface name
+
+Version 3.2.1.1.13, 2011-12-05
+- WAVE300_SW-1215 fixed: The AOCS feature can't be enabled 
+- WAVE300_SW-1150 fixed: RT Logger stops due to a corrupted header
+- WAVE300_SW-1144 fixed: Statistics - missing statistics in the peer status statistics
+- WAVE300_SW-1064 additional fix: Statistics:mtdump usage is not comprehensible
+- WAVE300_SW-1216 fixed: On FW assertion driver processes 1st FW logger buffer only
+- WAVE300_SW-1188 additional fix: Test case 4.2.41 20/40 MHz Coexistence
+- WAVE300_SW-1093 additional fix: Statistics - incorrect MAC address in all events printouts
+
+Version 3.2.1.1.12, 2011-11-30
+- WAVE300_SW-1188 fixed: Test case 4.2.41 20/40 MHz Coexistence
+- WAVE300_SW-1093 additional fix: Statistics - incorrect MAC address in all events printouts
+- WAVE300_SW-1154 fixed: Statistics - transmission/receive rates in the peerstatus statistics are incorrect
+- WAVE300_SW-1201 fixed: mtdump PeerStatus: Unicast received packets statistics is always 0
+- WAVE300_SW-1192 done: driver to flush FW log buffers on assertion
+- WAVE300_SW-990 done: WLAN DRV: 64bit atomic to be added to OSAL
+- WAVE300_SW-1189 fixed: Channel overlapping time checking is not correct and intolerant DB improvement
+
+Version 3.2.1.1.11, 2011-11-28
+- WAVE300_SW-1169 fixed: Statistics - unclear message :'Information retrieval failed with error -2' during statistics request
+- WAVE300_SW-1064 fixed: mtdump usage is not comprehensible
+- WAVE300_SW-1175 fixed: Statistics - Events dumping mode is not working
+- WAVE300_SW-1185 fixed: Short-term TX and RX throughput average statistics are incorrect
+- WAVE300_SW-1148 fixed: Statistics - the rate value is display ten times bigger than the original value
+- WAVE300_SW-1162 fixed: Statistics -Short and Long term RSSI averages in the peerstatus are incorrect
+- WAVE300_SW-1131 fixed: can't change the Tx power by using iwpriv command
+- WAVE300_SW-1145 fixed: Statistics - inconsistency in the MAC address between the mtdump and other utilities
+- WAVE300_SW-1115 fixed: Current Channel set 0 (Current Channel:0)
+- WAVE300_SW-1184 done: MTDUMP to print warning in case MTIDL text database does not contain items
+- WAVE300_SW-1104 fixed: AOCS table is not relevant
+- WAVE300_SW-1119 partially fixed: OCS/AOCS always choose same channel and doesn`t perform switch
+
+Version 3.2.1.1.10, 2011-11-24
+- WAVE300_SW-1141 additional fix: Driver to assert FW on 1st unconfirmed message
+- WAVE300_SW-1168 additional fix: race condition on vAP init
+- WAVE300_SW-1171 fixed: Driver: incorrect skb->cb size assertion 
+- WAVE300_SW-1168 fixed: race condition on vAP init
+
+Version 3.2.1.1.9, 2011-11-22
+- WAVE300_SW-1137 fixed: Association and reasociation requests are now properly parsed and remembered
+
+Version 3.2.1.1.8, 2011-11-22
+- WAVE300_SW-1143 fixed: Incorrect information in the mtdump usage regarding the MAC address
+- WAVE300_SW-1152 done: Make configurable mechanism of dumping per-packet statistics via RTLogger
+- WAVE300_SW-1138 fixed: Kernel crash (rt288)
+- WAVE300_SW-1141 done: Driver to assert FW on 1st unconfirmed message
+- WAVE300_SW-1124 fixed: Add debug level 2 ILOG prints to the 20/40 coexistence feature
+- WAVE300_SW-1097 fixed: Add statistics to the 20/40 coexistence feature
+- WAVE300_SW-1089: MAC filtering set on main AP is inherited by VAPs and can not be changed
+
+Version 3.2.1.1.7, 2011-11-15
+- WAVE300_SW-1106 fixed: Driver: WSS objects to be tracked via objpool
+- WAVE300_SW-783 fixed: On RT288 , 2G_LED and 5G_LED are connected to Wave300 chip directly. But see no any activity on it 
+after Wave300 actived.
+- WAVE300_SW-829 fixed: Scan Exemption Policy Manager implemented
+- WAVE300_SW-1095 fixed: Need a way to get maximum number of VAPs supported by FW
+- WAVE300_SW-1096 fixed: Driver clears reordering context twice
+- WAVE300_SW-1092 fixed: Statistics - "object pool initialized" messages should be deleted from the mtdump printouts
+- WAVE300_SW-837 partially fixed: Perform integration with the actual coexistence-capable firmware
+- WAVE300_SW-1082 fixed: Split spectrum mode parameter into two: selected spectrum and prog-model spectrum
+- WAVE300_SW-1077 fixed: Driver Build System: USE_GENL to be set correctly
+- WAVE300_SW-1074 fixed: Cannot set iwpriv sIsBGScan to 0
+- WAVE300_SW-1076 fixed: iwpriv wlan0 gConInfo causes Driver assertion in "four address support" mode
+
+Version 3.2.1.1.6, 2011-11-10
+- WAVE300_SW-1035 fixed: Simple ping fails
+- WAVE300_SW-1069 fixed: Driver Build: DEBUG & MTTOOLS to be choosen by default for development platforms
+- WAVE300_SW-855 additional fix: MAC filter - make sure all 3.1.0 MAC filter mechanisms are integrated to 3.2.1
+
+Version 3.2.1.1.5, 2011-11-08
+- WAVE300_SW-1038 fixed: VB300 STA - fail to start wireless interface after disabling it while in connected state
+- WAVE300_SW-1015 fixed: iwpriv wlan0 sMacGpio is not working
+- WAVE300_SW-1029 fixed: FW Dumps are broken
+
+Version 3.2.1.1.4, 2011-11-03
+- WAVE300_SW-1030 fixed: Driver Adjustment: Release of Firmware Version FW_3.2.1 r4250
+- WAVE300_SW-933 fixed: L2NAT do not update MAC in the hash entry
+
+Version 3.2.1.1.3, 2011-11-02
+- WAVE300_SW-1024 parial fix: MIB_SWRESET_ON_ASSERT to be removed
+- WAVE300_SW-1025 fixed :3.2.1 STA fails on assertion in 20/40 module
+- WAVE300_SW-1023 fixed: Assersion in mtlk_nl_init (ELOG before the log_init)
+
+Version 3.2.1.1.2, 2011-11-01
+- WAVE300_SW-1017 partially fixed: Driver to support compilation for W400 UGW
+- WAVE300_SW-1014 fixed: Driver adjustment: Release of Firmware Version FW_3.2.1 r4217
+- WAVE300_SW-884 partial fix: Implement interrupt management for AR10
+- WAVE300_SW-815 partial fix: a crash and a number of minor bugs fixed in the 20/40 coexistence mechanism
+- WAVE300_SW-855 fixed: MAC filter - make sure all 3.1.0 MAC filter mechanisms are integrated to 3.2.1
+
+Version 3.2.1.1.1, 2011-10-30
+- WAVE300_SW-815 partial fix: functional and cosmetic changes of the 20/40 coexistence mechanism
+- WAVE300_SW-991 fixed: Driver: Advanced Statistics: Disconnect Event To be inplemented
+- WAVE300_SW-749 fix: Jungo - Rate of VAP stations is not presented correctly
+- WAVE300_SW-915 partial fix: Authentication and Association events implemented
+- WAVE300_SW-915 partial fix: on channel swith done event listening implemented
+- WAVE300_SW-986 fixed: Driver: AHB: incorrect request_irq return code handling
+- WAVE300_SW-974 fixed: Compilation with debug level 3 fails due to an error.
+- WAVE300_SW-936 fixed: When driver reads wrong CHI number or have CHI timeout, print the value in the CHI vector.
+- WAVE300_SW-971 fixed: Crash on iwconfig with VAPs defined
+- WAVE300_SW-915 partial fix: Retrieving statistic with message UMI_GET_FW_STATS implemented in driver
+- WAVE300_SW-888 fixed: WEP-shared is not working if setting keys via iwconfig
+
+Version 3.2.1.1.0, 2011-10-25
+- WAVE300_SW-815 partially fixed: 20/40 Coexistence Feature to be implemented
+- WAVE300_SW-969 fixed: Driver: Advanced Statistics: get rid of TX_DAT accumulation mechanism
+- WAVE300_SW-967 fixed: Driver assert: (mtlk_mib_request_is_allowed:113): Sending non-Slave Mib=4161 on slave ap 2
+- WAVE300_SW-944 fixed: switch band (without rmmod) failed due to aocs
+- WAVE300_SW-953 Compilation with Debug level more than 3 fails
+- WAVE300_SW-945 fixed: imposible download MAC dumps
+- WAVE300_SW-961 fixed: MSVC environment creation failed for Windows system
+
+Version 3.2.1.0.24, 2011-10-19
+- WAVE300_SW-960 fixed: Driver[3.2.1]: FW/Driver Shared Header Files link to be updated to r4145
+- WAVE300_SW-959 fixed: Driver: new Build Server MSVC environment adjustment
+- WAVE300_SW-915 partially fixed: Technicolor Advanced Statistics & Events to be implemented
+- WAVE300_SW-208 fixed: Driver: MBSS: MIBs to move to ParamDB
+
+Version 3.2.1.0.23, 2011-10-12
+- WAVE300_SW-929 fixed: Add origin id into ASSERT printouts
+- WAVE300_SW-915 partially fixed: Technicolor Advanced Statistics & Events to be implemented
+- WAVE300_SW-907 fixed: Driver: MBSS: HAL HW API to be OO
+- WAVE300_SW-909 fixed: Serializer freezes after MAC exception
+- WAVE300_SW-922 fixed: Error compilation with Debug and Profiler extensions
+
+Version 3.2.1.0.22, 2011-10-11
+- WAVE300_SW-906 additional fix: MBSS: HAL Core API to be OO
+
+Version 3.2.1.0.21, 2011-10-10
+- WAVE300_SW-906 fixed: MBSS: HAL Core API to be OO
+- WAVE300_SW-910 fixed: The kernel panic error occurs while configuring VAP1 on Netia board
+- WAVE300_SW-908 fixed: Function "mtlk_mib_request_is_allowed" always return TRUE
+- WAVE300_SW-603 fixed: UDP BiDi traffic fails always after ~1 min
+- WAVE300_SW-759 fixed: WAVE300 client disconnects from Apple Airport Extreme AP in security mode
+- WAVE300_SW-902 partial fix: mtdump reports current transmission rate incorrectly
+- WAVE300_SW-571 fixed: Driver ADDBA crash with Intel client
+- WAVE300_SW-898 fixed: CHI memmory cleanup done before FW loading to detect FW failure on second boot.
+
+Version 3.2.1.0.20, 2011-10-03
+- WAVE300_SW-840 fixed: ACL on the fly isn't working
+
+Version 3.2.1.0.19, 2011-09-28
+WAVE300_SW-802 fixed: MAC fatal error in STA while scanning and connecting with wrong passphrase
+WAVE300_SW-795 fixed: MAC fatal error in STA
+
+Version 3.2.1.0.18, 2011-09-27
+- UGW_SW-1476 regression fixed: Seralizer stucks debugging infrastructure
+
+Version 3.2.1.0.17, 2011-09-26
+- WAVE300_SW-749 fixed: Jungo - Rate of VAP stations is not presented correctly
+
+Version 3.2.1.0.16, 2011-09-22
+- WAVE300_SW-840 fixed: ACL on the fly isn't working
+- WAVE300_SW-634 done: Rewrite mtlk_vap_manager_create_vap/mtlk_vap_delete with startup macros
+- WAVE300_SW-773 fixed: Driver MBSS: MIB_PROTECTION_MODE should be enabled for master VAP only
+
+Version 3.2.1.0.15, 2011-09-18
+- WAVE300_SW-879: Move branch 3.2.1 to Wave400 nv_2.1.9.5
+
+Version 3.2.1.0.14, 2011-09-15
+- UGW_SW-1476 fixed: Serializer stucks debugging infrastructure
+- WAVE300_SW-868 fixed: Driver: an unique numeric Source Line ID to be invented
+- WAVE300_SW-667 fixed: Error messages in AP: 'Out of free log buffers'
+- WAVE300_SW-861 fixed: Driver to support FW asserts with group id and file id
+- WAVE300_SW-763 fixed: The cache isn't cleared in STA during scan
+
+Version 3.2.1.0.13, 2011-09-08
+- WAVE300_SW-659 done: Integrate RTLogger with current FW mainline
+- WAVE300_SW-818 fixed: BB studio access problem on 3.2.1
+- WAVE300_SW-812 done: AR10/Wave400: Add driver configuration option to set start address of MAC FW in DDR
+- WAVE300_SW-640 fixed: WDS: Kernel panic in AP at /home/antonn/projects/release/trunk/builds/dongle-linux26
+- WAVE300_SW-808 fixed: Driver to allocate STA objects dynamically
+- WAVE300_SW-805 fixed: Minimize Driver's Footprint: __FUNCTION__ to replace __FILE__
+
+Version 3.2.1.0.12, 2011-08-31
+- WAVE300_SW-804 fixed: mtlkroot.ko insmod failure due to missing symbol
+- WAVE300_SW-744 fixed: Driver MBSS: AddVap should use a zero based VAP_ID
+
+Version 3.2.1.0.11, 2011-08-31
+- WAVE300_SW-791 fixed: Driver to support new vector area holding FW default data (currently number of supported stations, which was set to 24)
+- WAVE300_SW-794 fixed: Error messages in STA: 'MIB MaxConnections not found' 
+- WAVE300_SW-781 fixed: Minimize Driver's Footprint: ASSERTs to use RTLogger's FileID/GroupID
+
+Version 3.2.1.0.10, 2011-08-28
+- WAVE300_SW-789 done: Adopt changes in FW assert message
+- WAVE300_SW-629 fixed: Driver unloading cause VAP deletion timeout
+- WAVE300_SW-587 fixed: [PS-DEV] ADDBA Request sent to Intel 5300 STA in A-Mode and cause MAC crash
+- WAVE300_SW-739 fixed: Hidden SSID parameter is cleared on AP deactivation
+- WAVE300_SW-658 fixed: Mac Exception on upstream on huge pings (65k) (no free slot to get)
+- WAVE300_SW-741 fixed: Kernel panic appears if stream UDP traffic between Buffalo and Broadcom STA through Neatia AP.
+- WAVE300_SW-743 fixed: WEP does not work on netia boards
+- WAVE300_SW-747 fixed: Channel switching causes STA crash
+- WAVE300_SW-724 fixed: France Regulatory domain - Does not include ll channels, should be changed
+- WAVE300_SW-711 fixed: Kernel panic appears while Chariot bi-directional UDP traffic is streaming through ARX & GW188 board.
+- WAVE300_SW-688 fixed: Memory leak in wireless driver
+- WAVE300_SW-701 fixed: WEP configuration fails in VAP
+- WAVE300_SW-717 fixed: Driver: assertion "Proc entries are not deleted" while calling rmmod
+
+Version 3.2.1.0.9, 2011-08-07
+- WAVE300_SW-184 fixed: Driver: MBSS: VAP limitations module
+- WAVE300_SW-707 additional fix: Implement SKB lifecycle tracking via OBJPOOL
+- WAVE300_SW-533 fixed: mtdump Bus error while read constatus
+- WAVE300_SW-597 additional fix: Kernel panic in AP during configuration to security WEP64 pre shared key
+- WAVE300_SW-664 fixed: Driver MBSS: Adding more than one VAP fails.
+- WAVE300_SW-670 fixed: RTLogger macros: a way of re-defining memcpy to be introduced
+
+Version 3.2.1.0.8, 2011-07-26
+- WAVE300_SW-597 fixed: Kernel panic in AP during configuration to security WEP64 pre shared key
+- WAVE300_SW-668 fixed: Error messages in AP : 'Requested ability 0x1000003 is disabled or never was registered'.
+- WAVE300_SW-661 fixed: Connection ability disabled while trying to connect station to an AP.
+
+Version 3.2.1.0.7, 2011-07-24
+- WAVE300_SW-653 fixed: mtlkroot: mtlk_osal_lock_acquire_irq() calls should be replaced with mtlk_osal_lock_acquire() function
+- WAVE300_SW-599 fixed: Kernel panic in AP after configuring to WDS mode
+- WAVE300_SW-640 fixed: Kernel panic in AP at /home/antonn/projects/release/trunk/builds/dongle-linux26
+- WAVE300_SW-650 fixed: Kernel Panic in AP :kernel BUG at /home/atseglytskyi/trunk/builds/dongle-linux26/
+- WAVE300_SW-610 fixed: Kernel panic in AP during Network Mode tests in 2.4G
+- WAVE300_SW-644 fixed: wlan MTU size can be changed on VRX
+
+Version 3.2.1.0.6, 2011-07-19
+- WAVE300_SW-60 fixed: Throughput variation and unstability
+
+Version 3.2.1.0.5, 2011-07-17
+- WAVE300_SW-572 fixed: Compilation error at 3.2.1 on UGW
+- WAVE300_SW-615 fixed: Driver: MBSS: Rewrite Scan module to use vap_handle instead of reference to Core
+- WAVE300_SW-614 fixed: Driver: MBSS: Rewrite ADDBA module to use vap_handle instead of reference to Core
+- WAVE300_SW-613 fixed: Change interface of the function mtlk_core_get_ab_manager(const mtlk_core_t* core) 
+- WAVE300_SW-611 fixed: Driver: MBSS: Rewrite AOCS module to use vap_handle instead of reference to Core
+- WAVE300_SW-581 fixed: Driver: MBSS: Rewrite DFS module to use vap_handle instead of reference to Core
+
+Version 3.2.1.0.4, 2011-07-11
+- WAVE300_SW-585 fixed: mtlk_core_is_ap() functions to be moved to VAP manager
+- WAVE300_SW-570 fixed: Driver: an ability to collect Per-Packet Info is needed
+- WAVE300_SW-496 fix: Flow control module to be refactored to provide proper flow handling
+
+Version 3.2.1.0.3, 2011-06-29
+- WAVE300_SW-535 fixed: FW dumps are in wrong endiannes
+- WAVE300_SW-165 fixed: UM FW dump made by driver do not include stack
+- WAVE300_SW-198 fixed: Memory leak in mtlk_cli_server 
+- WAVE300_SW-455 fixed: Too many aggregation open requests may be issued by driver
+- WAVE300_SW-456 fixed: ARC: Driver: ERROR: Assertion failed! sta->aggr_inited[prior_class] == TRUE
+- WAVE300_SW-477 fixed: ADDBA: restart TX counter when ADD BA response timeout expires
+- WAVE300_SW-478 fixed: Driver to ignore the Disconnect and Set Key User Requests while interface is down
+- WAVE300_SW-189 fixed: GPL code to avoid UMI_MAN/UMI_DBG usage
+- WAVE300_SW-332 partial fix: Xmit of the packets can get stuck on one of the VAPs
+- WAVE300_SW-309 additional fix: dynamic AOCS calculations are disabled, FW isn't supported them
+- WAVE300_SW-468 fixed: ADDBA module outward API is broken
+- WAVE300_SW-375 fixed: Technicolor - Show Country list through iwpriv command
+- WAVE300_SW-472 fixed: Wrong macros is used inside _mtlk_df_user_core_text_get_cfg() function
+- WAVE300_SW-212 fixed: Driver: MBSS: All DF functionality should be encapsulated in one interface
+- WAVE300_SW-451 fixed: Deadlock in STA DB module
+- WAVE300_SW-437 fixed: Driver Debug Infrastructure: Spinlock emulation is required
+
+Version 3.2.1.0.2, 2011-05-26
+- WAVE300_SW-410 fixed: 3.2.1 1st Official Release
+- WAVE300_SW-386 fixed: Can't operate MAC Emulator over UGW platform(VRX GRX ARX)
+- WAVE300_SW-388 fixed: increase debug level of messages in reordering module
+- WAVE300_SW-178 fixed: Driver: RTLOG_MAX_DLEVEL to be configurable while compiling
+- WAVE300_SW-209 fixed: Driver: MBSS: Driver's modules cross-reference optimization
+- WAVE300_SW-350 fixed: Unable to get MAC dumps if more then one wlan card is used
+- WAVE300_SW-382 fixed: Driver: Assertion failed! mtlk_osal_atomic_get(&entry->in_use) == (0) if no VAP DEL IND received
+- WAVE300_SW-367 fixed: Kernel Panic during STA connection to AP via scan
+- WAVE300_SW-372 fixed: Long ping on aggregation opening
+- WAVE300_SW-214 fixed: Driver: MBSS: convert VAP to a full-functional object
+- WAVE300_SW-354 fixed: In SendQueue statistic MAC addresses of connected STAs are not displayed - merged from 3.2.0 Rev 11119
+- WAVE300_SW-358 fixed: mtlk_addba_on_addba_res_rx: ERROR: Assertion failed! stop == FALSE
+- WAVE300_SW-294 fixed: Driver: Exception raised while setting essid during initial scan
+- WAVE300_SW-349 fixed: Driver: MBSS: VAP names in the toplogy proc file are not displayed correctly 
+- WAVE300_SW-122 fixed: Arcadyan - ping outage issue with 11n Intel client
+- WAVE300_SW-312 fixed: Continuous firing of timeout events while serializer is stuck with pending messages.
+- WAVE300_SW-175 implemented: Driver: MBSS: Core Modules to register their abilities
+- WAVE300_SW-14 fixed: Wave 300 : Data rate shown on device association page is wrong - Merge from 3.2.0 Rev 11053
+- WAVE300_SW-316 part: build configuration without runtime logger dropped, mtlkroot.ko became mandatory component
+- WAVE300_SW-316 part: mtlkroot created on the base of log_drv
+
+Version 3.2.1.0.1, 2011-04-24
+- WAVE300_SW-276 fixed: compilation with MTCFG_TSF_TIMER_TIMESTAMPS_IN_DEBUG_PRINTOUTS is broken
+- WAVE300_SW-286 fixed: Driver MBSS: Invalid value of Max Packets in Aggregation parameter.
+- WAVE300_SW-14  partial fix: Wave 300 : Data rate shown on device association page is wrong
+- WAVE300_SW-176 partial fix: old LOGx, ERROR, WARNING, INFO macroses completely removed from all tools
+- WAVE300_SW-271 additional fix: Driver: MBSS: incorrect MTLK_CFG_SET_ITEM_BY_FUNC macro implementation
+- WAVE300_SW-176 partial fix: macroses ERROR dropped from driver
+- WAVE300_SW-104:Driver: MBSS: Create new Abilities groups to be registered according to core type (Master AP, Slave AP, Station) - MBSS abilities: Merge from 3.2.0 - Revision 10927
+- WAVE300_SW-271 fixed: Driver: MBSS: incorrect MTLK_CFG_SET_ITEM_BY_FUNC macro implementation
+- WAVE300_SW-272 fixed: AP Forwarding doesn't work on Slave VAPs (wlanX.Y)
+- WAVE300_SW-176 partial fix: macroses LOGx, WARNING, ERROR dropped from driver
+- WAVE300_SW-176 partial fix: mtlkstartup.h file updated to use new log system, useless includes dropped
+- WAVE300_SW-260 fixed: Driver: MBSS: Create general scheme for handling MTLK_CORE_REQ_GET_CORE_CFG requests
+- WAVE300_SW-226 fixed: DFS - AP not silenced during 10 min - Germany reg domain channels 120-124 NCB
+- WAVE300_SW-259 fixed: Driver: MBSS: Create general scheme for handling MTLK_CORE_REQ_GET_RANGE_INFO requests
+- WAVE300_SW-242 fixed: debug driver version should not reset the firmware on CHI timeout
+- WAVE300_SW-244 fixed:Driver: Shared Files Adjustment: 3.2.0 and 3.2.1
+- WAVE300_SW-240 implemented: Drop PRM_ENABLE_PACK_SCHED and nic->pack_sched_enabled and work only with SQ
+- WAVE300_SW-225 fixed: Configuring WPA TKIP causes a driver problem - ioctl[SIOCSIWENCODEEXT]: Invalid argument
+- WAVE300_SW-235 fixed: Driver stucks on security mode switch with clients connected  
+- WAVE300_SW-204 fixed: VAP0 WPS WEP connection is work now.
+- WAVE300_SW-233 fixed: Driver: Shared Files Adjustment: Release of Firmware Version 3.2.0_Jungo r2798
+- WAVE300_SW-232 fixed: Release Script to use SVN based files for the distribution list and FTP path
+- WAVE300_SW-164 step 1: Error after reboot AP :TX: ADDBA won't be sent (aggegations limit reached: -1 >= 16)
+- WAVE300_SW-100 workaround: #define MBSS_FIRMWARE_WORKAROUND added. To be removed after FW fix.
+- WLS-3302 additional fix: Driver is now built in both MBSS and Non_MBSS modes.
+- WAVE300_SW-174 fixed: Wrong printout during MAC application fatal error handling
+- WAVE300_SW-96 fixed: b-only STA can connect to gn AP
+- WAVE300_SW-161 fixed: AocsBonding=1 with "auto" channel causes error during the second up of the interface.
+- WLS-3302 fixed: Do not perform initial scan in case fixed channel mode selected
+- WAVE300_SW-160 fixed: Radar detection commands do not work properly
+- WAVE300_SW-104:Driver: MBSS: Create new Abilities groups to be registered according to core type (Master AP, Slave AP, Station) - MBSS abilities: Merge from 3.2.0.
+- WAVE300_SW-157 fixed: Referring to unallocated slow_ctx pointer during ap_creation
+- WAVE300_SW-129 fixed: Debug assertion in driver after radar detection with SM required channels disabled
+- WAVE300_SW-141 done: Add RTLOGGER components into WLS release package
+- WAVE300_SW-126 fixed: After trying to switch to invalid channel driver stucks in DFS error state and rejects further channel switch requests
+- WAVE300_SW-127 fixed: Driver ignores explicitely specified next channel upon FW radar detection indication arrival
+- WAVE300_SW-83 fixed: correct network mode set for VAP 
+- WLS-3532 fixed: MBSS: Pre-activation to be sent on actual 1st VAP activation
+- WLS-3519 implemented: Combine driver and mttools releases into common package
+- WAVE300_SW-95 fixed: Driver: MBSS: Configuring HiddenSSID to VAPs cause Assert in Driver.
+- WLS-3522 fixed: Driver: MBSS: Adding MIB_PRIVACY_INVOKED to the list of per-Vap MIB requests.
+- WLS-3536 fixed: Permanent scan failure due to progmodel switching problem
+- WLS-3527 fixed: Kernel Panic in AP while starting to send traffic in 3 VAPs
+- WLS-3517 fixed: ifconfig of slave vap hangs (Driver hangs has been removed)
+- WLS-3412 fixed (Part 1): Driver: MBSS: Drop statistics polling inside the core
+- WLS-3518 fixed: Compilation failure because some temporary file names are too long
+- WLS-3515 fixed: Source tarball not compilable for version 3.2.0.0.8.10761
+- WLS-3512 fixed: "Disconnecting due to data timeout" while only NULL-packets are being sent
+- WLS-3501 fixed: PPA feature does not work on ARX188 platform.
+- WLS-3492 fixed: mtlk_pci_drv overwriting memory at 0-address
+- WLS-3495 fixed: Driver: MBSS: Master Core to be replaced by VAP Manager API
+- WLS-3494 fixed: Proper VAP deactivation handling in driver
+- WLS-3402 additional fix: Driver: MBSS: Per-VAP MIBs to be adjusted
+- WLS-3491 fixed: Driver: MBSS: Opaque VAP handles to replace numerical VAP index
+- WLS-3485 fixed: Kernel panic during iwpriv wlan0 sDelVap
+- WLS-3473 done: Add station age into WE_GEN_DATAEX_CMD_CONNECTION_STATS ioctl
+- WLS-3479 fixed: SIOCSIWMLME is not working on AP
+- WLS-3469 fixed: Set channel after ifconfig down does not work
+- WLS-3450 fixed: Multicast video traffic stops after a few hours
+- WLS-3465 fixed: Driver: MBSS: zero SQ tasklet pointer
+- WLS-3402 fixed: Driver: MBSS: Per-VAP MIBs to be adjusted
+- WLS-3455 implemented: Allow Serializer context dumping
+- WLS-3454 fixed: Wrong MAC address assignment. We can't purge clipboard and use it data after this.
+- WLS-3452 fixed: Driver: MBSS: Crash on _mtlk_ioctl_drv_gen_data_exchange
+- WLS-3440 fixed: Driver: MBSS: Multiple VAPs creation to be fixed
+- WLS-3416 fixed: API for Enable/Disable ability added. Enabling and Disabling of abilities added to DF user (after registration)
+- WLS-3436 fixed: Driver: MBSS: TXMM to use correct VAP index
+- WLS-3425 fixed: iwconfig show AP's 'Access Point" as "Not-Associated"
+- WLS-3426 fixed: Driver: ADDBA: nof_aggr_on may become < 0
+- WLS-3381 fixed: Wep issue - Security mode can't be set to Restricted
+
+==== DRIVER release notes for versions 3.2.0.0.2 and older ====
+
+Version 3.2.0.0.2, 2011-02-03
+- WLS-3353 fixed: MBSS: UMI Changes Detailed Design (MMs, MIBs etc.) Required
+- WLS-3364 fixed: Remove HW msg from serializer
+- WLS-3363 fixed: Unconfirmed SCAN message or BSS create timeout at driver start-up
+- WLS-3267 fixed: all procs and ioctles are working on ability scheme 
+- WLS-3361 fixed: iwpriv s/gPowerSelection is not working properly 
+- WLS-3356 fixed: Unconfirmed SCAN message or MAC fatal error on AP core activation
+- WLS-3359 fixed: Update the MTLKConfig file for UGW 5.1 file in order to add support for ARX
+
+Version 3.1.1.4.3, 2011-01-20
+- WLS-3340 fixed: STA is stuck in Disconnecting state
+- WLS-3348 fixed: Impossible to set fixed cannel via web interface in 3.1.1 branch
+- WLS-2945 fixed: Move IOCTL processing to serializer scheme
+- WLS-3346 fixed: Driver does not load without hardware limits explicitely specified for the platform being used
+- WLS-3345 fixed: Upgrade UGW-5.1 env files 
+- WLS-3342 fixed: WLS Driver PPA code uses a union that no longer exists in skbuff.h
+
+Version 3.1.1.4.2, 2011-01-18
+- WLS-3344 fixed: mtlk_df_do_command() moved to DF user and functions it calls moved to serializer scheme
+- WLS-3332 done: Merge AHB support for Gen3.5 FPGA/AR9 chip to 3.1.1 branch
+- WLS-3323 fixed: HW text ioctles moved to serializer scheme(text ioctles completely moved to tables procession)
+- WLS-3322 fixed: EEPROM text ioctles moved to serializer scheme(text ioctles completely moved to serializer scheme)
+
+Version 3.1.1.4.1, 2011-01-11
+- WLS-3321 fixed: Scan text ioctles moved to serializer scheme
+- WLS-3319 fixed: HSTDB addr ioctles moved to serializer scheme (addr ioctles completely moved to serializer scheme)
+- WLS-3316 fixed: General Core addrvec ioctles moved to serializer scheme (addrvec ioctles completely moved to serializer scheme)
+- WLS-2946 fixed: Move PROC processing to serializer scheme
+- WLS-3328 fixed: COC int ioctles moved to serializer scheme (int ioctles completely moved to serializer scheme)
+- WLS-3327 fixed: PPA directpath int ioctles moved to DF user
+- WLS-3326 fixed: IRB pinger text ioctles moved to serializer scheme
+- WLS-3325 fixed: IRB pinger int ioctles moved to serializer scheme
+- WLS-3324 fixed: QoS int ioctles moved to serializer scheme
+- WLS-3320 fixed: Scan int ioctles moved to serializer scheme
+- WLS-3318 fixed: HSTDB int ioctles moved to serializer scheme
+- WLS-3316 fixed: General Core text ioctles moved to serializer scheme
+- WLS-3331 implemented: Drop Gen2 support on 3.1.1 branch
+- WLS-3315 fixed: General Core int ioctles moved to serializer scheme
+- WLS-3312 fixed: Driver: Add UGW-5.1 env files
+- WLS-3314 fixed: SendQueue intvec ioctles moved to serializer scheme (intvec ioctles completely moved to serializer scheme)
+- WLS-3313 fixed: STADB int ioctles moved to serializer scheme
+- WLS-3306 fixed: MAC watchdog int ioctles moved to serializer scheme
+- WLS-3305 fixed: DOT11D int ioctles moved to serializer scheme
+- WLS-3304 fixed: L2NAT address ioctles moved to serializer scheme
+- WLS-3303 fixed: L2NAT int ioctles moved to serializer scheme
+- WLS-3146 fixed: DOT11H text ioctles moved to serializer scheme
+- WLS-3148 fixed: AOCS intvec ioctles moved to serializer scheme
+- WLS-3296 fixed: MIB text ioctles moved to serializer scheme
+- WLS-3300 fixed: Lantiq VRX288 NAND UGW-4.3 platform to be added to Driver's Build procedure
+- WLS-3150 fixed: MIB int ioctles moved to serializer scheme
+- WLS-3145 fixed: DFS int ioctles moved to serializer scheme
+- WLS-3128 fixed: AOCS text ioctles moved to serializer scheme
+- WLS-3173 implemented: Changes in Log-Prep for new FW Logger module and for the Driver Logger module
+- WLS-3219 implemented: Changes in HIM for the new Logger
+- WLS-3132 fixed: AP shutdown under traffic may cause MAC exception
+- WLS-3214 fixed: rmmod during scan will cause the driver to crash
+- WLS-3153 fixed: iwlist wlano ch and AOCS list show different channels
+- WLS-3266 fixed: New regulation limits Version:10934.3173
+- WLS-3211 fixed: ppa directpath fixed
+- WLS-3248 fixed: Driver: assert FW while switching to NET_STATE_HALTED state
+- WLS-3007 fixed: AP-VRX stops sending aggregated packets to Intel4965 STA after several runs
+- WLS-3164 fixed: IOT intel 6300 No Aggregation
+- WLS-3180 fixed: for USB ftp to WLAN client, priority is not translated correctly
+- WLS-3191 fixed: WNC: EEPROM parsing fails (Unsupported version of the EEPROM: 12.1)
+- WLS-3228 fixed: Driver may stuck in DISCONNECTING state in STA mode
+- WLS-3240 fixed: Regulation limits to be updated to 10839.2584
+- WLS-3224 fixed: WNC: PCIE HW only to be supported by Driver by default
+
+Version 3.1.1.3.10, 2010-11-21
+- WLS-2983 fixed: MAC headers repartitioned for GPL and proprietary parts
+- WLS-2908 fixed: iwpriv command cause "Kernel panic"
+- WLS-3171 additional fix: WEP vs. HT co-existence
+- WLS-3041 fixed: AP-forwarding under 4 Address Support doesn`t work
+- WLS-3184 fixed: Source distrubutive tarballs (All sources and GPL-only sources) are cerated during release procedure
+- WLS-3171 fixed: WEP vs. HT co-existence
+- WLS-3032 fixed: Need debug message to inform that STA is set to some Regulatory Domain if 11dActive is enabled.
+- WLS-3123 fixed: 20/40 MHz WiFi issue
+- WLS-3167 fixed: DECA: Driver sends UM_DOWNLOAD_PROG_MODEL_REQ or UM_MAN_ACTIVATE_REQ on Scan timeout
+- WLS-3149 fixed: AOCS default mode sets to TCP 
+- WLS-3116 fixed: mitigation for channel 52 changed from "3" to "0" for all countries/domains 
+- WLS-3132 fixed: AP shut down under traffic may cause mac exception
+- WLS-3120 fixed: RF MGMT driver module to be moved to RF Lib
+- WLS-3119 fixed: Tx Power under regulation of USA in RF restricted channels is wrong
+- WLS-3122 fixed: Please, upgrade vb300 toolchain and release the version
+- WLS-3121 fixed: New regulation limits 03.10641.2584
+- WLS-3124 fixed: correct PRM_ID_AOCS_WEIGHT_TX and PRM_ID_AOCS_WEIGHT_BSS processing
+- WLS-3113 fixed: AOCS int ioctles moved to serializer scheme
+- WLS-3117 fixed: Upgrade macroses to unify acess to structures, which are passed between Core and DF 
+- WLS-3003 additional fix: Start sequence improvements
+
+Version 3.1.1.3.9, 2010-10-14
+- WLS-3003 workaround: Zero wlan mac address after system startup
+- WLS-3003 temporary patch reverted: Zero wlan mac address after system startup
+
+Version 3.1.1.3.8, 2010-10-14
+
+- WLS-3097 additional fix: correct "clipboard deletion"
+- WLS-3096 additional fix: correct "clipboard deletion"
+- WLS-3110 fixed: Create macroses to unify access to structures, which are passed between Core and DF
+
+Version 3.1.1.3.6, 2010-10-14
+- WLS-3087 pls provide ability set assert in mac
+- WLS-2941 additional fix: VRX PPA/PPE integration task
+
+Version 3.1.1.3.5, 2010-10-14
+- WLS-3097 implemented WME configuration for BSS and AP moved to serializer scheme
+- WLS-3096 implemented ADDBA configuration for BSS and AP moved to serializer scheme
+- WLS-2791 fixed: Progmodel Downloading messages
+- WLS-2941 additional fix: VRX PPA/PPE integration task
+
+Version 3.1.1.3.4, 2010-10-12
+- WLS-3016 fixed: CoC Driver Support is required (clean up sequence fixed)
+- WLS-3034 fixed: L2NAT causing problem in DHCP re-new (DHCP renew procedure on L2NAT STA is not working when attached to Linksys E2000 HW)
+
+Version 3.1.1.3.3, 2010-10-11
+- WLS-3016 done: CoC Driver Support is required
+- WLS-2941 fixed: VRX PPA/PPE integration task
+- WLS-3003 patch: Zero wlan mac address after system startup
+- WLS-3025 fixed: TCP channel switch is missing 802.1Q special configuration
+
+Version 3.1.1.3.2, 2010-09-29
+- WLS-2642 fixed: antenna configuration processing - parameter in rdlim added and processed
+- WLS-3044 done: Fast memory allocation mechanism is required
+- WLS-3052 Fixed: The DHCP renew procedure is not working when L2NAT STA is atteched to WRT610N HW
+- RDLIM update: new version is 03.10475.2584
+
+Version 3.1.1.3.1, 2010-09-15
+- WLS-2999 fixed: kernel panic in AP dongle G3
+- RDLIM update: new version is 03.10465.2584
+- WLS-3001 fixed: Additional fix for WEP 128
+- WLS-2870 fixed: After changing band on STA via iwpriv we're still connected to AP
+
+Version 3.1.1.3.0, 2010-09-07
+- WLS-2990 Fixed: DFS has been moved to RFLib
+- WLS-3001 fixed: Can't connect with security WEP 64/128
+- WLS-3002 fixed: AP forwarding doesn't work - no ping between STA's 
+- WLS-2968 GPLing driver: UMI_AOCS_IND hided from driver code
+- WLS-3013 GPLing driver: Channels was repartitioned to GPL and proprietary code
+- WLS-2997 GPLing driver: FREQUENCY_ELEMENT was hided in driver code
+- WLS-2945 partially done: Move IOCTL processing to serializer scheme
+                           (interface up/down requests routed through the serializer)
+- WLS-2976 preparation: Basic Version control between the FW and DRV is needed
+- WLS-2984 fixed: EEPROM to be moved to RFLib
+- WLS-2887 fixed: check WEP key length set from hostap apps
+- WLS-2996 GPLing driver: Scan repartitioned to GPL and proprietary
+- WLS-2995 GPLing driver: AOCS repartitioned to GPL and proprietary
+- WLS-2994 GPLing driver: Channels, AOCS, DFS, RDLims, EEPROM C-files completely moved to library
+- WLS-2969 GPLing driver: aocs_osdep files dropped
+
+Version 3.1.1.2.0, 2010-08-24
+- WLS-2944: Move non-hotpath HW indications processing to serializer scheme
+
+Version 3.1.1.1.3, 2010-07-28
+- WLS-2756 fixed: DRV: Safe STA DB: Safe STA object (reference counting etc.)
+- WLS-2876 fixed: DF: Safe STA DB: Refactoring: rod_buff to be replaced with mtlk_nbuf_t (DF NET)
+
+Version 3.1.1.1.1, 2010-07-15
+- WLS-335 fixed: Refactoring: Bufmgr abstraction should be merged into the DF NET
+- WLS-2874 fixed: DRV: Safe STA DB: OO refactoring of skb_priv is required
+- WLS-2868 fixed: DRV: Safe STA DB: ADDBA to avoid get_peer() usage
+- WLS-2843 fixed: DRV: DF FW to be separated as a module
+- WLS-2826 fixed: Add GPB316 target (VB300) to supported wireless driver targets
+- WLS-2761 fixed: CV 03.01.00.18 WFA WPS testcase 4.2.1 failed
+- WLS-2864 fixed: WEP connection may not work if AP was reconfigured from WPA
+  security mode
+
+Version 3.1.1.0.6, 2010-06-29
+- WLS-2755 additional fix: DRV: Safe STA DB: STA API invention (get rid of direct access to sta_entry)
+- WLS-2759 additional fix: DRV: Safe STA DB: Final STA DB and STA API adjustments
+
+Version 3.1.1.0.4, 2010-06-23
+- WLS-2816 fixed: DRV: Generic Hash: allow code re-usage
+- shared header adjusted for concurent usage with logger driver
+- use LOG_ORIGIN_ID=1 for wireless driver (0 for logger driver)
+- WLS-2812 fixed: DRV: Safe DB: Event Queue API re-arrangement is required
+- WLS-2681 fixed: Driver implementation: Private LBF to support 16 CCD values and 16 Matrix indexes
+- WLS-2755 step 1:DRV: Safe STA DB: STA API invention (get rid of direct access to sta_entry)
+- WLS-2800 fixed: Impossible to get MAC dumps on big-endian platforms via /proc
+
+Version 3.1.1.0.2, 2010-06-10
+- WLS-2739 fixed: Distributed IRB is merged from REL_2.3.15 (MBSSID development branch) to trunk
+- WLS-2754 fixed: DRV: Safe STA DB: use Generic Hash
+- WLS-2764 fixed: DRV: Safe STA DB: basic code arrangement is required
+- WLS-2694 drv part fixed: STA is unable to connect to AP via WPS during traffic
+
+Version 3.1.1.0.1, 2010-06-07
+- WLS-2752 fixed: DRV: Safe STA DB: enumeration API
+- WLSG3-117 implemented: New regulation limit 03.10111.2584
+- WLS-2748 fixed: DRV: Safe STA DB: Hosts DB to be created for WDS hosts
+- fixed: use correct ifdef for objpool debug proc-fs entry compilation
+- WLS-2743 fixed: Driver to support an ability to simulate different assertions
+- WLS-2645 additional fix: UGW 4.3 compliance check required
+- WLS-2736 fixed: Incorrect firmware loading when size of firmware is not multiple 4
+
+Version 3.1.0.5.3, 2010-05-26
+- WLS-2727 additional fix: ARX driver/mttools to be added to release system
+
+Version 3.1.0.5.2, 2010-05-25
+- WLS-2727 fixed: ARX driver/mttools to be added to release system
+- WLS-2729 fixed: Progmodel initialized messege in AP/STA
+
+Version 5.1, 2010-05-24
+- WLS-2718 fixed: Intel 4965 STA disconnects from AP-dongle when sending UDP DS traffic in iPerf
+- WLS-2645 fixed: UGW 4.3 compliance check required
+- WLS-2636 add fix: Driver must have a Special Radar Detection mode for FCC test
+- WLSG3-116 implemented: New regulation limit Version: 03.10039.2584
+
+Version 3.1.0.1.12, 2010-05-13
+- WLS-2696 fixed: Disconnect while scanning in BG Scan should be protected
+- WLS-2700 fixed: driver allows scanning in connected state with BG option off
+
+Version 3.1.0.1.11, 2010-05-11
+- WLSG3-115 implemented: new HW GPB316_WB300 added to rdlim.c
+- WLS-2579 fixed: Download Progmodel in incorrect state
+- WLS-2614 fixed: MAC receives activate request when connected
+- WLS-735 fixed: Regulatory limits are not learned from Country IE
+- WLS-2219 step 1: STA DB refactoring required
+
+Version 3.1.0.1.10, 2010-05-05
+- WLS-2674 fixed: Segmentation fault in STA on Dongle during BG scan
+- WLS-1547 implemented: STAR.NoDSPAD.Gen3 target added to release script
+- WLS-1113 implemented : memory guards checking added to TXMM
+- WLS-2636 implemented: Driver must have a Special Radar Detection mode for FCC test
+- WLS-2679 fixed: Aggregation re-opening on DELBA functionality is broken
+
+Version 3.1.0.1.9, 2010-04-28
+- fix: NULL pointer on rmmod if there are queued messages
+- WLS-2660 fixed: TIM element in beacon composed incorrectly for STA in PS
+- WLS-2638 done: Integrate PCIE emphasis control code into the CCR
+
+Version 3.1.0.1.8, 2010-04-26
+- WLS-2640 implemented: New regulation limits 03.9930.2584
+- WLS-2642 additional fix: TX limit for 3 TX antennas - proper operation on Gen2
+- WLS-2650 fixed: Logger printouts cause a lot of changes due to continuous SID changes in SVN
+
+Version 3.1.0.1.7, 2010-04-21
+- WLS-2624 done: 2x2 Driver recognition
+- WLS-2642 fixed: TX limit for 3 TX antennas
+- WLS-2621 fixed: PCIE hardware is spontaneously failed to start on some platforms
+- WLS-2605 workaround: assertion on PM event during AP disconnection
+- WLS-2612 fixed: Race condition between connection event and activation CFM
+- Trivial: redundant interrupts enable in _txmm_send()/_txdm_send() removed
+
+Version 3.1.0.1.6, 2010-04-08
+- debug code for TXxM double free/send added (available under DEBUG ifdef)
+- WLS-2585 additional fix: Assertion failed: kernel BUG ../shared/txmm.c:904
+
+Version 3.1.0.1.5, 2010-04-01
+- WLS-2148 additional fix: TXMM message leak in scan module
+- WLS-2585 fixed: Assertion failed: kernel BUG ../shared/txmm.c:904
+- WLSG3-62 fixed: TX stuck on exit from BG scan fixed
+- WLSG3-108 implemented: Regulation limits Version: 03.9872.2584
+
+Version 3.1.0.1.4, 2010-03-23
+- WLS-2567 fixed: Scan cleanup function adjustments
+- fix: IRQ should be freed before HW MMB cleanup
+
+Version 3.1.0.1.3, 2010-03-22
+- WLS-2569 step 1 fixed: Driver and FW to use same UMI shared files
+
+Version 3.1.0.1.2, 2010-03-21
+- WLS-2557 fixed: TXBL (BCL messages pool) to be dropped the in driver
+
+Version 3.1.0.1.1, 2010-03-18
+- WLS-1014 additional fix: Move to the new logging system in the driver 
+- WLS-2552 fixed: Tx output power in Ant 2 has high value than expected and the EVM value is lower than ~-18dB
+- WLS-2535 fixed: LBF: Driver/App implementation
+
+Version 3.1.0.0.5, 2010-03-17
+- WLS-2521 implemented: added debug_disconnect field for separate disconnect logging
+- WLS-2540 implemented: MAC Watchdog messages are passing through the DBG slots
+
+Version 3.1.0.0.4, 2010-03-16
+- fix: driver w/o RTLOGGER requires RTLOGGER functions during insmod
+
+Version 3.1.0.0.3, 2010-03-15
+- WLS-2526 fixed: BeaconKeepaliveTimeout parameter is dropped
+- WLSG3-91 implemented: New regulation limits 03.9827.2584
+- WLS-2491 fixed: Do not check AP's info during BG scan
+- WLS-2481 fixed: Soft lockup in version 106 for Customer -Prodea
+- WLSG3-79 fixed: EEPROM Asserton failure on incorrect EEPROM
+- WLS-2493 fixed: possible scan issue with data flow when handling errors
+- WLS-2492 fixed: kernel's gconfig/menuconfig usage for MTLK components build
+
+Version 3.1.0.0.2, 2010-02-28
+- WLS-2479 fixed: Unaligned access in _mtlk_mmb_read_ind_or_cfm
+
+Version 3.1.0.0.1, 2010-02-25
+- WLS-2475 fixed: Support 2.4 kernels build
+- WLS-2454 fixed: MAC watchdog timeout changed to 10 sec, period to 30 sec
+- WLS-2460 implemented: move bitrate string_to_index/index_to_string functions to CP and add unit tests
+- WLSG3-73 done: Merge CPU STAT system to trunk/2.3.11
+- WLS-2435 implemented: New regulation limits 03.9750.2584
+
+Version 2.3.11.0.1, 2010-02-21
+- WLS-2461 fixed: Deadlock while handling UM_MAN_DISCONNECT_REQ's CFM
+- WLS-2453 fixed: _raw_spinlock_unlock in the r8380.
+- WLS-2419 additional changes: TXMM failures accounting dropped, TX monitor
+  dropped
+- WLS-2419 implemented: MAC watchdog feature
+- WLS-2439 fixed: Wrong initialization of MIB filed u32AssociateFailureTimeout
+
+Version 2.3.10.32.0, 2010-02-16
+- WLSG3-68 implemented: Variable EEPROM size reading to be supported
+- WLS-2148 fixed: TXMM message leak in scan module
+
+Version 2.3.10.31.4, 2010-02-15
+- WLSG3-70 part: mlkt_eeprom_parse_tpc_v4(v3) have to return error value
+- Trivial fixed: crash in EEPROM v4 parsing on driver startup
+- WLS-2427 fixed: WPA: race between setting the key and sending msg4
+
+Version 2.3.10.31.3, 2010-02-08
+- WLS-2347 fixed: need to handle status code of UMI_DISCONNECT
+
+Version 2.3.10.31.2, 2010-02-07
+- WLS-2336 partially implemented: Power Mode notification to host - driver implementation
+- WLS-2389 fixed: Correct TXMM send handling required before moving to new leek-free TXMM usage logic (get/free)
+- WLS-2389 phase 1: Correct TXMM send handling required before moving to new leek-free TXMM usage logic (get/free)
+- WLS-2196 additional fix: Driver task for Correct TX header conversion in MAC for IPX and other 802.11 translation support
+- WLS-2406 fixed: TXMM must support message cancellation
+- WLS-2408 fixed: WPA group RSC exchanged in wrong endiannes with applications
+  that caused group traffic stuck until next group rekeying
+
+Version 2.3.10.31.1, 2010-02-01
+- WLSG3-45 fixed: ASSERT removed for management message sending in set_gen_ie
+- WLS-2403 implemented: update of the regulation limits for GPB310 Gen3 DBC
+  with RGMII interface
+- WLS-2334 fixed: 64 dropped packes will cause Tx path stuck
+
+Version 2.3.10.31.0, 2010-01-27
+- WLSG3-71 implemented: EEPROM4 with multiple TPC4 sections to be supported
+
+Version 2.3.10.30.1, 2010-01-26
+- WLS-2401 fixed: Kernel panic on STA configured to ABG or ABGN network mode
+
+Version 2.3.10.30.0, 2010-01-26
+- WLS-2317 fixed: sFixedRate accepts invalid parameter (B-only mode)
+- WLS-2316 fixed: sFixedRate accepts invalid parameter (A-only mode)
+- WLS-2364 fixed: IGMPv3 parsing fix
+- WLS-2368 fixed: scan type refactoring
+- WLS-2392 fixed: bug related EEPROM parsing refactoring
+- WLSG3-55 fixed: EEPROM v4 to be supported by Linux driver
+- WLS-2387 fixed: dead lock on Fedora Core, debug kernel 2.6.25
+- WLS-2370 fixed: Radar Emulation on non-SmRequired channel causes hang on AP
+
+Version 2.3.10.29.3, 2010-01-14
+- WLS-2344 fixed (full): Scan fails while STA trying to reconnect with a different Passphrase
+- WLSG3-63 implemented: Adjust read margins values modification
+- WLS-2342 fixed: Load correct nCB progmodel when automatically switching to non-HT mode
+
+Version 2.3.10.29.2, 2010-01-05
+- WLSG3-59 implemented: merge new rdlim 03.9644.2584 
+- WLS-2344 fixed (partially): Scan fails while STA trying to reconnect with a different Passphrase
+
+Version 2.3.10.29.1, 2009-12-29
+- WLS-2356 fixed: Driver can´t disable Aocs.
+
+Version 2.3.10.29.0, 2009-12-29
+- WLS-2329 fixed: Segmentation fault in STA on Dongle after reboot/Restore Defaults
+- WLS-2328 implemented: change interface for send queue to prohibit bugs like WLS-2307/WLS-2306
+- WLS-2343 fixed: Threshold for packets sent to MAC should also be enabled for Multicast
+- WLS-2346 need to handle status code of PS REQ
+- WLS-2350 implemented: SQ must not be flushed implicitly on each packet
+- WLS-2353 fixed: Application (IRB) reaction time measurements required
+- WLS-2342 implemented: STA should automatically switch to non-HT connection
+           mode (instead of fail with error) in TKIP security
+
+Version 2.3.10.28.1, 2009-12-23
+- WLS-2240 fixed: Unshare skbuff when doing IPX node change in L2NAT
+- WLS-2339 fixed: Rewrite PCI driver module's init/cleanup code using specialized macros
+
+Version 2.3.10.28.0, 2009-12-21
+- WLS-2307/WLS-3306 fixed: Voice packets are not sent +  R.Mcast doesn't work, additional fix
+- WLS-2323 fixed: driver must not return error code that causes "Unknown error
+  524" message
+- WLS-2211 fixed: L2NAT sets eth0 MAC as default host
+- WLS-2295 implemented: Add regulatory limits to Country = UAE (United Arab
+  Emirates) for Prodea
+- WLS-2310 fixed: kernel panic in WDS disconnect timer on host remove
+- WLS-2285 fixed: Incorrect error handling in mtlk_send_activate()
+- WLS-2307 fixed: Voice packets are not sent.
+- WLS-2308 fixed: mtlk (mtlk_aocs_start_watchdog:2629): ERROR: Assertion failed! aocs->watchdog_started == FALSE
+
+Version 2.3.10.27.8, 2009-12-14
+- WLS-2297 fixed: Value of "NoTxCfmTmSec" must be set to "60" instead of "1" by default in driver.
+- WLS-2247 fixed: WARNING: 'Unknown failure upon HW TX request' during WPS
+  connection
+- update regulation limits to support Gen3 HW - GPB313
+- WLS-2286 fixed: Driver assert when pressing WPS button in dongle.
+- WLS-2187 fixed: Reliable Mcast 3x20 to the same address, cause major packet
+  loss
+
+Version 2.3.10.27.7, 2009-12-02
+- WLS-2253 fixed: Deadlock on TX path - invoke ReliableMulticast logic
+  before SendQueue (already changed by SQ per STA)
+- WLS-2265 fixed: AOCS: initialize sequence need to be change.
+- WLS-2258 done: [bgscan] use atomic instead of lock
+- WLS-2254 fixed: [bgscan] flowctrl is not started correctly
+- WLS-2235 fixed: regression causing broadcast traffic stuck
+- WLS-2215 fixed: memleak in progmodel loading
+- WLS-2252 fixed: Linux driver release system may release driver from working copy having unversioned source files
+
+Version 2.3.10.27.6, 2009-11-24
+- WLS-2130 impl: Driver implementation of Dual Band BG Scan
+- WLS-2236 fixed: Sigma8634 as STA can not scan 
+- WLS-1998 fixed: allow dhclient with non-standard port to pass DHCP handshake
+  in L2NAT mode
+
+Version 2.3.10.27.5, 2009-11-22
+- WLSG3-37 implemented: Change read margin values in MAC, Upper CPU, Lower CPU on startup
+
+Version 2.3.10.27.4, 2009-11-19
+- WLS-397 fixed: regression in 802.1x filtering
+- WLS-2227 fixed: Driver overwrites probe responses from AP with hidden SSID with beacon
+- WLS-2168 fixed: CCR is cleaned up while interrupts are still enabled and handled
+- WLS-2160 implemented: Gen3 bring up process to be moved to bootloader-free scheme
+
+Version 2.3.10.27.3, 2009-11-17
+- WLS-2191 fixed: make BcnKeepaliveTO, StaKeepaliveTO, StaKeepaliveTO
+  and StaKeepaliveIN configurable at runtime
+- WLS-2007 fixed: Driver lets to choose appropriate channel even if it is set to list by
+  sAocsRestrictCh
+
+Version 2.3.10.27.2, 2009-11-12
+- WLS-2196 implemented: Added PayloadType field to provide information for
+  the MAC about incoming packet's data; L2NAT can handle IPX with default gw
+- WLS-2200 fixed: s11hEmulatRadar is not switching channel and cause kernel
+  panic
+- WLS-1334 implemented: OCS By Packet Delay - Driver implementation
+- WLS-2177 fixed: MAC doesn't send CFM on disconnect request
+- WLS-2192 fixed: STA DB: Incorrect lost beacons calculation
+- WLS-2164 fixed: WEP security mode can not be configured by hostapd
+
+Version 2.3.10.27.1, 2009-11-05
+- WLS-2138 implemented: headers translation on RX according to the standard
+  NOTE: VLANs as a special case are not processed
+- WLS-2174 fixed: Event queue thread may block for AUTO_WAKE_TIMEOUT
+- WLS-2153 implemented: move rdlim-data to dedicated script-generated rdlim.c
+- WLS-1979 fixed: Enable STA Keepalive Timeout parameter for STA
+- WLS-2133 fixed: Fix WLAN LEDs to be like in VB 2.3.5: Turn on LEDs as soon
+  as interface is up
+- WLS-2154 fixed: memory overwrite during HW limits delete operation
+- WLS-2070 implemented: Driver in STA should not begin association with AP
+           in TKIP + HT mode
+
+Version 2.3.10.27.0, 2009-10-27
+- Trivial: Driver for STAR board with Gen3 PCI card added to release package
+
+Version 2.3.10.26.0, 2009-10-27
+- WLS-2131 fixed: UMedia request that channel 165 be unselectable in Canada regulatory domain
+- WLS-2027 implemented: Version information has to contain list of supported HW types
+- WLS-1600 implemented: Linux driver has to support PCI express hardware
+- WLS-1765 implemented: Linux driver has to support Gen3 hardware
+
+Version 2.3.10.25.9, 2009-10-22
+- WLS-2123 fixed: Tatung Firmware version, using GPB259 - driver does not
+  parse the HW type correctly
+- WLS-2117 fixed: First scan shows only 5.2 APs in scan
+- WLS-2081 fixed: Driver implementation of allowing user to configure TX CFM timeout
+- WLS-2004 fixed: memory leak "use-after-free" upon ifup on access point
+- WLS-2042 fixed: Add TXMM messages to objpool.
+- WLS-2121 fixed: Kernel crash during "iwconfig wlan0 key [1] s:12345"
+
+Version 2.3.10.25.8, 2009-10-12
+- WLS-1832 fixed: AP is absent in scan results after changing passkey in WEP pre shared mode
+- WLS-1911 fixed: Pirelli STA with driver 2.3.10.r1065 does not connect to Marvell AP via WPS
+
+Version 2.3.10.25.7, 2009-09-24
+- WLS-1922 fixed: sync access to ActiveScanSSID
+
+Version 2.3.10.25.6, 2009-09-23
+- WLS-2011 fixed: Wireless driver insmod failed after restore defaults
+- WLS-2008 fixed: errors in scan
+
+Version 2.3.10.25.5, 2009-09-21
+- WLS-1935 fixed: AP doesn't switch channel although 'Auto channel switch'=Yes
+- WLS-1962 done: Rewrite HW MMB Start/Stop code using specialized macros
+- WLS-1669 partially fixed (TXMM): Simplify, unify and fix startup and shutdown of the driver
+- WLS-1961 fixed: Steady group traffic may stuck after first group rekeying
+- WLS-1970 fixed: Group replay counter is not set to newly connected STA
+
+Version 2.3.10.25.4, 2009-09-07
+- WLS-1909 additional fix: ERROR: aocs did not find available channel after
+  ifconfig wlan0 down/up
+- WLS-1912 additional fix: 02.03.10.63 - WPS connection failed with assert in STA
+
+Version 2.3.10.25.3, 2009-09-01
+- WLS-1932 fixed: Driver must be able to cause MAC assertion
+- WLS-1927 fixed: possible issue with BG/non-BG scan
+- WLS-1921 fixed: BGScan during heavy traffic causes assert in STA MAC and crashes AP
+- WLS-1507 fixed: Kernel oops when driver does not find bootloader.bin
+- WLS-1551 fixed: Incorrect MMB cleanup sequence
+- WLS-1923 fixed: Can't reset ActiveScanSSID
+- WLS-1922 fixed: CV 02.03.10.64 cannot get ActiveScanSSID
+
+Version 2.3.10.25.2, 2009-08-18
+- WLS-1920 fixed: Sporadic "session timeout" during WPS PBC
+- WLS-1908 fixed: No ping with wpa_supplicant 0.6 + WPS + open security
+- WLS-1912 fixed: 02.03.10.63 - WPS connection failed with assert in STA
+- WLS-1916 fixed: hostapd 0.6/0.7 can't run WEP mode
+- WLS-1909 fixed: ERROR: aocs did not find available channel after ifconfig
+  wlan0 down/up
+- WLS-1906 fixed: Driver build broken for kernels >= 2.6.20
+
+Version 2.3.10.25.1, 2009-08-11
+- WLS-1902 fixed: A-MSDU is not parsed correctly
+- WLS-1898 fixed: APAC regulatory domain channels 52,56,60,64 are SM required
+- WLS-1881 additional fix: SendQueue limit fixed
+
+Version 2.3.10.25.0, 2009-08-07
+- WLS-1881 implemented: SendQueue must be implemented on per-STA basis
+- WLS-1657 implemented: Background scan phase 1 
+- WLS-1659 implemented: Background scan phase 2
+- WLS-1846 implemented - AOCS and manual channel selection
+- WLS-1773 additional fix: Antenna Selection functionality added
+- WLS-1869 fixed: BCL write on exception doesn't work
+- WLS-1855 fixed: Memory allocations snapshot must be available for driver/apps
+- WLS-1851 fixed: objpool requests memory via GFP_KERNEL while in atomic
+  context
+- WLS-1797 fixed: malformed DHCP request in L2NAT mode in REBOOT-INIT DHCP state
+- WLS-1837 fixed: Metalink driver causes the kernel "oops of bad area" on
+  kernel-2.6.29
+
+Version 2.3.10.24.0, 2009-07-13
+- WLS-1831 fixed: Kernel Crash on Airgain14 version
+- WLS-1793 fixed: Cannot change to channel 136
+- WLS-1766 implemented: 802.1q support in L2NAT
+
+Version 2.3.10.23.0, 2009-07-08
+- WLS-1784 fixed: Application layer memory leaks/overwrites detection system requires
+- WLS-1792 fixed: Kernel OOPS on reading version from firmware
+- WLS-1773 fixed: Antenna Selection functionality added
+- WLS-1773 partally fixed: Antenna Selection merge to 2.3.10 (IRB introduced)
+
+Version 2.3.10.22.0, 2009-07-01
+- WLS-1747 fixed: fix broken null-packet sending on STA
+- WLS-1752 fixed: disconnection of STA could affect data stream to another one.
+  Interface for disconnection on NACK threshold configuration added.
+- WLS-1669 fixed: Simplify, unify and fix startup and shutdown of the driver
+
+Version 2.3.10.21.0, 2009-06-11
+- enabled use of toolchain with KALLSYMS for Star platform
+
+Version 2.3.10.20.1, 2009-06-08
+- WLS-1662 fixed: Invalid card state (8) appears after repeated hostapd running
+- WLS-680 additional fix: In order not to flood the SQ queues with multicast
+  traffic cloned by ReliableMulticast module following changes were introduced
+  in the 2.3.10
+  * API in the SQ adjusted for pushing packets to the front of the queues rather 
+    than to back
+  * mtlk_xmit_sq_enqueue_urgent renamed to mtlk_xmit_sq_enqueue_front and now it 
+    accepts the target AC as a parameter
+  * ReliableMulticast module is now invoked only after the SQ processing
+  * When reliable multicast packets are put to the queue - queue length is not
+    checked, but this will not harm the system
+  * Packet copying in the ReliableMulticast module eliminated
+  NOTE: this fix is only for the 2.3.10. For the 2.3.15 there will be a bit
+  different patch later with the same logic + AP forwarding SQ fix
+- WLS-1688 fixed: 20/40 detection is skipped when channel is defined
+- WLS-1042 implemented: DFS testing missing stuff
+- WLS-1677 fixed: AP is not set to Auto auth mode via iwconfig
+- WLS-1681 fixed: AP configured by hostapd to WEP does not ping connected STA
+
+Version 2.3.10.20.0, 2009-06-01
+- WLS-1192 implemented: Show 3 RSSI in mtdump
+- WLS-1282 implemented: Link type have to reflect established connection type
+- WLS-1282 prerequisite: remove SIOCSIWTXRATE and SIOCGIWTXRATE
+  TX rate can be configured with sFixedHTRate and sFixedRate iwpriv commands.
+  Current TX rate can be accessed with mtdump constatus command.
+- Fixed build for kernels >= 2.6.22 64 bit
+- WLS-1602 fixed: AOCS disables HighThroughput when selects 20MHz channel
+  spacing
+- WLS-1170 fixed: Assertion in driver on BSS activation
+- WLS-1660 fixed: WPS+WEP does not work
+
+Version 2.3.10.19.1, 2009-05-26
+- WLS-1583 fixed: Make sync txmm request uninterruptible
+- WLS-788 implemented: Set pairwise WEP key after WPS registration
+
+Version 2.3.10.19.0, 2009-05-25
+- WLS-1582 fixed: Race condition between activation and deactivation
+
+Version 2.3.10.18.0, 2009-05-20
+- Version 2.3.10.17.0 skipped
+- WLS-1134 implemented: Add network modes - Driver
+- WLS-1382 implemented: Driver implementation for increasing ACL to 32
+  stations
+- WLS-1128 implemented: Driver Configuration for fixed rate N and non N
+- WLS-1596 done: 2.6.29 kernel support
+- WLS-1327 implemented: Auto authentication support
+
+Version 2.3.10.16.1, 2009-05-18
+- WLS-1562 fixed: Kernel panic on rmmod - AP
+- WLS-1587 fixed: ERROR upon rmmod
+- add param to drvhlpr statistics to support LEDs change request for wep
+- support drvhlpr for a change: AP set WLS led when link is up
+- WLS-1589 fixed: ERROR: param WepTxKeyIdx was not found
+- WLS-742 fixed: DHCP Anomalies using L2-NAT
+- WLS-737 fixed: Error message after performing scan in STA
+
+Version 2.3.10.16.0, 2009-05-14
+- WLS-547 fixed : setting ESSID to empty causes kernel panic on some kernels (2.6.27)
+- WLS-1077 fixed: MAC may get stuck when killing supplicant in the middle of connection to WEP/Shared AP
+- WLS-792, WLS-1180 implemented: checks for AP settings change (HT and Channel)
+- WLS-909 implemented: Add log for radar detection
+- WLS-1518 fixed: EEPROM shows different values during reboot
+- WLS-770 fixed: Don't sent packets to upper layer in not connected state
+- WLS-1338 fixed: AP Switch channel due to Radar Detection, though configured not to
+- WLS-753 and WLS-759 fixed: do not allow empty BSSID for STA
+- WLS-1550 fixed: Incorrect mtlk_stadb_clear() location
+- WLS-1520 fixed: System reboot on lack of TX CFMs
+- WLS-1531 fixed: System reboot on unrecoverable TXMM errors
+- WLS-1357 implemented: Do not send beacons to upper layer in AP mode to avoid odd host CPU consumption
+- WLS-1394 fixed: Driver implementation of 11d disable.
+  Note: this feature needs MAC support!
+- WLS-1119 WEP Tx Key Index is not set via hostapd
+- WLS-1569 AP may display WPS failure although the connection is established
+- WLS-841 fixed: WPA IE is not reset when connecting second time via WPS
+
+Version 2.3.10.15.7, 2009-05-05
+- Trivial: OSAL init return value for release build fixed
+- WLS-1534 fixed: change print view of the EEPROM table
+
+Version 2.3.10.15.6, 2009-05-04
+- WLS-1528 fixed: Resource leak tracking system required
+- WLS-1458 fixed: kernel panic on rmmod (timer)
+- WLS-1508 fixed: Soft lockup on rmmod during scan
+- WLS-1507 fixed: Kernel oops when driver does not find bootloader.bin
+- WLS-1114 implemented: 20/40 friendliness feature
+- WLS-1440 implemented: change 11d behavior
+- WLS-1419 fixed: oops in SendQueue on cleanup
+- WLS-1453 fixed: ASSERT on rmmod under traffic
+
+Version 2.3.10.15.5, 2009-04-06
+- WLS-1446 fixed: Kernel Panic on STA under upstream traffic
+- WLS-1413 fixed: Kernel panic on STA related to AOCS function call
+- WLS-1188 implemented: GID and UID for mtlk proc entries must be 0
+- WLS-1442 fix: Build failed for pika with DEBUG=1
+- WLS-1378 impl: Driver should allow configuration of any RTS threshold
+- WLS-1410 impl: Enable reading from capabilities field in EEPROM (Addres 0x4d)
+- WLS-1151 fixed: timer shot after rmmod
+- WLS-1235 implemented: 802.1Q does not work on AT&T environment
+
+Version 2.3.10.15.4, 2009-03-30
+- WLS-1343 implemented: Disable DFS channels capability
+- WLS-1342 implemented: Add APAC Regulatory domain
+- build fix for pika
+- WLS-1307 implemented: Logger - adding partial snprintf implementation for
+  console logging
+- WLS-1208 implemented: Scan cache shouldn't expire BSS to which STA belongs to
+- WLS-1303 backport from 2.3.15: using rtlogger
+- WLS-1150 fixed: Memory leak in multicast module
+- WLS-1295 fixed: Kernal Panic once AP tried to switch channel while all channels were restricted 
+- WLS-1252 fixed: AP doesn't switch channel after 5 minutes 
+- WLS-776 implemented: Dropped Packets in mtdump statistics is incorrect
+- WLS-1115 fixed: In version 2.3.10 parameters that use for Radar detect test
+  were removed from the Drivers files
+- WLS-1255 fixed: Freed memory access in MCAST module on disconnect
+- WLS-1225 fixed: Soft lock after MAC exception on activation at AP
+- WLS-1236 fixed: AOCS history sometimes does not contain proper channel selection criteria
+- WLS-1231 fixed: Kernel Panic during WPS_PBC
+- WLS-1237 fixed: AOCS fails to select valid 40MHz channel on 2.4GHz band
+- WLS-1512 implemented: Make mtlk_osal_timer more reliable
+
+Version 2.3.10.15.3, 2009-03-08
+- Driver Scratchpad support enabled
+
+Version 2.3.10.15.2, 2009-03-08
+- WLS-1170 fixed: Assertion in driver on BSS activation
+
+Version 2.3.10.15.1, 2009-03-08
+- Driver Scratchpad support disabled
+
+Version 2.3.10.15.0, 2009-03-05
+- WLS-1071 implemented: Implement OCS with Send Queue logic
+- WLS-1179 implemented: Access to UM/LM/SHRAM memory image from userspace
+- WLS-1147 fixed: make dot11h channel switch with channel/bonding validation
+- WLS-397 Enable 802.1X filter during WPS registration
+- WLS-1116 implemented: Provide interface to configure BSSBasicRateSet
+
+Version 2.3.10.14.1, 2009-02-18
+- WLS-1109 fixed: Weak OSAL spinlock Linux implementation must be fixed
+- WLS-938 implemented: Create automatic release system for linux driver
+- WLS-977 partially fixed: regression from r3946
+    IW_ENCODE_OPEN used instead of IW_AUTH_ALG_OPEN_SYSTEM 
+    IW_ENCODE_RESTRICTED used instead of IW_AUTH_ALG_SHARED_KEY
+- WLS-1027 fixed: Metalink driver is not compiled on linux-2.6.14
+- part of WLS-1035 done: scan doesn't work from web-interface
+- part of WLS-938 done: version.sh/version renamed to svn_info.sh/svn_info
+- WLS-883 fixed: ERROR: Can't set MIB_IEEE_ADDRESS
+
+Version 2.3.10.14.0, 2009-02-05
+- WLS-1024 fixed: Channel switch to same channel on radar emulation
+- WLS-1004 implemented: AOCS: global Enable/Disable Flag
+- WLS-976 fixed: AOCS algorithm will not work in case it is enabled for more than one access category
+- WLS-327 additional fix: normalized RSSI values reported
+- WLS-830 additional fix: at STA in not connected mode channel list was taken from current state
+  instead of configured
+- WLS-1002 fixed: Increase ROD timeout to 1 second in order to avoid packet loss during channel switch
+- WLS-940: Extended AOCS channel switch history needed (implementation for 2.4 Ghz band)
+- WLS-987 fixed: Compilation failure with kernel greater than 2.6.19
+  caused by slow_ctx
+- fixed build failure for linux-2.4.x
+- WLS-982 fixed: Driver assertion on network interface reload
+- WLS-958 fixed: ver 2.3.10.27--AOCS with RX: too many channel switches
+
+Version 2.3.10.13.0, 2009-02-02
+- WLS-997 implemented: AOCS: Add channel switch threshold parameter for confirm rank
+- WLS-327 fixed: Driver should support all three RSSI's information
+- WLS-990 fixed: AOCS: Channel selection algorithm needs to be adjusted
+
+Version 2.3.10.12.0, 2009-02-01
+- WLS-988 fixed: Invalid cleanup sequence may lead to AOCS crash on unload
+- WLS-983 fixed: Crash on system reboot under heavy traffic with AOCS enabled
+- WLS-830 fix: "iwlist wlanX channel" must show available channels
+- WLS-980: mem leak on slow context creation
+- trivial: compilation w/o SQ fixed
+- WLS-940: Extended AOCS channel switch history needed (implementation for 5.2 Ghz band)
+- WLS-798: TXMM error printouts adjustment
+- WLS-963: Throughput decrease in OCS version (HotPath optimizations made)
+
+Version 2.3.10.11.0, 2009-01-27
+- WLS-945 implemented: D-scratchpad shall be supported in driver for Star
+  platforms
+- additional fix for WLS-850 - to prohibit interface down when not in CONNECTED
+  or READY state. 
+- WLS-942 implemented: Extend AOCS algorithm with RX packets counter
+- WLS-944 fixed: AOCS-switch to sm-required channel even though ignore constraints=no
+- merge with r5770
+  WLS-900 implemented: Disconnection logic for TX failures will now be
+  performed in the MAC. MIB MIB_DISCONNECT_ON_NACKS_ENABLE added, with
+  corresponnding ioctl [sg]DisconnOnNACKs
+
+Version 2.3.10.10.1, 2009-01-21
+- WLS-943 fixed: Kernel panic after channel switch to restricted channel
+- WLS-632 fixed: correct 802.11 mode report when STA connected to only "b" or only "g" AP
+- WLS-939 fixed: AP switch to restricted channel
+- WLS-932 implemented: AOCS switch history
+- WLS-597 implemented: OCS Revision E & F
+- WLS-850 fixed: Assert 1109 in UM after wlan0 interface UP
+- WLS-893 implemented: Add France regulatory domain
+- WLS-900 partially implemented: Old logic (always disabled) of disconnect
+  using NACKs is now removed from the driver. Disconnection logic for TX
+  failures will now be performed in the MAC (coming soon). API changes:
+  sMaxFailedTx and gMaxFailedTx ioctls are removed.
+- WLS-853 implemented: Change Driver BIST test behaviour
+- WLS-869 fixed: set WEP keys with SET_KEY_REQ to MAC along with
+          MIB_WEP_DEFAULT_KEYS
+
+Version 2.3.10.10.0, 2008-12-24
+- WLS-798 implemented: TXMM history tracking
+- WLS-828 fixed: MAC cloning does not work
+- WLS-761 fixed: AOCS error messages (non-existing channel)
+- WLS-760 implemented: OCS Tx MSDU decision should work for user selected
+  Access Categories
+- WLS-763 fixed: the secondry channel need to be taken into account when
+  calculating the rank for +-80Mhz channels that dont allow
+- WLS-716 fixed: Driver should send channel/band information to wsccmd along
+  with beacons (supported in wsc-1.7.0)
+- WLS-558 Driver should not send Michael MIC failure event to
+  wpa_supplicant/hostapd application in CCMP mode
+
+Version 2.3.10.9.4, 2008-11-28
+- WLS-747 fixed: Switch mode is set incorrectly
+- WLS-740 implemented: AOCS Tx MSDU algo shall be limited to video streams only
+- WLS-671 fixed: need to remove BSS entry from STA cache if AP is down
+  (power off) and we try to connect to it
+- WLS-625 fixed: During AP scan regulatory domain must be taken into account
+- WLS-584 implemented: REL_2.3.10 must support dynamical changing of fixed
+  rate for standard unicast stream.
+
+Version 2.3.10.9.3, 2008-11-18
+- WLS-621 further implementation: CB-mode scan on STA
+- WLS-630 related: AOCS: disqualify channels in 80MHz range after channel
+  switch
+- WLS-702 fixed: DST MAC was restored for RMcast only after L2NAT processing
+
+Version 2.3.10.9.2, 2008-11-17
+- WLS-319 fixed: Strange messages in dmesg on driver loading on SMP Linux
+- WLS-683 implemented: AOCS shall notify MAC on MSDU timer status
+- WLS-679 implemented: BCL requests shall be sent via dedicated management
+  message
+
+Version 2.3.10.9.1, 2008-11-10
+- WLS-670 implemented: add new field ("uint32 u32SwitchType") to the
+  _UMI_FREQUENCY_ELEMENT
+  Note!!! This change requires MAC support!!!
+- WLS-667 implemented: in Dual band cards 5GHz should be scaned before 2.4GHz
+- WLS-672 fixed: If switch on ChannelLoad is disabled then no switch on Tx
+  MSDU is available
+- WLS-658 fixed: memory leak on rmmod
+
+Version 2.3.10.9.0, 2008-11-06
+- Add seamless support - REL_2.3.5_seamless branch is merged to 2.3.10 branch
+
+Version 2.3.10.8.3, 2008-11-04
+- WLS-639 fixed: Kernel panic on STA when plugging out power from AP
+- WLS-630 basic implementation: New algorithm for deciding if to leave a
+  channel (when the OCS enable)
+- WLS-638 fixed: Iface upraised on AP even if AOCS/firmware/etc failed
+- WLS-636 fixed: Missing of Progmodel binary causes MAC fatal error
+- WLS-633 fixed: Channel 52 is displayed as channel 12
+- WLS-634 fixed: iwpriv may print garbage on gConInfo request
+
+Version 2.3.10.8.2, 2008-10-31
+- WLS-614 related fix: after channel switch iwconfig shows 0
+- WLS-575 fixed: "ERROR: Fail to disable WEP encryption" message after
+  changing STA configuration
+- WLS-629 fixed: GPB237 is stuck after reboot with "Segmentation fault"
+  message in console
+
+Version 2.3.10.8.1, 2008-10-30
+- WLS-616 implemented: Country selection rules shall be defined for AP
+- WLS-621 implemented: Scan in nCB mode and CB mode for OCS
+- WLS-602 fixed: HW limits and antenna gain table entries cannot be removed
+- WLS-571 fixed: Scan result appears with empty band field
+- WLS-613 additional fix - STA can be up if channel is 0 or essid is not set
+- WLS-618 fixed: SW Watchdog is not working on 2.3.10
+
+Version 2.3.10.8.0, 2008-10-29
+- WLS-613 fixed: wlan0 interface should not up after all possible channels
+  were restricted
+- WLS-611 fixed: AOCS shall not initiate new channel switch until
+  previous one has completed
+- WLS-600 fixed: AOCS was switching with CB to nCB mode
+- Change default values according to SRD-051-441 (AOCS) revision F:
+  * number of BSS weight - 5;
+  * channel switch threshold - 0%;
+  * aging for channel load measurements - 30 min
+- WLS-540 implemented: ConfigCommand protocol dropped:
+    * AOCS tables moved to /proc/net/mtlk/wlan0:
+      * /proc/net/mtlk/wlan0/aocs_table
+      * /proc/net/mtlk/wlan0/aocs_channels
+      * /proc/net/mtlk/wlan0/aocs_penalties
+    * HW limits table:
+      * read /proc/net/mtlk/wlan0/hw_limits
+      * set iwpriv wlan0 sHWLimit <domain>,<frequency>,<spectrum>,<limit>
+    * antenna gain:
+      * read /proc/net/mtlk/wlan0/antenna_gain
+      * set iwpriv wlan0 sAntGain <frequency>,<gain>
+    * regulatory limits:
+      * read only /proc/net/mtlk/wlan0/reg_limits
+    * HW properties are printed via iwpriv wlan0 gEEPROM
+      (IF must be down). They are Vendor ID, Device ID,
+      SubVendor ID SubDevice ID, serial number, production date
+- Change according to SRD-051-441 new requirements: scan cache results
+  aging shall be 0 (OFF) by default
+- WLS-591 fixed: AOCS setting parameters issue
+- WLS-588 fixed: Regression in muticard setup when creating /proc/net/mtlk entries
+- another fix to WLS-255 (Channel Switch failed) update sysctl when use
+  iwpriv to enable channel switch (sChAnnounce)
+- WLS-523 implemented: OLD_PKT_CAP code cleanup
+
+Version 2.3.10.7.0, 2008-10-22
+- WLS-454 related fix: VB1.45 - Throughput decreased from 99Mbps to 93Mbps
+- WLS-559 implemented: iperf/chariot OOO debug code is restored in 2.3.10
+- WLS-255 fixed: Channel Switch failed
+- WLS-541 fixed: 2.6.27 kernel support
+- WLS-562 fixed: kernel oops in interrupt handler on rmmod
+- WLS-381 implemented : Move all Linux-specific and debug stuff out of the core.c.
+  Moved /proc/net/mtlk directory creation and cleanup from core.c to debug.c
+- WLS-544 fixed: Metalink driver REL_2.3.5.44 deletes the next entry after bad
+  one
+- WLS-527 fixed(part of) : enable setting keys while in NET_STATE_SCANNING or
+  NET_STATE_DISCONNECTING as well
+- WLS-261 fixed: support 2.6.25 kernel (Fedora kernels included)
+- WLS-512 implemented: Metalink driver can let STA to scan APs (channels) of
+  all Regulatory Domains (FCC, ETSI, MKK).
+- Ticket #246: Access categories parameters moved to ioctls
+- WLS-511 fixed: Out of memory during cyclic insmod/rmmod
+- WLS-81 partially fixed: insmod of driver taken ~8sec on Star
+- WLS-447 implemented: STAs statistics through hostapd & RADIUS protocol is
+  needed
+- WLS-482 implemented: mac address comparison in mcast.c can be improved
+
+Version 2.3.10.6.1, 2008-09-24
+- WLS-496 fixed: Driver release 2.3.10.6.0.5155 does not work on STA
+
+Version 2.3.10.6.0, 2008-09-23
+- WLS-391 fixed: mtlk_txmm_send_ex uses non-zero value to indicate success
+  and violates Metalink coding conventions
+- WLS-480 fixed: The constant FIRST_5_2_CHANNEL is defined twice
+- WLS-451 implemented: EEPROM mask for device options added
+  currently for disabling of AP only
+- WLS-448 implemented: Add new parmeters to sta iwpriv wlan0 
+- WLS-446 implemented: Add Canada Regulatory Domain
+  Note, that for Canada there are some restrictions on upper/lower CB:
+   * channel 116 - only lower (120 is restricted);
+   * channel 132 - only upper (128 is restricted)
+- WLS-452 fixed: Scan cache doesn't adopt changes in BSS configuration even
+  after rescan
+- WLS-260 fixed: MTLK_HW_BOARD_IDX not implemented in mtlk_hw_get_prop
+- use mtlk_utils_memchr wrapper instead of memchr (WLS-265)
+- WLS-416 implemented: Changing ReliableMulticast to regular Multicast
+  on-the-fly
+- WLS-392 additional fix: driver cannot read EEPROM if card is
+  already activated
+- WLS-404 fixed: Driver tries to query MAC after app fatal error/exception
+- WLS-381 implemented: 
+  * mib-specific stuff from core.c has been moved to mib_osdep.c
+  * BCL stuff has been moved from core.c to debug.c
+  * flctrl, aocs, addba, dot11h stuff have been pulled out from core 
+- WLS-407 hostap-0.6 support added
+- WLS-207 send WPS IE in scan results
+  
+Version 2.3.10.5.0, 2008-09-01
+- part of WLS-381 implemented:
+   * proc-specific stuff from core.c has been moved to debug.c
+     (only relevant stuff) and proc_aux.c (all the rest)
+   * ioctl-specific stuff has been moved to separate module
+- WLS-392 implemented: Interface to card EEPROM
+- WLS-351 implemented: Insert Channel Penalties into the driver, instead of
+  TCL code
+- WLS-378 fixed: NULL data packet sending from AP does not work
+- WLS-375 implemented: "lost" reordering statistic counter added; "rx_dropped"
+  per-STA statistic counter added (not accounted yet)
+- WLS-344 implemented: All linux compatibility stuff moved to
+  compat.h/compat.c
+- WLS-258 implemented: Scan results should be sorted by channel
+- WLS-350 fixed: Bug, intoduced by WLS-265 implementation. Failed to build
+  on i386, kernel 2.6
+- WLS-360 fixed: build failure with Linux version 2.6.24
+
+Version 2.3.10.4.2, 2008-08-22
+- WLS-321 fixed: "ooo when sending multicast from STA2 to AP and STA1"
+- WLS-355 fixed: "'ERROR' messages from AOCS module after band switch"
+- WLS-347 implemented: mtdump/drvhlpr should not use single WE ioctl to
+  SET/GET data
+- WLS-257 fixed: "No stations connected" indication in WEB while there are
+  connected STAs
+- WLS-345 fixed: DesiredSSID configured with iwpriv overwritten on scan
+  request
+- WLS-265 implemented: memchr function is included in driver module in
+  case if customer platform doesn't export it properly
+- WLS-342 fixed: kernel Oops on eeprom data cleanup during rmmod
+- WLS-252 fixed: msg_table.h is not used by any component
+- WLS-270 implemented: substitute LINUX2_4 definitions with LINUX_VERSION_CODE
+- WLS-338 fixed. Disallow IsHTEnabled=0, ChannelBonding=1
+  on activate (auto switch off ChannelBonding)
+- WLS-155 fixed: WPS: STA2 can't connect to AP after STA1 via PBC method
+  within two minutes
+
+Version 2.3.10.4.1, 2008-08-12
+- WLS-251 fixed - IPv6 address index out of bound
+- WLS-296 fixed - Cross-Platform Remove Lock primitive required
+- WLS-254 fixed - do not proceed with scan if progmodel files loading failed 
+- WLS-217 fixed - Displaying WPS configuration in scan list
+- WLS-200 fixed - number of PCs supported in L2NAT mode increased to 16
+- /proc/sys/dev/mtlk/version moved to /proc/net/mtlk/version according to #246
+
+Version 2.3.10.4.0, 2008-07-30
+- WLS-214 fixed - oops: txmm timer fires after module cleanup
+- WLS-222 fixed - oops: ConfigCommand triggers system failure on bad input
+- WLS-138 fixed - TCP upstream causes connection fail
+- WLS-120 implemented. Prohibit user from configuring unsupported 
+  bands (TPC). Proper selection of default band.
+- WLS-208 related fix - RSN bits were overwritten in skb_priv
+- ticket #352: move creation of mtlk header for netlink messages
+  to one place. NOTE: updated drvhlpr (>= r4891) and  wsccmd (>= r2884)
+  should be used.
+- don't clear scan cache on disconnect - part of WLS-188 
+  implementation. Web-interface scripts must be in sync with this
+  for correct feature work. 
+- ticket #355 fixed - Assertion failed in stadb module
+- WLS-199 workaround - unhandled interrupts: revert
+  HWI_ADDR_host_interrupt_active register caching introduced in r4781 - need
+  HW team support to implement correct fix
+- Following /proc entries moved to ioctl according to #246:
+   * ConfigCommand
+   * BasicRateSet
+   * OperateRateSet
+   * AclMode
+   * ACL
+   * MaxConnections
+   * Country
+   * PowerSelection
+   * 11hRadarDetect
+   * 11dActive
+   * 11dRestoreDefaults
+   * ChannelBonding
+   * FrequencyBand
+   * IsHTEnabled
+   * StaKeepaliveInterval
+   * StaKeepaliveTimeout
+   * AlgoCalibrMask
+   * BeaconKeepaliveTimeout
+   * PowerIncreaseVsDutyCycle
+   * ShortCyclicPrefix
+   * ShortPreamble
+   * ShortSlotTimeOptionEnabled
+   * WDSHostTimeout
+   * TxAntennas
+   * RxAntennas
+   * APforwarding
+   * ReliableMulticast
+   * Wildcard_ESSID
+   * CacheExpire
+  Following parameters removed:
+   * Connected
+   * ConnectedNum
+- WLS-201 fixed - L2NAT: Annoying error message when the STA connected
+  into the local network
+- WLS-127 related fix - WPS does not work on STA (GPB 237) - desired ESSID
+  should be cleared each time new scan starts
+- WLS-115 fixed - NULL pointer dereference in hw mmb module on x86-64
+- OS Network Stack Abstraction introduced
+- WLS-185 implemented - Command "ifconfig wlan0 hw ether xx:xx:xx:xx:xx:xx" now
+  can be used in standard way - it will set both HW and OS interface MAC
+  addresses and can be used only if device is not UP. Private ioctls sMAC/gMAC
+  can be used to set/get HW MAC address only without changing OS interface MAC
+  addresses - this is needed for the MAC cloning logic and also can be used
+  only if device is not UP.
+
+Version 2.3.10.3.1, 2008-07-16
+- WLS-183 fixed: Low bandwidth on 5.2. w Agg, HT, CB. CV 2.3.10
+- ticket #327 implemented - Header conversion task merged from REL_2.3.5_hc
+  branch by SergeyU. NOTE: it require MAC support!
+- add Generic Netlink support (currently used only on Infineon AR9)
+  for sending messages to user-space applications; part of ticket #340
+- WLS-178 fixed - IP of 0.0.0.0 seen in L2NAT table with DHCP enabled
+
+Version 2.3.10.3.0, 2008-07-14
+- WLS-164 fixed - TXMM race condition during blocked call
+- WLS-23/TRAC #339 - EAPoL FastPath implemented
+- WLS-168 fixed - skb allocation error handling during NETLINK message send
+- WLS-159 fixed - very low performance on GPB237
+- WLS-127 issue solved. 
+  netlink group for WPS has been changed to the broadcast one (workaround).
+  This is caused by the fact that 2.3.5 is frozen, and we're unable to
+  change WPS application without breaking it.
+  Now all applications listen to the same netlink group.
+  This must be changed ASAP to avoid performance issues.
+- Compilation warnings are treated as errors.
+- WLS-135 implemented. SW Watchdog via iwpriv.
+- ticket #335 fixed - dual-band card triggers corrupted frames to bridge -
+  send management frames to user space via NETLINK only
+- RX buffers alignment logic is completed and moved under ifdef
+
+Version 2.3.10.2.1, 2008-07-09
+- avoid unnecessary PCI read while enabling/disabling card interrupts
+  (according to "Cardbus Host Reference Configuration HW/SW Interface
+  Specification" (s11001_cardbus_hw_sw_if.pdf) paragraph 1.3.2) -
+  related to ticket #328
+- do not disable IRQs while using spin_lock - related to ticket #328
+- WLS-150 fixed - non-initialized spinlock on STA in AOCS module causes
+  lock
+- ticket #307 fixed - Race conditions between wpa_supplicant and iwlist
+- ticket #263 QoS thresholds mechanism removed from send queue
+- merge flctrl related changes/fixes (bug 2616): r4288, r4290 and r4415
+- WLS-126 additional fix - upper/lower channel bonding should also be
+  available for STA via iwpriv
+- merge covering r4595, 4667 and 4687: MAC GPIO API is supported with two
+  parameters (baseb and value)
+- WLS-75 fixed: Configure MTLK STA to work in Legacy mode but aggregate traffic
+passes
+
+Version 2.3.10.2.0, 2008-07-03
+- WLS-104 fixed - STA did not scan (wlan0: Scan failed - can't init scan vector)
+- WLS-126 fixed - no way to check upper/lower channel bonding
+- WLS-125 fixed - MAC doesn't receive UM_MAN_SET_CHANNEL_LOAD_VAR_REQ message
+  with OCS parameters
+- WLS-62 fixed - regulatory domain should be taken from EEPROM (WLS-83
+  duplicates this bug)
+- ticket #334 implemented - (Prodea #112) OSAL memory allocation method must be
+  reviewed
+- L2NAT hash function slightly changed to produce better results
+  on little-endian systems
+- merge the support for LEDs activation (drvhlpr) via ioctl
+  (if scan in process and if secured link).
+
+Version 2.3.10.1.0, 2008-07-01
+- L2NAT subsystem CPU usage optimized (part of bug #2510 solution)
+- ticket #345 implemented - netlink 802.11 management messages separated from 
+  other messages by introducing 2 separate netlink groups
+- Send 802.11 management frames to OS via Netlink
+  (relates to bug2608 - throughput w/ WPS is lower)
+- ticket #344 "Reconfiguration without driver reloading" implemented
+- ticket #301 "Avoid sleeping in scan ioctls" deadlock fix
+- WLS-60 fixed: Performance Degradation - Aggregations were not open
+- WLS-187 fixed: all command names for iwpriv have been cut to 16 bytes
+  (including trailing '\0') - iwpriv utility constraint
+- WLS-59 fixed: STA : TPC data is missing during first scan STA try to detect
+  regulatory domain
+- fix QC #2566(r4405,r4406,r4434) is merged from REL_2.3.5
+
+Version 2.3.10.0.3, 2008-06-17
+- ticket #285 - Infrastructure_Adhoc parameter removed as unused
+- ticket #324 - workaround - sleeping function called from invalid context -
+  full fix requires OSAL spinlock/memalloc redesign/rework
+- ticket #325 fixed - Cannot set restricted channels
+- added to linux driver support for shared internal send queue
+- ticket #314 fixed - unaligned accesses in mmb on x86
+- bug #2717 fixed - Change default OCS weight for SM required to 0
+- MMB auxiliary event fixed
+- ticket #309 fixed - Radar emulation causes issues on start
+- r4238 merged from REL_2.3.5
+- objdump rule added to makefiles
+
+Version - 2.3.10.0.2, 2008-05-14
+- merged with DEV_2.3.5_WIN branch
+- ticket #311 fixed - Warnings on connect on AP side: invalid state and TS
+  already exists
+- ticket #272 implemented - do not perform unneeded dual band scan on AP for
+  AOCS
+- bug #2564 fixed: When STA in A mode, cannot connect to AP in "A/N Mixed"
+  mode
+- ticket #290,#291 fixed: iwpriv wlan0 gAocsRestrictCh misbehave
+- ticket #295 fixed: AP starts with wrong default FrequencyBand
+- bug #2626 fixed: Incorrect ADDBA warning after initiator's DELBA received
+
+Version - 2.3.10.0.1, 2008-04-24
+- ticket #286 fixed: kernel soft lockup when killing wpa_supplicant
+  that is waiting for scan completion.
+- ticket #293/bug #2487 fixed: recovery mechanism implemented for the "lost"
+  Rx slots
+- ticket #288 fixed: kernel panic on rmmod.
+- ticket #282 fixed: Incorrect handling of Regulatory Domain on both-band scan
+- ticket #284 fixed: Incorrect handling of TXMM management entry
+  in mtlk_activate
+
+Version - 2.3.10.0.0, 2008-04-14
+- Automatic Optimal Channel Selection (AOCS) phase 2
+- UpperLowerChannelBonding parameter removed - selected by AOCS
+- cross-platform MMB HW driver introduced
+- protected memory on cleanup with flag mac_events_stopped_completely -
+  possible kernel oops avoided
+- bug #2537 fixed: Problem with ESSID length change between WE v20 and v21
+
+Version - 2.3.5.6.6, 2008-04-10
+- L2NAT subsystem CPU usage optimized (part of bug #2510 solution)
+- bug #2514 fixed: D-LINK DIR-655 in b only mode not appear in scan results
+- bug #2529 fixed: Channel not updated on STA after successful channel switch
+
+Version - 2.3.5.6.5, 2008-04-07
+- bug #2512 fixed: There is no connection between AP to STA on GPB237
+  with EEPROMv3
+
+Version - 2.3.5.6.4, 2008-04-07
+- bug #2430 fixed: (additional fix for bug #2289): Connection fail GPB237 Vs.
+  Intel 4965AGN STA: DELBA frames were parsed incorrectly because of invalid
+  header structure.
+- bug #2516 fixed: Reliable Multicast problems with STA in L2NAT mode
+- bug #2483 fixed: unnecessary log message should be removed or rephrased
+
+Version - 2.3.5.6.3, 2008-03-31
+- bug #2515 fixed: BA timeout fixed + per file debug level
+- Added iwpriv parameter `MaxFailedTx` to control disconnection threshold
+  when consistent TX fails occurs (addition to ticket #261)
+- TXMM: additional debug information printounts when blocked send fails
+- bug #2490 fixed: kernel oops on cleanup when releasing unconfirmed TX buffers.
+
+Version - 2.3.5.6.2, 2008-03-26
+- ticket #270 implemented - rename StaKeepaliveInterval parameter to
+  KeepaliveInterval - needs updated driver_api.ini file
+- fix bug #2495: second insmod fails on Pirelli
+- bug #2353 additional fix - typo in driver code fixed
+- Trac ticket #264 implemented - In WPA security mode show only authenticated
+  STAs in `iwlist <if> peers`
+- bug #2460 fixed: Traffic stops in multicast DS - with Linksys N AP
+- AOCS improvements:
+  - better precision while normalized TxPower is calculated
+  - take TxPowerPenalty into account while calculating MaxTxPower
+- bug #2446 fixed:  Error message upon boot up - all the time.
+
+Version - 2.3.5.6.1, 2008-03-24
+- bug #2400 fixed: added stats for Rx packets dropped (per STA) and number
+  of broadcast/non-reliable multicast packets transmitted
+- bug #2436 fixed: annoying assert removed
+- bug #2454 fixed: kernel oops when scanning for a band that has no TPC
+  in EEPROM. Don't prepare scan vector for such bands.
+- bug #2458 fixed: WPS is not working (the bug was appeared after change
+  that fixes bug #2374 in previous driver release, this change was adjusted;
+  complete fix to bug #2458 requires also change in Simple Config application)
+- bug #2462 fixed: OCS - iwconfig prints channel 0 instead channel 1 on 2.4 GHz
+- ticket #262 implemented - driver should display currently used security
+  with iwlist key
+
+Version - 2.3.5.6.0, 2008-03-19
+- bug #2440 fixed: when firmware is missing, driver insmod leads to kernel oops.
+- DMcast renamed to Reserved100
+- bug #2331: MTLK AP: Disable "Accept Aggregation" for VOICE in web,
+  however aggregations in upstream UDP traffic are observed
+- bug #2426 fixed: rmmod gets stuck when EEPROM has no TPC (EEPROM 
+  TPC section size=0).
+- Direct Multicast supported
+- fix for bug #2429: change WARNING to LOG1 when no resources to send
+  NULL packet
+- ticket #248 implemented. Unconfirmed sk_buffers are unmapped & freed on
+  module unload. This was done to prevent memory leak.
+- bug #2377 fixed: wrong endiannes reported through ConfigCommand
+  protocol for Vendor, Device, SubVendor, SubDevice PCI ID's prevented
+  from loading HW limits on little-endian architectures. Please note,
+  that updated rdlim.ini file should be used with this driver
+- bug #2450 fixed - OCS doesn't use TPC max power as parameter
+
+Version - 2.3.5.5.3, 2008-03-12
+- bug #2410 fixed: NULL packets was not accounted when checking TX failures
+- bug #2393 fixed: Auth preference not cleared after disabling WEP with
+  iwconfig.
+- bug #2406 fixed: do not check beacon keepalive timeout if interval is 0
+
+Version - 2.3.5.5.2, 2008-03-10
+- bug #2289 fixed: reconnect under traffic sometime fails with WPA-CCMP
+  Also: 
+  - BA frames are now received from MAC as is and not as INDs.
+  - mtlkbfield.h introduced (macros for convenient work with bitmasks)
+- bug #2374 fixed: wpa_supplicant can't configure security in WEP mode
+
+Version - 2.3.5.5.1, 2008-03-07
+- critical internal bug intoduced by bug #1179 impementation in previous
+  release fixed
+- bug #2352 fixed: remove repetitions and sort list of bitrates
+  obtained from iwlist
+
+Version - 2.3.5.5.0, 2008-03-07
+- bug #1179 fixed. New indication added on TX failure, on 30 sequential TX
+  failures disconnection will occur. Every successful TX resets disconnect
+  timer. AP will send NULL data packet to every connected STA to check
+  connectivity (using sta_keepalive_interval configuration setting).
+  This change requires MAC support.
+- bug #2383 fixed (symptomatic). Handled endless loop exception.
+- Adding support of Lower MAC exception/Fatal-error. Changed shared MAC header,
+  this requires new MAC images (else the SW Watchdog may not work properly).
+- bug #2353 fixed: fix rate: improper iwconfig wlan0 rate XX connection behavior
+- ticket#247 fixed: kernel panic on rmmod
+- TxPowerPenalty support added. Note, in order theparameter to work one
+  needs updated rdlim.ini
+- bug #2322 fixed: aggregation is allowed in WEP mode according to latest
+  standard draft
+
+Version - 2.3.5.4.2, 2008-03-03
+- bug #2362 fixed: no default host selection in some cases;
+- bug #2009 fixed: STA connects to the wrong AP WPS.
+
+Version - 2.3.5.4.1, 2008-02-27
+- change proc name (SoftwareResetEnable to SoftwareWatchdogEnable)
+- return error if netlink socket failed to start.
+  Add mtlk rmmod event sent to netlink socket.
+- debug OOO revisited: tx_to_os increments right before netif_rx().
+- Private ioctls 's_MAC' and 'g_MAC' added for Wireless MAC configuration
+  (required to support fix bug #2309)
+- bug #2325 fixed: OCS doesn't take into considuration that when 11h is off,
+  all channels are not SM required
+- bug #2326 fixed: default channel should be 52
+
+Version - 2.3.5.4.0, 2008-02-21
+- added support for dhcp clients behind STA in L2NAT bridge mode
+- bug #2305 fixed: when the Mac identify RADAR the driver goes down
+- fix rmmod in case of exception/fatal-error
+
+Version - 2.3.5.3.0, 2008-02-20
+- bug #2147 fixed: Kernel Panic after mac_get_stats timeout
+- adding SW watchdog. Use Netlink socket to send MAC HUNG event to application.
+- bug #2235 fixed: Frames are not transmitted to MAC after few hours
+  of intensive multi-QoS traffic. 
+
+Version - 2.3.5.2.0, 2008-02-18
+- Added L2NAT functionality.
+- Driver connection statistics can now be viewed using mtdump:
+  "mtdump -t wlanX constatus"
+  It works similar to iwspy, but requires no manual specifying of MAC
+  addresses. Also mtdump shows more information such as ChannelLoad.
+- WDSEnabled parameter removed, new L2NAT parameters added
+
+Version - 2.3.5.1.0, 2008-02-13
+- addition to EEPROM v3 support: send number of points used in TPC calibration
+  to MAC.
+- ".Debug"/".Release" added to version number according to compilation.
+- Makefile.starGPB237 will be used for official Star driver compilation. 
+  It is renamed to Makefile.star901x, all other Star makefiles are removed.
+- -O2 compilation option added for Star driver.  Driver compiled with -O2
+  has been passed all the tests with good stability and throughput results.
+- Driver compilation info will be compiled into the driver.
+- bug #2150 fixed: Problem with opening/closing aggregation in driver. 
+- bug #2200 fixed: ifconfig statistics is reported to OS according to new
+  specification
+- bug #2203 fixed: kernel oops when 104-bit WEP keys are configured.
+- bug #2226 fixed: More info from EEPROM should be exposed to WEB
+
+Version - 2.3.5.0.0, 2008-02-11
+- New TPC format. EEPROM v3 support.
+- Windows Media Center Extender statistics support
+  (view them using "mtdump -t wlanX wmce")
+
+Version - 2.3.0.14.11, 2008-02-07
+- DEBUG and RELEASE (default) driver
+
+Version - 2.3.0.14.10, 2008-02-05
+- use /proc entries for rates configuration when not connected
+
+Version - 2.3.0.14.9, 2008-02-01
+- bug #2121 fixed: only b rates was used for bg
+- bug #2129 fixed: connection problem as MTLK(STA)
+
+Version - 2.3.0.14.8, 2008-01-30
+- bug #2142 fixed: race between wpa_supplicant and scan completion
+- In STA mode iwconfig will show the AP only when we already connected to it
+  (before it showed the AP already when STA started to connect to it),
+  and in AP mode iwconfig will show BSSID only when BSS already created.
+- bug #2108 fixed: cache invalidation optimization cause TCP DS to stuck
+  on Star GPB-236/244 STAs (the bug was appearing only if driver was compiled
+  with -DUNSAFE_DEMO_PATCH)
+
+Version - 2.3.0.14.7, 2008-01-28
+- bug #2121 fixed: rate selection adjusted
+
+Version - 2.3.0.14.6, 2008-01-24
+- bug #2113 fixed (driver's part): Driver does not send CLOSE_AGGR_REQ on
+  disconnect anymore
+
+Version - 2.3.0.14.5, 2008-01-22
+- bug #2064 fixed: Driver generates a scan timeout message - no scan confirm
+  from MAC
+- bug #2072 fixed: rare kernel oopses while writing ioctl results to userspace
+
+Version - 2.3.0.14.4, 2008-01-21
+- default Country set to US
+- MAC statistics updated for Beacon Timeouts
+- Ability to enable AOCS with `iwconfig channel 0' command added for old
+  kernels (auto appeared starting from WE-17)
+- get/set power ioctl is not supported, removed
+- get/set statistics private ioctls not supported, removed
+- Link quality, signal and noise levels and now reported via iwspy on AP
+  and STA
+- Bit Rate is now reported via iwconfig on STA
+
+Version - 2.3.0.14.3, 2008-01-17
+- bug #2087 fixed: Driver assertion: ERROR: Channel 12 not found in scan vector
+- bug #2077 fixed: FIX RATE PROBLEM: rate should be passed to the MAC as index
+  instead of the mask
+- 'iwconfig <iface> bitrate' now supports bitrates as values
+- bug #2072 related fix: ioctls will return EBUSY while sysfs is not created
+
+Version - 2.3.0.14.2, 2008-01-16
+- SpectrumMode parameter renamed to ChannelBonding
+- BasicRateSet & OperateSet params restored in /proc
+- bug #1947 fixed: Scan does not show all results (the bug was not fixed
+  completely in 2.3.0.12.0 version)
+- bug #1988 fixed: Default values updated
+
+Version - 2.3.0.14.1, 2008-01-10
+- Units for MSDULifetime changed from microseconds to miliseconds in ioctl
+  handlers.
+- skb->cb cleanup introduced on RX (required for some networking stacks)
+- set/get nick for wireless interface fixed
+- get range for wireless interface fixed
+
+Version - 2.3.0.14.0, 2008-01-09
+- trac ticket #222 implemented - Adding error statistics to wlanx interface in
+  ifconfig
+
+Version - 2.3.0.13.0, 2008-01-08
+- Scan cache has been reimplemented as a dynamically allocated linked list
+  allowing to register an unlimited number of APs per channel
+- FCC regulation (80/20) supported (MIB_POWER_INCREASE_VS_DUTY_CYCLE added)
+- Wireless Tools (WT) support improved (as result related proc entries removed):
+  * WEP configuration and status (iwconfig & iwlist)
+  * List of available bitrates (iwlist wlanN bitrate)
+  * Short retry limit and lifetime config and status (iwconfig & iwlist)
+  * Long retry limit config and status (iwpriv)
+  * TxPower configuration and status (iwconfig)
+  * RTS/CTS threshold configuration and status (iwconfig)
+  * Real protocol showed by iwconfig from now (802.11n was always before)
+  * Bitrate configuration and status (iwconfig)
+  * Active scan for specified ESSID (iwlist starting from WT-29)
+  * List of connected STAs in AP mode (iwlist wlanN peers)
+  * Link quality, signal and noise levels for connected AP (iwconfig)
+    WARNING: this change requires MAC support!
+  * auto channel selection supported (iwconfig)
+- bug #2019 fixed: when all channels are busy with radars, AOCS selects a
+  channel with minimal time to wait, but web is not updated
+- bug #1972 fixed: WPS AP certification: 4.2.1 test, Buffalo STA ping failed
+  after PBC association
+- bug #1989 fixed: Regulation limits for Japan updated
+- FCC regulation (80/20) supported (MIB_POWER_INCREASE_VS_DUTY_CYCLE added)
+- bug #2017 fixed: Assert in UM during scan on BSS_MAnage_task
+
+Version - 2.3.0.12.0, 2008-01-02
+- Added Dynamic RX Queues PCI interface support
+  WARNING: this change requires support from MAC side!
+- bug #1947 fixed: Scan does not show all results
+
+Version - 2.3.0.11.2, 2007-12-28
+- bug #1975 fixed: progmodel loading failure
+
+Version - 2.3.0.11.1, 2007-12-27
+- bug #1902 fixed: (driver's part) driver is able to handle variable number of 
+  TX CFMs (up to 3). 
+- bug #1974 fixed: LRU for WDS entries added for case when WDSHostTimeout=0
+- bug #1884 fixed: o-o-o during Reliable Multicast to STA and host behind AP
+- bug #1816 related fix: probe request send on each SmRequired (passive)
+  channel if beacon found on it.
+- bug #1932 fixed: odd warnings on failed secure connections
+
+Version - 2.3.0.11.0, 2007-12-26
+- Added IPv6 Reliable Multicast support
+
+Version - 2.3.0.10.0, 2007-12-24
+- Pass RSSI & Noise in scan results
+- bug #1934 fixed - 1 minute delay on VO priority
+
+Version - 2.3.0/1.9.6, 2007-12-20
+- bug #1911 fixed - reload progmodels and update MIB values
+  after AP scan on activation
+- bug #1917 fixed - OCS: stays on ch 0 when radar is triggered on all allowed
+  channels
+- bug #1927 fixed - AP Dongle stuck on "ifconfig wlan0 down; ifconfig wlan0 up"
+
+Version - 2.3.0/1.9.5, 2007-12-19
+- IPv6 classification supported
+- fix to support ctl_table change in 2.6.21 kernel:
+    "Scan/Results" sysctl entry removed;
+    packet capture sysctl entries disabled;
+    "Debug" directory moved from sysctl to /proc/net/mtlk/wlanN/.
+- Reload progmodel after scan on AP during activation.
+
+Version - 02.03.00_(1.9.4), 2007-12-17
+- Fragmentation fixed for the new UMI
+- Automatic Optimal Channel Selection (AOCS) phase 1 added
+- bug #1816 fixed - WPS doesn't connect when using Push button in SM Required
+  channel: now active scan is always performed on channels where any BSS were
+  detected during passive scan, even on SMRequired channels.
+  Entries with hidden SSIDs (empty string) are now also added to the
+  cache during scan, but after SSID is known, entry with empty SSID will
+  be replaced with proper SSID.
+
+Version - 02.03.00.Intg2_(1.9.3), 2007-12-11
+- Out-of-orders fiexd: bug introduced in 02.03.00.Intg2_(1.9.2)
+- bug #1863 fixed - TKIP MIC failures on AP in MAC Cloning mode
+
+Version - 02.03.00.Intg2_(1.9.2), 2007-12-06
+- UMI improvements added
+
+Version - 02.03.00.Intg2_(1.9.1), 2007-12-05
+- MAC filtering implemented (1st stage).
+- MAC Cloning + security (WPA/WPA2) might work together from now
+- bug #1825 fixed - 802.11D - active scan on SM channels.
+- merge with r2895 from REL_2.2.4 - bug#1858 fixed: TxPower should be 0 by
+  default
+- bug #1856 fixed - out of order on Video priority
+
+Version - 02.02.04.Intg2_(1.8.18), 2007-11-29
+- bug #1747 fixed - Lower throughput on 2.4 GHz band in legacy mode (11g).
+
+Version - 02.02.04.Intg2_(1.8.17), 2007-11-22
+- /proc names adjusted:
+  cmd -> ConfigCommand
+  connected -> Connected
+  connect -> Connect
+  disconnected -> Disconnect
+  connected_num -> ConnectedNum
+  version -> Version
+  power_selection -> PowerSelection
+  11h_radar_detect -> 11hRadarDetect
+  RestoreDefaults11D -> 11dRestoreDefaults
+  debug -> Debug
+      general -> General
+      rr_stats -> ReorderingStats
+      mac_stats -> MACStats
+      reset -> ResetStats
+      pktcap_data -> PktCaptureData
+      pktcap_stats -> PktCaptureStats
+  scan -> Scan
+      results -> Results
+      cache_expire -> CacheExpire
+  dot11h -> 11hConfig
+      status -> 11hStatus
+      debug -> 11hDebug
+      setDebugChannel -> SetDebugChannel
+- bug #1811 fixed - TPC-close loop: lower mac level doesn't transmit to the chipver
+   the correct value.
+- bug #1809 fixed - buffer overflow in mtlk_wep2a() function
+
+Version - 02.02.04.Intg2_(1.8.16), 2007-11-19
+- Change 11h debug proc names. 
+  Eliminate set_new_channel and loopsToPrint procs (and in loopsToPrint handling).
+  Add WILD_PACKETS definition (set to 0 for warning elimination).
+
+Version - 02.02.04.Intg2_(1.8.15), 2007-11-15
+- bug #1780 fixed - Mitigation factor Should be zero for all 2.4 GHz channels
+  (also for 11n).
+
+Version - 02.02.04.Intg2_(1.8.14), 2007-11-08
+- from now on connect STA learns regulatory domain from the AP it connects to
+  instead of first entry in scan results obtained before
+- bug #1766 fixed - 802.11D: limits for Europe and Japan should be adjusted.
+- bug #1763 fixed - EEPROM version wasn't sent to UM.
+- bug #1759 fixed - Remove "MitigationFactor" parameter from proc-fs.
+- bug #1746 fixed - rmmod doesn't work
+
+Version - 02.02.04.Intg2_(1.8.13), 2007-11-06
+- bug #1745 fixed - Required parameter to control 802.11H (11h radar detect)
+- addition to bug #1739 fix - Frequency element in Activate request is 
+  different between AP and STA on some channels: RegulatoryDomain 
+  is calculated from Country parameter.
+- RegulatoryDomain /proc entry removed to avoid syncronization 
+  issues with Country parameter.
+
+Version - 02.02.04.Intg2_(1.8.12), 2007-11-02
+- bug #1727 fixed - The Local power constraint in beacon is 3dB for non 11h
+  channel instead of 0dB.
+- bug #1736 fixed - Sigma 8634 (STA) connection error messages
+- bug #1693 fixed - Application fatal error: Open Aggr : No Entry found for STA
+- bug #1739 fixed - Frequency element in Activate request is different
+  between AP and STA on some channels.
+
+Version - 02.02.04.Intg2_(1.8.11), 2007-10-31
+- move module's init from mtlk_activate(flctrl, dfs, aocs) to mtlk_core_start()
+- add 11h_anable proc under /proc.../wlan dir (instead of debug param in
+  dot11h/debug/SmRequired)
+- bug #1715 fixed - when writing 0 (tcl) to /proc/.../dot11h/debug/SmRequired,
+  error appears
+- bug #1726 fixed - new debug parameter "SoftwareResetEnable" added under
+  /proc/sys/dev/mtlk/wlanX/debug/
+
+Version - 02.02.04.Intg2_(1.8.10), 2007-10-27
+- bug #1662 fixed: MAC cloning operates as WDS.
+  WDSEnable option introduced that allows to disable 4-address support
+  1 - to enable (default), 0 - to disable. This option should be supported
+  by WEB: if MAC cloning enabled - it should be set to 0,
+  othervise it should be set to 1.
+- /proc/net/wireless support improved: discarded packets counters
+  (nwid, code, fragment, retries, misc) added. Requires MAC support!
+- show current channel in iwconfig
+
+Version - 02.02.04.Intg2_(1.8.9), 2007-10-25
+- Removed "PALESTINIAN TERRITORY, OCCUPIED" from country codes table.
+- Bug #1676 related fix - kernel panic after BCL request if MAC stucks
+- Support of 4-bytes IP header align added. Requires MAC support!
+- MAC stats procfs entry now displays correct counter values.
+- /proc/net/wireless support improved: missed beacons counter added.
+- Mindspeed platform bugfix (MAC exception on driver loading).
+
+Version - 02.02.04.Intg2_(1.8.8), 2007-10-24
+- Fixed bugs #1692 (Packet Blocked By 802.1x filter), #1679 (ping fails on
+  first reconnect in Open mode after secure one)
+- Added basic /proc/net/wireless support
+
+Version - 02.02.04.Intg2_(1.8.7), 2007-10-24
+- Fix bug #1605: In 5Ghz band in country IE there is no referance for channel
+  bonding we get the same start channel twice.
+
+Version - 02.02.04.Intg2_(1.8.6), 2007-10-23
+- Fix bug #1587: STA's connection failure when there're 2 AP's with same ESSID
+  in scan results.
+- Fixed bug #1696: AMPDUMaxLength parameter restored
+
+Version - 02.02.04.Intg2_(1.8.5), 2007-10-19
+- Fixed bug #1649: Dongle STA with 802.11d enabled (CV 2.2.4.35) can not
+  connect to any of testbed APs.
+- Added Country /proc entry to specify country code.
+- 802.1X Rx filter removed - there is one in MAC
+
+Version - 02.02.04.Intg2_(1.8.4), 2007-10-16
+- TPC power logic supported
+- 11d table changed (according to spec changes)
+- AOCS: Fix handling of channel validation in case of forced channel.
+  Changed logs to errors.
+- flctrl: Add netif_carrier_on(dev) to flctrl_wake_data() function.
+
+Version - 02.02.04.Intg2_(1.8.2), 2007-10-10
+- Reordering buffer overflow handling fixed
+- bugfix for #1267 - LOG level shifted (+1 for all messages)
+- bug #1590 fixed - man msg leak fixed in clear_group_key()
+- fix upper/lower (bonding) bug influence channels.c behavior.
+  change 11h/aocs by system group request:
+  1. Can configure debug channel to force channel on radar detection
+     from MAC.
+  2. Can reselect current channel (if conditions are met)
+  3. In case of illegal channel by user in set_new_channel proc
+     (not radar emulation), it does nothing, left with the current
+     one (did random select before)
+- bug #1545 fixed - WPS requires 2.4Ghz channels & 5Ghz channels:
+  36,40,44,48 to always use active mode (i.e. no 802.11d)
+- bugfix #1599: When using HT nCB the country IE in the beacon
+  should contain Number of channel=13 or 11 and not 9
+- bugfix #1605: In 5Ghz band in country IE there is no referance
+  for channel bonding we get the same start channel twice.
+- bugfix #1588: 802.11d - roaming is not working correctly, STA
+  swiches reg domain when it shouldn't.
+- Fix 11h cleanup and data start handler.
+- Return newest entry for BSS
+- Implementation of GET command for 80211D group of parameters.
+- Force ESSID to be always null-terminated string.
+- Clean cache entries for BSS on other channels if it changed channel.
+- bug-fix - reuse addba slot after time-out
+- set 802.1X filter on secure AP regardless of STA security mode
+- filter 802.1X packets on Rx as well as on Tx
+
+Version - 02.02.03.Intg2_(1.7.6), 2007-09-17
+- Ticket #117 (driver reloading failure on the Dongle) fixed
+- Ticket #114 fixed - peers (STAs and hosts behind STAs) were not deleted
+  correctly from internal db.
+- bug-fix #1496 - MAC Statistics on Dongle is not working correctly
+
+Version - 02.02.03.Intg2_(1.7.5), 2007-09-11
+- New MIB scheme implemented and supported on different levels.
+- Feature #1304 implemented - 802.11b support added
+- bug-fix - reuse addba slot after time-out
+- Authentication MIB wasn't updated in MAC by setauth ioctl
+- bug #1470 fixed - DELBA timeout is not working properly
+- EEPROM v2 parsing, new MIB item for EEPROM version.
+
+Version - 02.02.03.Intg2_(1.7.4), 2007-09-05
+- bug #1452 fixed - ignore duplicate ADDBA responces that cause
+  duplicate aggregation open requests to MAC.
+- fixed driver crash on rmmod - driver tried to send messages to MAC
+  after destroying TXMM.
+- fixed assertion in sniffer when reading from pktcap_data procfs entry.
+
+Version - 02.02.03.Intg2_(1.7.3), 2007-08-30
+- bug #1331 fixed - on AP when using cat to the /proc/.../scan/results,
+  a scan is initiated but it shouldn't
+- bug #1383 fixed - While woking with Intel-n STA, driver tried to close
+  the same traffic stream twice
+- reset security on AP shutdown
+- bugs #1393 and #1406 fixed - wrong progmodel files loading when connecting
+  to Cisco Aironet 1250 AP working in 20 MHz spectrum mode.
+
+Version - 02.02.03.Intg2_(1.7.2), 2007-08-22
+- WepEncryption parameter must be updated on connect
+- Static disable of aggregation for legacy is for AP only
+- Added makefile for Sigma8634-based Celrun platform
+
+Version - 02.02.03.Intg2_(1.7.1), 2007-08-15
+- PCI write access improvement on message sending
+- fix for bug #1349 - Thresholds defaults are set to 0/200 for all ACs
+- ADDBA: last rx timestamp fixed (Defect ID: 1323)
+- /proc/.../scan_bands parameter added
+- Fix for bug #1288: The driver doesn't export information that needed for
+  scan output. Changed scan output format to:
+    <SSID>:<Ch>:<Band>:<BW>:<Security>:<Signal strength>:<High Throughput>
+- change request #1136: default value for AP keepalive timeout
+  shall be 10 minutes, default for STA keepalive interval shall
+  be 30 seconds.
+- disconnect on `ifconfig wlan# down' command (ticket #62)
+- Octeon/CyberTAN BIST issue has been fixed (64-bit issue)
+- WPS bug was fixed - old version of WPS OUI '00 50 f2 05' was not
+  recognized.
+
+Version - 02.03.00.Intg2_(1.7.0), 2007-07-30
+- multicard support enabled by default (use /proc/.../mtlk/wlan0, 1...
+  to access driver proc-fs entries)
+- bug-fix related to bug#1191 - ADDBA Tx state shall be reset to
+  MTLK_ADDBA_TX_NONE if aggregation request fails
+- bug#1179 fixed - AP should update activity time for STA on successful Tx
+  as well as on Rx
+- bug#909 fixed - add DTIM period parameter
+- bug#808 fixed - sta set to pairwise CCMP and group WEP did not connect to
+  Cisco set as TSN
+
+Version - 02.03.00.Intg2_(1.6.4), 2007-07-23
+- bug#1093 fixed - Security Cipher Suite set incorrectly on reconnect
+- bug#1134 fixed - AP scan showed only one channel
+- ticket#42 - on STA disconnect request must be sent on UMI_DISCONNECT
+  regardless of connection state (was not sent on UMI_BSS_AUTH_FAILED
+  if happens after activation, but before connection)
+- bug#1102 fixed - cache cleanup (bug was reopen)
+- 64bit platforms support added (tested on x86_64 SMP Linux)
+- Support for Octeon platform added (not tested yet)
+
+Version - 02.03.00.Intg2_(1.6.3), 2007-07-18
+- bug#1074 fixed: TXMM queue size increased to 32
+- bug#985 fixed: don't reset user's MAC address (set by procfs) on
+  disconnect/connect.
+- bug#1068 fixed: activation during scan, scan during activation
+- bug#1074 fixed: TXMM queue size increased to 32: maximum number of
+  concurrently pending operations (STAs + AGGRs)
+- bug#1084 fixed: ESSID is displayed in proc/.../connected
+- bug#1098 fixed: all information elements found in beacons are now stored
+  and can be reported to the application level upon request (required for
+  Windows, but also affects Linux).
+- Disable scan request to the MAC on /proc/.../results file open. Reading
+  this entry will return cached scan data.
+
+Version - 02.03.00.Intg2_(1.6.2), 2007-07-12
+- bug#1076 fixed: Loading the new set of MIBs after each progmodel loading
+- WPS support added
+- Counters for received data, control and management frames were added to
+  /proc/.../mtlk/debug/general
+- Security bugfix - wep key idx MIB was not set to MAC on STA when supplicant
+  was used
+- Endless loop while reading /proc/.../scan/results fixed on 5vt1310 platform
+- bug-fix 982 - simultaneous access to scan by wpa_suplicant and /proc
+
+Version - 02.03.00.Intg1_(1.6.1), 2007-07-04
+- prevent duplicate progmodel loading
+- Counter for received BAR frames added to /proc/.../debug/general .
+- Beacons and Probe Responces are received via data path and parsed by driver
+  from now. As result UMI_BSS_FOUND indication is not supported anymore.
+  (Requires support from MAC side.)
+- Scan phase1: channels table moved to driver (requires support from MAC).
+- Scan phase2: added dual-band scanning (requires support from MAC) and
+  results caching.
+- Disconnect logic is managed by driver from now. By disconnect indication MAC
+  just informs driver about peer disconnection. After this driver has to send
+  disconnect request on which MAC will perform its internal cleanup.
+  (Requires support from MAC side.)
+- Receiving of BARs (Block Ack Requests) by data path support added.
+- WPS support added (disabled by default, requires support from MAC).
+- bug#858 fixed - PCI device ID for fixed chip
+- Fixed packet data corruption bug in sniffer.
+- bug#746 fixed - When sending US multicast with traffic higher than 6Mbps -
+  AP get stuck
+- bug#877 fixed - Kernel Panic on Card selftest failure.
+- bug#878 fixed - SW reset support.
+- change request #928 - driver must pass to MAC BSSID of
+  the AP to connect to and not just ESSID
+- CLI changes:
+  added temporary support for dual-band scan
+  bug#884 fixed - default values for all thresholds are 200/0
+
+Version - 02.03.00.Intg1_(1.5.0), 2007-06-07
+- bug#852 fixed - some of TPC values should be interpreted as signed variables
+- hardware abstraction layer added
+- TXMM fixes
+- CLI changes:
+  bug#853fixed - changed default for RF Channel from 6 to 36
+  bug#834fixed - text for Min/Max HT rate tuned
+  bug#812fixed - Short Cyclic Prefix renamed to Short GI TX
+
+Version - 02.03.00.Intg1_(1.4.4), 2007-06-05
+- Incorrect .11n header parsing of received packet in WPA/WPA2 and A-MSDU case
+  fixed.
+- bug#815 fixed - error, upon reading and parsing the TPC part of the EEPROM
+
+Version - 02.03.00.Intg1_(1.4.3), 2007-05-28
+- MAC logger support added
+- WDS feature: conneted HOSTS accounting on STA for source packet filter
+- /proc/.../WepTxKeyIdx added for WEP configuration through /proc.
+- WEP keys can be entered though /proc in ASCII format from now. HEX format
+  is indicated by 0x prefix. (Before this - anything was treated as HEX format
+  and 0x prefix was just ignored.)
+- Cavium platform support added.
+- CLI changes:
+  bug#797 fixed - VI and VO parameters were misplaced
+  bug#805 fixed - Renamed "NonProc_Used_Key" to "WepTxKeyIdx" (Ran's request)
+
+Version - 02.03.00.Intg1_(1.4.2), 2007-05-21
+- Bug#786 fixed: regression - WEP configuration from wpa_supplicant
+  caused kernel panic. Introduced in 1.4.0.
+- Bug#781 fixed: TXMM/ADDBA deadlock in Windows driver.
+
+Version - 02.03.00.Intg1_(1.4.1), 2007-05-19
+- netif carrier disabled on connection loss (when debug mode is disabled)
+- Added filtering of forwarded broadcast/multicast packets on STA that
+  was initially sent by hosts behind that STA.
+- Bug#777 fixed: regression in connected STAs database management.
+  Find was not working well when several STAs were connected that caused
+  kernel panic. Introduced in WDS support in 1.4.0 version.
+
+Version - 02.03.00.Intg1_(1.4.0), 2007-05-15
+- Packet capture support added to Debug API.
+- Multiple cards support added. Use ENABLE_MULTI_CARD to enable
+- WDS full support added
+- SIOCGIWENCODEEXT ioctl implemented for security on AP. hostapd uses this
+  ioctl to get currect Tx group RSC that is needed for 4-Way Handshake with
+  newly connected station.
+- Bugfix for SnapGear w/ Linux-2.6: use kernel's WE version if it is greater
+  then 18 in ioctl_getrange(). The bug caused the failure in getting scan
+  results by wpa_supplicant.
+- Bug#705 fixed - MaxTxPower and updated A,B params for TPC calibration
+- Bug#662 fixed - MaxPower should be frequency dependant
+- /proc/.../MaxTxPower removed - read from EEPROM along w/ TPC from now.
+- 11i on AP bugfix - hostapd was not informed about STA disconnect.
+- Bug#751 fixed - "UMI_RSN_IE_MAX_LEN is pretty short to handle WPA+WPA2 case
+  on AP".
+
+Version - 02.02.00.Intg1_(1.3.0), 2007-05-07
+- Bug#720 fixed - ESSID size
+- Bug#633 fixed - Video and Voice was configured wrong in CLI
+- Bug#737 fixed - replay counter initialized to zero on Tx that is wrong
+  (should be initialized to 1)
+- Bugfix for security on AP: initial group key was not set on AP and thus
+  initial ping from AP was not working (relates to bug#698?)
+- Bug#735 fixed - application wasn't able to get long ESSID (32 characters)
+  with SIOCGIWESSID ioctl
+- SIOCSIWESSID handler is compatible with WE21 from now. See
+  http://lwn.net/Articles/202838 for details.
+- Counter for number of received replayed packets added.
+- From now default channel is zero and ESSID is empty, so automatic card
+  activation on ifconfig will be possible if these both are configured
+  explicitly by user.
+- Feature#740 - filter only 802.1X packets before keys are set in secure
+  associations. This prevents accident sending unencrypted packets to air.
+
+Version - 02.02.00.Intg1_(1.2.0), 2007-04-27
+- Added initial supprt for WDS: support of 4-address RX/TX
+- Ability to work with WEP using supplicant was added
+- 802.11i support for AP was added
+- Bug#701 fixed - understand 0x prefix in /proc/.../WepKeys
+- Additional fix to bug#615 - reconnect was still started when connecting
+  using /proc/.../connect
+
+Version - 02.02.00.Intg1_(1.1.2), 2007-04-25
+- Bug#695 fixed - supplicant is not notified when STA initiates disconnect
+- Bug#643 (#693) fixed - Security in Scan Results displayed as "Unknown"
+- Bug#662 fixed - MaxTxPower read out of the EEPROM - now is frequency (channel)
+  dependent
+- Bug#617 fixed - aggregation was not closed on STA disconnect
+- Bug#703 fixed - ADDBA will not be sent on non-N STAs or APs
+- Bug#673 fixed - added RX/TX counters for each QoS AC
+- Support for SnapGear w/ Linux-2.6
+- Support for BCLSockServer / BBStudio in Debug API
+
+Version - 02.02.00.Intg1_(1.1.1), 2007-04-20
+- Bug#667 fixed (security): replay counter was not increased correctly for
+  fragmented MSDUs.
+- Bug#679 fixed - HW type now is not checked for validity to support
+  different HW types automatically
+- Bug#623 fixed - Aggregation size was not changed in CLI
+- Bug#673 fixed - added RX/TX counters for each QoS AC
+- Bug#672 fixed - received packets counter was incremented on NULL packets
+
+Version - 02.02.00.Intg1_(1.1.0), 2007-04-17
+  WARNING! This version requires special support from MAC (see Feature#610).
+- Feature#610 implemented. From now MSDU fragments number and MIC failures
+  notifications are passed from MAC to driver in UMI_DATA message. MSDU
+  fragments number is needed to perform Replay Detection correctly for
+  fragmented MSDUs. MIC failures notification flag is passed to driver because
+  MIC failures has to be alarmed after Replay Detection (which is performed by
+  driver).
+- Bug#611 fixed - reconnect with supplicant and WPA/WPA2 was not working:
+  new reconnection was interpreted as secure one before 4-Way handshake.
+- Bug#622 fixed - Dongle stuck when scan is failed.
+- Bug#634 fixed - GTK (Group Transient Key) was not get properly from supplicant
+  and as result incorrect GTK was set to MAC.
+- Bug#515: TPC read from the EEPROM
+- Bug#515: MAC-address read from the EEPROM (could be overridden via
+  /proc/.../MAC)
+  Note! Beware of no address is set through /proc and EEPROM has no valid
+  MAC address (there is no EEPROM validity checks defined by EEPROM spec).
+
+Version - 02.02.00.Intg1_(1.0.3), 2007-04-11
+- Bug#614 fixed - kernel panic with wpa_supplicant.
+- Bug#615 fixed - reconnect is OFF now.
+- Bug#616 fixed - STA did not send null data packets to AP.
+- Bug#612 fixed - indication is read from PAS on dynamic params indication.
+
+Version - 02.02.00.Intg1_(1.0.2), 2007-04-05
+- WME parameters for AP added
+- 11i bugfix: proper handling unknown addr in ioctl_setencext() (bug#603)
+- 11i bugfix: replay detection was not performed for WPA TKIP group handshake,
+  as result WPA TKIP didn't work. (bug#606)
+- Added BAR counters to Debug API
+- Bugfix: Scanning with known "Wildcard_ESSID" in Active mode causes 
+  to ASSERT FAIL (bug #576)
+
+Version - 02.02.00.Intg1_(1.0.1), 2007-04-02
+- 802.11i Replay Detection bugfix - RSC data was taken incorrectly
+  from 11n frame
+- Added AP forwarding counters support to Debug API
+- MAC stats moved from /proc/.../debug/general to /proc/.../debug/mac_stats
+- Format of scan results changed - type of station and security information
+  will be printed as string (bug #565)
+
+Version - 02.02.00.Intg1_(1.0.0), 2007-04-01
+- 802.11i: Replay Detection implemented
+
+Version - 02.02.00.Intg1_(0.9.1.858), 2007-03-28
+- Bugfix: Kernel panic on scan during traffic (bugs #559 and #563)
+- Bugfix: WME parameters added: (bug #547)
+- Bugfix: STA-to-AP multicast fix (bug #544)
+- MAC xFace structures aligned and padded
+- ERROR message if MSDU length received from MAC is bigger than
+  max MSDU length  (bug #517 related)
+- BAR functionality added
+- AP forwarding TX/RX counters fix
+- classifier: structures, logic - work in progress
+
+Version - 02.02.00.Intg1_(0.9.0.829), 2007-03-22
+- WPA/WPA2 support for STA
+- UMI shared header files refactoring
+
+Version - 02.02.00.Intg1_(0.8.0.751)_2_progmdl, 2007-03-06
+- EEPROM parsing was added
+- ADDBA/DELBA support added
+- Reordering redesigned
+- Management messages serialization added
+- Reliable Multicast redesigned
+- QoS queues thresholds basic implementation
+- A-MSDU basic implementation
+
+Version - 0.6.0.657, 2007-02-16
+- driver parameters added: ForceTPC0, ForceTPC1, TPCAnt0PerFreq_A_B_2_4GHz,
+  TPCAnt0PerFreq_A_B_5GHz, TPCAnt1PerFreq_A_B_2_4GHz, TPCAnt1PerFreq_A_B_5GHz,
+  MaxTxPower, UseLongPreambleForMulticast, ShortSlotTimeOptionEnabled, STBC,
+  LMdebug
+- STA scan feature added.
+- Debug API feature added.
+- wait_event_interruptible_timeout added for kernels 2.4.
+  For all kernels that have no wait_event_interruptible_timeout
+  appropriate macro defined. Uninterruptible behavior could lead
+  to driver hang during init phase.
+- sendman_blocked_wait could be interrupted if timed-out
+  Uninterruptible behavior could lead to driver hang during
+  activate phase and data exchange with BCL server.
+
+Version - 0.5.0.507, 2007-01-25
+- Gen2 2 progmodel load, use GEN2_LOAD_2_PRGMDL compile switch to enable
+- BCL message processing under MAC exception added
+- Bugfix: TS was not reset on the STA after Connect/Reconnect events
+
+Version - 0.5.0.482, 2007-01-18
+- Minor races bugfix when working with Bcl-server. 
+- Workaround for gen2 connection establishing "unknown message" issue
+  removed: bug was fixed in MAC.
+- Gen2 parameters updated, odd parameters removed.
+
+Version - 0.4.0.385, 2006-12-19
+- Long initial ping time issue was fixed. Broadcast packets were
+  reordered that is not correct.
+- Reordering change that fixed the "STA disconnects from AP during
+  receiving traffic (overnight test failure)" issue. Before this change
+  if reordering is slower then the rate of received packets, then
+  new packets are just pushed up to OS's stack - this is not correct
+  approach. In such situation we have to purge reordering queue.
+- Workaround for gen2 connection establishing "unknown message" issue.
+
+Version - 0.4.0.344, 2006-12-12
+- RateSelection paremeter is not relevant for Gen2 - removed. 
+- The "lack of man msgs" bug on AP when several STAs disconnected
+  simultaneousely was fixed.
+- Fixed a bug with infinitely duplicating status messages when reading
+  from /proc/sys/dev/mtlk/connected on 2.4 kernels
+
+Version - 0.4.0.333, 2006-12-07
+- Extended connection status in /proc/sys/dev/mtlk/connected.
+- Reordering now works for AP forwarding.
+- ForcedHTRate configuration parameter removed since it is no longer valid.
+- Driver was ported to Philips STB810 platform.
+- Gen1 and Gen2 runtime support.
+- AP forwarding enabled by default.
+
+Version - 0.4.beta1, 2006-12-04
+- Kernel panic fixed appeared on multicast data transmission
+  to more than 1 STA when ReliableMulticast is ON.
+
+Version - 0.4.beta0, 2006-12-04
+- Kernel panic fixed appeared on MAC exception when reading
+  something from BBStudio with wireless traffic going on.
+- Races in sendmesg() that cause above MAC exception were fixed.
+- Kernel panic when Auto Aggregation is ON was fixed.
+- /proc/.../connected was not decreased on AP when STA disconnected.
+- /proc/.../connected was increased on two for STA connection.
+
+Version - 0.4.alpha5, 2006-12-01
+- All MAC events now prefixed with "MAC event" to make it
+  easily be grep-ped from else kernel messages.
+- /proc/.../mac_stats works now.
+- Kernel panic fixed when setting parameters by BBStudio
+
+Version - 0.4.alpha4, 2006-11-29
+- Fixed MAC statistics read in /proc
+- Fixed reason in STA Disconnected message
+- Added MAC event processing:
+    EVENT_APP_FATAL
+    EVENT_GENERIC_EVENT
+    EVENT_CALIBR_ALGO_FAILURE
+    EVENT_DUMMY
+- Fixed bug in AP forwarding that may lead to memory leakage
+- Fixed bug in MIBs parsing that lead to data trafic absence when
+  aggregation turned on
+
+Version - 0.4.alpha3, 2006-11-29
+- AP forwarding feature finished.
+- When Reliable Multicast is enabled IGMP Reports will neither be
+  forwarded nor transmitted to STAs that do not send IGMP Queries
+- rx_timestamp of STA updated on each received by AP packet (not only
+  NULL data packets); STA sends NULL packets only in case of data
+  trafiic absence
+- Fixed kernel panic in STA mode when sending NULL packets (appeared
+  only on OpenPC Linux 2.6)
+- Fixed kernel panic in STA mode when reconnecting (appeared only on
+  OpenPC Linux 2.6)
+- Auto Reconnect, Reliable Multicast & AP forwarding debug output moved
+  to debug levels 1-3
+
+Version - 0.4.alpha2, 2006-11-28
+- Driver on AP was stuck in endless loop if configuring
+  wrong MAC address in reordering.
+
+Version - 0.4.alpha1, 2006-11-28
+- Auto Reconnect feature was added.
+- Auto Aggregate feature was added.
+- AP forwarding feature was added (not working yet).
+- Ability to change MAC address of wlan0 interface for the OS by ifconfig
+  to support MAC Cloning was added. Note: the changed new MAC address will
+  not be propagated to WiFi MAC address that is in /proc/sys/dev/mtlk/MAC .
+- Reordering on AP in bridge mode was not working.
+
+Version - 0.3.1, 2006-11-24
+- Kernel panic bug on Tx side on SnapGear platform was fixed. The bug was
+  appeared only in sutuation when the Tx load caused packets loss.
+
+Version - 0.3.0, 2006-11-23
+- Reliable Multicast was added.
+- MAC dump files in proc/ were added.
+- Read-only "connected" sysctl was added to show the status
+  of connection for STA and number of connected STAs for AP.
+- MinHTRate, MaxHTRate MAC configuration parameters were added.
+- MAC addresses are allowed to be prefixed with 0x in configuration.
+- BCL endiannes bug was fixed.
+- MAC statistics was added (/proc/net/mtlk/mac_stats).
+- AP bridging bug was fixed, now wlan0 works in bridge mode with ethernet
+  interfaces on AP.
+
+Version - 0.2.0, 2006-11-09
+- Interface name was changed from default ethN to wlan0.
+- Tx was optimized by avoiding odd data copying by PCI i/o.
+- Fixed driver reload crash in case when there is no firmware file.
+- HiddenSSID configuration parameter added.
+- Loading of binary files for 2.4 kernels added.
+- Driver was ported to SnapGear platform.
+- Configuration parameters names were changed to be compatible with
+  old driver names. Traffic streams (aggregation), reordering and WepKeys
+  configuration changed to be more user friendly.
+
+Version - 0.1.2, 2006-10-18
+- MAC versions is printed in /proc/.../version along with driver version.
+- Crash bug on driver module reloading was fixed.
+
+
+==== MTTOOLS release notes for versions 3.1.1.3.11 and older ====
+
+Version 3.1.1.3.11, 2010-11-22
+- WLS-3181 fixed: DrvHlpr is not stopped properly
+- WLS-3175 fixed: BCL tftp_get command does not work on VB300
+- WLS-3177 fixed: DRVHLPR default WDS/LEDs compilation options
+- WLS-3136 fixed: drvhlpr application socket creation fails
+- WLS-3122 fixed: Please, upgrade vb300 toolchain and release the version
+
+Version 3.1.1.1.2, 2010-07-15
+- WLS-2872 done: add bcl_util.tcl to release package
+- WLS-2869 done: BCL Server build/release to be integrated to MTools package
+- WLS-2845 fixed: DRV & APP: Memory Alarm mechanism to be implemented
+- WLS-2826 fixed: Add GPB316 target (VB300) to supported wireless driver targets
+
+Version 3.1.1.0.7, 2010-06-29
+- WLS-2808 fixed: default for "Enable WPS LEDs" option should be - YES
+
+Version 3.1.1.0.5, 2010-06-23
+- WLS-2816 fixed: DRV: Generic Hash: allow code re-usage
+- WLS-2594 fixed: drvhlpr can´t be run with driver which was built with USE_GENL option
+- WLS-2681 fixed: Driver implementation: Private LBF to support 16 CCD values and 16 Matrix indexes
+- WLS-568 fixed: obsolete socket (PF_INET,SOCK_PACKET) usage
+
+Version 3.1.1.0.3, 2010-06-10
+- WLS-2739 fixed: Distributed IRB is merged from REL_2.3.15 (MBSSID development branch) to trunk
+- WLS-2727 fixed: ARX driver/mttools to be added to release system
+
+Version 3.1.0.9.0, 2010-05-20
+- WLS-2480 implemented: configuration for LEDs and WPS components can can be enabled/disabled using "wps_script_path" parameter
+- WLS-2480 partially implemented: LEDs and WPS components added to build system as features 
+- WLS-2650 fixed: Logger printouts cause a lot of changes due to continuous SID changes in SVN
+
+Version 3.1.0.1.2, 2010-03-22
+- WLS-2571 fixed: Can't configure manually matrix and CDD values through the sRFMgmtDefData
+
+Version 3.1.0.1.1, 2010-03-18
+- WLS-2535 fixed: LBF: Driver/App implementation
+- WLS-2492 fixed: kernel's gconfig/menuconfig usage for MTLK components build
+
+Version 3.1.0.0.1, 2010-02-28
+- WLS-1784 fixed: Application layer memory leaks/overwrites detection system requires
+- WLS-2367 fixed: Convenient application logging mechanism is required
+- Additional fix for graceful exit on SIGTERM (signal-processing thread creation)
+- WLS-1784 phase 4: Application layer memory leaks/overwrites detection system requires (graceful SIGTERM handling support)
+- WLS-1784 phase 3: Application layer memory leaks/overwrites detection system requires (cleanup)
+- WLS-1784 phase 2: Application layer memory leaks/overwrites detection system requires (basic MTLK CLI integration)
+- WLS-1773 additional fix: Antenna Selection Driver merge to 2.3.10
+- WLS-2133 fixed: Fix WLAN LEDs to be like in VB 2.3.5: Turn on LEDs as soon as interface is up
+- WLS-2152 implemented: move WPS thread to be component of drvhlpr
+- WLS-2114 implemented: move led handling application to be a component in the drvhlpr
+- WLS-2100 implemented: drvhlpr change to control LEDs behaviour via conf file
+
+Version - 2.5.2, 2008-09-10
+- WLS-1311 fixed: drvhlpr should handle wps events for Dongle also
+- WLS-1845 fixed: drvhlpr: Antenna Selection parameters support
+- WLS-1784 fixed: Application layer memory leaks/overwrites detection system requires
+- WLS-1773 fixed: Antenna Selection component introduced
+- WLS-1773 partally fixed: Antenna Selection merge to 2.3.10 (IRB introduced)
+- WLS-1608 additional fix: config eth1 only if exist.
+
+Version - 2.5.1, 2008-06-01
+- WLS-1608 regression fixed: drvhlpr ERROR on sending fake ARP packets
+- DATAEX protocol version changed
+- WLS-1635 partially implemented: updated usage information, minor typo fixes and clean up in log messages 
+
+Version - 2.5.0, 2008-05-25
+- a fix to WLS-1051 fixed. Eliminate drvhlpr Segmentation fault on non-dual
+  band.
+- WLS-1608 fixed: drvhlpr ERROR on sending fake ARP packets
+
+Version - 2.4.0, 2008-05-18
+- LEDs change request open mode and wep:
+	wep led behaviour is as open mode.
+	for open mode/wep, after WPS complete solid led-on 2 min.
+	blink error only in overlap error, other errors has led on.
+- AP set WLS led when link is up 
+- WLS-1580 partially fixed (drvhlpr error fix): dvhlpr errors after restore AP/STA defaults and STAs can't connect to AP
+
+Version - 2.3.3, 2009-05-13
+- drvhlpr input (command line and file names/paths) are now read from conf file
+- WLS-1051 fixed: memory leak on dual-band STA
+
+Version - 2.3.2, 2009-02-02
+- WLS-772: add a fix to "Memory leaks in AP" bug.
+
+Version - 2.3.1, 2009-01-27
+- fix WLS-873: drvhlpr should close HW.ini
+
+Version - 2.3.0, 2008-12-25
+- disable the call to wpa cli in AP.
+- another fix to WLS-736: dhcp should not be called during WPS process.
+  Work with the wpa cli in order to detect data link (wpa completed).
+- another fix to WLS-757: support WPS crash in terms of LEDs indication.
+  Close wps file also if miss signal on wps application close/crash, and more.
+- fix WLS-757: support WPS srash in terms of LEDs indication
+- implement WLS-736: dhcp should not be called during WPS process.
+- implement WLS-687: Add MAC capability to use gpio as output, for switch reset on Umedia board. The change is to supoprt new MAC, allow switch reset gpio activated by iwpriv (need new firmware).
+- fix WLS-678: drvhlpr doesn't report conenction up/down events to DHCP
+
+Version - 2.2.0, 2008-09-23
+- WLS-220 implemented: now tool is a part of mttools package.
+  Also it can be built separately using "make drvhlpr".
+- implement WLS 422: Driver helper should notify via script when WLS link status is changed.
+- eliminate setting to idle of the wps state if got error while open event file (pipe file).
+  The file is deleted in some cases and created again.
+- change interface name to local parameter (and its name)
+
+Version - 2.1.0, 2008-08-22
+- WLS-303 fixed: drvhlpr/mtdump wrong print format in driver_api.c
+- WLS-347 implemented: mtdump/drvhlpr should not use single WE ioctl to
+  SET/GET data
+
+Version - 2.0.0, 2008-07-30
+- receiving messages over Generic Netlink is supported, used
+  for Infineon AR9 (amazon) platform
+- new command (NL_DRV_CMD_MAN_FRAME) is added and ignored
+
+Version - 1.2.13, 2008-08-14
+- Change the WPS status to Idle when get USR1 signal (when close WPS fifo file)
+
+Version - 1.2.12, 2008-08-12
+- add support of new WPS error (invalid pin)
+- change the blink rate code for WPS activation
+- passing wlan0 interface to the drvhlpr for interface validation upon Init.
+  fix wrong definition and code cleanup.
+- add signals handler to work with modified WPS (close/reopen WPS files)
+
+Version - 1.2.11, 2008-07-07
+- rollback r4688: drvhlpr changed to work with ioctl of iwpriv gpio API
+  (the mtpriv command now work with packed one param, baseb and value)
+
+Version - 1.2.10, 2008-07-03
+- clean hung processes
+
+Version - 1.2.9, 2008-07-01
+- The drvhlpr is now reporting the events of the WPS to scripts
+
+Version - 1.2.8, 2008-06-30
+- delete unused parameter
+
+Version - 1.2.7, 2008-06-25
+- change leds control ioctl. It is now use the same as the iwpriv API use
+
+Version - 1.2.6, 2008-06-17
+- eliminate the use of wlan0.conf when possible:
+  read the SW Watchdog configuration from HW.ini, if it is not there read from wlan0.conf
+
+Version - 1.2.5, 2008-06-16
+- fix WLS-50-53: security leds related fix
+
+Version - 1.2.4, 2008-06-13
+- fix WLS-47: link led in multi-link mode
+
+Version - 1.2.3, 2008-06-12
+- fix drvhlpr to support two bands in baseband mode
+- fix WLS-43: link led problem in drvhlpr
+
+Version - 1.2.2, 2008-06-11
+- adding support to disable/enable WPS by loop over file open for LEDs events
+
+Version - 1.2.1, 2008-06-05
+- Minor LED behavior fixes
+
+Version - 1.2.0, 2008-06-05
+- adding security leds handling. Gets events also from WPS application.
+  Adding connectivity leds support through baseband.
+  Leds configuration is read from HW.ini file, other configurations from wlan0.conf.
+
+Version - 1.1.0, 2008-05-29
+- Added verbose error reporting to ioctl data exchange calls.
+
+Version - 1.0.2, 2008-05-23
+- bug #2735 fixed - search for interface accidently put in the while(1).
+  added close to the socket.
+
+Version - 1.0.1, 2008-03-26
+- Adding connectivity led support for Star
+
+Version - 1.0.0, 2008-02-28
+- Driver Helper utility created. Supported features are L2NAT and Watchdog
+
+==== RTLOGGER release notes for versions 3.1.1.4.0 and older ====
+
+Version 3.1.1.4.0, 2011-01-03
+- WLS-3310 part: Prebuilt Windows binaries added to release package
+- WLS-3173 done: Changes in Log-Prep for new FW Logger module and for the Driver Logger module
+
+Version 3.1.1.1.0, 2010-07-01
+- logprep: fix build error for MTCFG_RT_LOGGER_FUNCTIONS
+- logdrv fixed: osal must be initialized/cleaned
+- logdrv fix compile time errors
+- logdrv use MTLK_COPYRIGHT as copyright source
+
+Version 1.0.1 2009-06-19
+- increase log buffer size to 512 bytes (wls drv info is bigger than 256)
+- poll handler fixed
+- native Linux wait implemented
+- fix: drop log messages bigger then max buf size
+- revert to the original version of cdev read - current was broken
+- fix osdep header
+- WLS-1347 implemented: logger driver must support cdebug/rdebug configuration
+- use default remote debug level of 9

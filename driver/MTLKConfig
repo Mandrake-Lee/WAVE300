@@ -1,0 +1,507 @@
+menu "Metalink WLAN+ configuration"
+
+choice
+	prompt "Target platform"
+	default PLATFORM_DONGLE
+
+config PLATFORM_DONGLE
+	bool "Dongle"
+	help
+	  Dongle 2.6 platform.
+
+config PLATFORM_UGW52_GRX288_NAND
+	bool "UGW5.2 for GRX288 (RT-288) with NAND flash"
+	help
+	  Lantiq GRX288 UGW-5.2 platform with NAND flash.
+
+config PLATFORM_UGW52_VRX288
+	bool "UGW5.2 for VRX288"
+	help
+	  Lantiq VRX288 UGW-5.2 platform.
+
+config PLATFORM_UGW52_GW188
+	bool "UGW5.2 for GW188"
+	help
+	  Lantiq GW188 UGW-5.2 platform.
+
+config PLATFORM_UGW52_ARX188
+	bool "UGW5.2 for ARX188"
+	help
+	  Lantiq ARX188 UGW-5.2 platform.
+
+config PLATFORM_UGW52_GRX168
+	bool "UGW5.2 for GRX168 (VB300)"
+	help
+	  Lantiq GRX168 UGW-5.2 platform.
+
+config PLATFORM_VB300
+	bool "VB300"
+	help
+	  VB300 platform.
+
+config PLATFORM_GEN35FPGA
+	bool "Gen 3.5 FPGA"
+	help
+	  Gen 3.5 FPGA platform.
+
+config PLATFORM_UGW51_VRX288_NAND
+	bool "UGW5.1 for VRX288 with NAND flash"
+	help
+	  Lantiq VRX288 UGW-5.1 platform with NAND flash.
+
+config PLATFORM_UGW51_GRX288_NAND
+	bool "UGW5.1 for GRX288 (RT-288) with NAND flash"
+	help
+	  Lantiq GRX288 UGW-5.1 platform with NAND flash.
+
+config PLATFORM_UGW51_VRX288
+	bool "UGW5.1 for VRX288"
+	help
+	  Lantiq VRX288 UGW-5.1 platform.
+
+config PLATFORM_UGW51_GW188
+	bool "UGW5.1 for GW188"
+	help
+	  Lantiq GW188 UGW-5.1 platform.
+
+config PLATFORM_UGW51_ARX188
+	bool "UGW5.1 for ARX188"
+	help
+	  Lantiq ARX188 UGW-5.1 platform.
+
+config PLATFORM_UGW51_GRX168
+	bool "UGW5.1 for GRX168 (VB300)"
+	help
+	  Lantiq GRX168 UGW-5.1 platform.
+
+config PLATFORM_STAR4MB
+	bool "STAR-4MB"
+	help
+	  Star 4Mb platform.
+
+config PLATFORM_PC_KERN26
+	bool "PC (kernel 2.6)"
+	help
+	  A PC distro with kernel 2.6.x.
+
+config PLATFORM_AMCC405EX
+	bool "AMCC405EX"
+	help
+	  AMCC405EX platform.
+
+config PLATFORM_AMCC405_DECA
+	bool "AMCC405 DECA"
+	help
+	  AMCC405 DECA platform.
+
+endchoice
+
+config STAR4MB_NO_DSPAD
+	bool "Star 4Mb with no DSPAD"
+	depends on PLATFORM_STAR4MB
+	default n
+	---help---
+	  Star platform compilation with no DSPAD supported.
+
+config COMPONENTS
+	bool "Components to build" if NO_COMPONENTS_SELECT
+	default !NO_COMPONENTS_SELECT
+	help
+	  Provides the way to choose component(s) for build.
+
+config LIN_DRV
+	bool "WLAN driver for Linux"
+	depends on COMPONENTS
+	default y
+	---help---
+	  Build WLAN driver for Linux.
+
+config LIN_MTTOOLS
+	bool "MTTools for Linux"
+	depends on COMPONENTS
+	default y if DEVELOPMENT_PLATFORM
+	default n
+	---help---
+	  Build MTTools for Linux (drvhlpr, mtdump, mtlk_cli, BclSockServer).
+
+config LIN_RTLOG_COMPONENTS
+	bool "RT Logger Components for Linux"
+	depends on COMPONENTS
+	default y
+	---help---
+	  Build RT Logger Components for Linux: logserver, logdriver.
+
+config LIN_DUT
+	bool "DUT components for Linux"
+	depends on COMPONENTS
+	default n
+	---help---
+	  Build DUT components for Linux.
+
+config DUT_FW_IN_KERNEL
+	bool "Use kernel built-in DUT firmware"
+	depends on LIN_DUT
+	default y if PLATFORM_AMCC405_DECA
+	default n
+	---help---
+	  Whether to use DUT firmware from the kernel or from the file system
+
+config LIN_HELPER_TOOLS
+	bool "Helper modules and applications for Linux"
+	depends on COMPONENTS
+	default n
+	---help---
+	  Build helper components for Linux, such as memory leak tracking utilities.
+
+choice
+    prompt "HW bus supported by driver" if LIN_DRV
+    default BUS_AHB if PLATFORM_GEN35FPGA
+    default BUS_PCI_PCIE
+    help
+      Provides the way to choose MTLK HW bus to be supported by Linux driver.
+
+config BUS_PCI_PCIE
+        bool "PCI/PCIE"
+        help
+          PCI/PCI Express bus.
+
+config BUS_AHB
+        bool "AHB"
+        help
+          AHB bus.
+endchoice
+
+config LINDRV_HW
+	bool "HW types supported by driver" if LIN_DRV
+	default LIN_DRV
+	help
+	  Provides the way to choose MTLK HW type to be supported by Linux driver.
+
+config LINDRV_HW_PCIE
+	bool "Gen3 PCIE"
+	depends on BUS_PCI_PCIE
+        depends on LINDRV_HW
+	default y if (PLATFORM_DONGLE || PLATFORM_PC_KERN26 || PLATFORM_AMCC405_DECA)
+	default y if (PLATFORM_UGW51_VRX288_NAND || PLATFORM_UGW51_VRX288 || PLATFORM_UGW51_ARX188 || PLATFORM_UGW51_GRX168 || PLATFORM_UGW51_GRX288_NAND || PLATFORM_UGW52_GRX288_NAND || PLATFORM_UGW52_VRX288 || PLATFORM_UGW52_GW188 || PLATFORM_UGW52_ARX188 || PLATFORM_UGW52_GRX168)
+	default y if PLATFORM_LQ_UGW52_VB300
+	default y if PLATFORM_AMCC405_DECA
+	default n
+	---help---
+	  Gen3 PCIE to be supported by WLAN Linux Driver.
+
+config LINDRV_HW_PCIG3
+	bool "Gen3 PCI"
+	depends on BUS_PCI_PCIE
+        depends on LINDRV_HW
+	default y if (PLATFORM_DONGLE || PLATFORM_PC_KERN26 || PLATFORM_VB300)
+	default y if (PLATFORM_UGW51_VRX288_NAND || PLATFORM_UGW51_VRX288 || PLATFORM_UGW51_ARX188 || PLATFORM_UGW51_GRX168 || PLATFORM_UGW51_GRX288_NAND || PLATFORM_UGW52_GRX288_NAND || PLATFORM_UGW51_GW188 || PLATFORM_UGW52_VRX288 || PLATFORM_UGW52_GW188 || PLATFORM_UGW52_ARX188 || PLATFORM_UGW52_GRX168)
+	default y if PLATFORM_LQ_UGW52_VB300
+	default n
+	---help---
+	  Gen3 PCI to be supported by WLAN Linux Driver.
+
+config LINDRV_HW_AHBG35
+	bool "Gen3.5 AHB"
+	depends on BUS_AHB
+        depends on LINDRV_HW
+	default y if PLATFORM_GEN35FPGA
+	default n
+	---help---
+	  Gen3.5 AHB to be supported by WLAN Linux Driver.
+
+menu "Features"
+
+config RF_MANAGEMENT_MTLK
+	bool "Lantiq RF MGMT"
+	default y
+	---help---
+	  Lantiq RF management extensions
+
+config HOSTAP_06
+	bool "hostapd 0.6 support"
+	default n
+	---help---
+	  Support of hostapd v0.6.
+	  TODO: To be explained.
+
+config WPS_LEDS_ENABLE
+	bool "Enable WPS LEDs"
+	depends on LIN_MTTOOLS
+	default y
+	---help---
+	  Enables WPS and LEDs in driver helper.
+
+config FORCE_USE_GENL_ENABLE
+	bool "Use generic netlink socket"
+	depends on !USE_GENL_DEF
+	default n
+	---help---
+	  Use generic netlink socket instead of newly allocated one.
+
+config FORCE_USE_GENL_DISABLE
+	bool "Don't use generic netlink socket"
+	depends on USE_GENL_DEF
+	default n
+	---help---
+	  Use newly allocated netlink socket instead of generic one.
+	  
+config IPV4_ONLY_CLI
+	bool "IPV4 only CLI server"
+	depends on LIN_MTTOOLS
+	default y if (PLATFORM_VB300)
+	default n
+	---help---
+	  Restricts CLI server to IPV4 only.
+	  This option must not be selected for most platforms.
+	  However, it can help on platforms where listening socket cannot be 
+	  created using for AF_UNSPEC (i.e. either IPV4 and APV6) address family
+	  and Driver Helper fails to start with an error on CREATE_SOCKET step.
+
+config USE_INTERRUPT_POLLING
+	bool "Use interrupt polling"
+	depends on LIN_DRV
+	default y if PLATFORM_AMCC405_DECA
+	default n
+	---help---
+	  Turns interrupt polling on. 
+	  This feature hits performance, therefore it is for debuggigng purposes 
+	  mainly and must not be used in production without very special reasons.
+ 
+endmenu
+
+menu "Debug extentions"
+
+config DEBUG
+	bool "General debug extentions"
+	default y if DEVELOPMENT_PLATFORM
+	default n
+	---help---
+	  Enable run-time checks, memory access validation and extended printouts.
+
+config ENABLE_OBJPOOL
+	bool "Object tracking extensions"
+	default y if DEBUG
+	default n
+	---help---
+	  Defines whether to compile OBJPOOL.
+
+config ENABLE_NBUF_OBJPOOL
+	depends on ENABLE_OBJPOOL
+	bool "Net Buffer Object tracking extensions"
+	default n
+	---help---
+	  Defines whether to enable Network Buffer monitoring by OBJPOOL.
+
+config TXMM_HISTORY_LENGTH
+	int "TXMM history length"
+	range 0 20
+	default 3 if DEBUG
+	default 0
+	---help---
+	  Advanced TXMM messages history length (0-20).
+	  0 to disable messages history.
+
+config IRB_DEBUG
+	bool "IRB debug extensions"
+	default n
+	---help---
+	  Defines whether to compile IRB debuggigng tools
+	  like IRB pinger.
+
+config CPU_STAT
+	bool "Profiling tools"
+	default n
+	---help---
+	  Include profiling tools AKA CPU Stat.
+
+config BENCHMARK_TOOLS
+	bool
+	default y if CPU_STAT
+	default y if IRB_DEBUG
+	default n
+
+config IRB_BENCHMARKING
+	bool
+	default y if IRB_DEBUG
+	default n
+
+config CCR_DEBUG
+	bool "HW access tracing"
+	default n
+	---help---
+	  Include detailed printouts for shared memory access by the driver.
+	  This option is useful for startup sequnce debugging, in other cases
+	  it produces too much printouts and makes driver virtually unusable.
+
+config FW_WRITE_VALIDATION
+	bool "Validation of FW download"
+	default n
+	---help---
+	  Include validation of written FW chunks.
+	  This option is useful when there is suspicion that there is something wrong
+	  with FW download.
+
+config TSF_TIMER_TIMESTAMPS_IN_DEBUG_PRINTOUTS
+	depends on LINDRV_HW_PCIG3 || LINDRV_HW_PCIE
+	bool "Add TSF timer timestamps to debug printouts"
+	default n
+	---help---
+	  TSF timestamp will be printed out with each debug message as a second timestamp.
+	  TSF timer timestamps have microsecond resolution.
+
+config PER_PACKET_STATS
+	bool "Per-Packet Statistics"
+	default n
+	---help---
+	  Per-packet statistics (timestamps, counters, info etc.)
+
+config PRINT_PER_PACKET_STATS
+  depends on  PER_PACKET_STATS
+	bool "Log per-packet statistics"
+  default n
+  ---help---
+    Per-packet statistics will be logged.
+
+config TSF_TIMER_TIMESTAMPS_IN_PER_PACKET_STATS
+	depends on PER_PACKET_STATS
+	bool "Use TSF timestamps in per-packet statistics"
+	default n
+	---help---
+	  TSF timestamps will be added to per-packet statistics.
+	  TSF timer timestamps have microsecond resolution.
+
+config NO_FW_RESET_ON_STOP
+	bool "Do not reset firmware on driver stop/unload"
+	default y if DEBUG
+	default n
+	---help---
+	  May be useful during firmware debugging.
+	
+config PCIE_TUNING
+	bool "PCIe fine tuning tools" if LINDRV_HW_PCIE
+	default n
+	---help---
+	  Include instrumentation for fine tuning PCIE core settings.
+
+choice
+	prompt "Runtime logger support"
+	default RT_LOGGER_FUNCTIONS
+
+config RT_LOGGER_FUNCTIONS
+	bool "Log directives as external functions"
+	---help---
+	  Making log directives external functions may decrease performance but makes image size smaller.
+
+config RT_LOGGER_INLINES
+	bool "Log directives as inline functions"
+	---help---
+	  Making log directives inline functions may increase performance but makes image size bigger.
+
+endchoice
+
+menu "Log level"
+
+config MAX_DLEVEL
+	int "Log level" if !SILENT
+	range 0 9
+	default 2 if DEBUG
+	default 1
+	---help---
+	  Log level (0-9)
+
+config SILENT
+	bool "Silent build (No debug printouts)"
+	---help---
+	  Disable driver printouts.
+
+endmenu
+
+endmenu
+
+config USE_GENL_DEF
+	bool
+	default y if PLATFORM_UGW51_VRX288_NAND
+	default y if PLATFORM_UGW51_VRX288
+	default y if PLATFORM_UGW51_ARX188
+	default y if PLATFORM_UGW51_GRX168
+	default y if PLATFORM_UGW51_GRX288_NAND
+	default y if PLATFORM_UGW52_GRX288_NAND
+	default y if PLATFORM_UGW52_VRX288
+	default y if PLATFORM_UGW52_GW188
+	default y if PLATFORM_UGW52_ARX188
+	default y if PLATFORM_UGW52_GRX168
+	default y if PLATFORM_UGW51_GW188
+	default y if PLATFORM_LQ_UGW52_VB300
+	default n
+	
+config USE_GENL
+	bool
+	default y if FORCE_USE_GENL_ENABLE
+	default n if FORCE_USE_GENL_DISABLE
+	default USE_GENL_DEF
+
+config TSF_TIMER_ACCESS_ENABLED
+	bool
+	default y if TSF_TIMER_TIMESTAMPS_IN_DEBUG_PRINTOUTS
+	default y if TSF_TIMER_TIMESTAMPS_IN_PER_PACKET_STATS
+	default n
+
+config DEVELOPMENT_PLATFORM
+	bool
+	default y if PLATFORM_DONGLE
+	default y if PLATFORM_UGW51_VRX288_NAND
+	default y if PLATFORM_UGW51_GRX288_NAND
+	default y if PLATFORM_UGW52_GRX288_NAND
+	default y if PLATFORM_UGW52_VRX288
+	default y if PLATFORM_UGW52_GW188
+	default y if PLATFORM_UGW52_ARX188
+	default y if PLATFORM_UGW52_GRX168
+	default y if PLATFORM_GEN35FPGA
+	default n
+
+config ENVIRONMENT_NAME
+	string
+	default "dongle-linux26" if PLATFORM_DONGLE
+	default "x86-linux26" if PLATFORM_PC_KERN26
+	default "star910x-4mb-linux26" if PLATFORM_STAR4MB
+	default "ugw5.1-vrx288-nand" if PLATFORM_UGW51_VRX288_NAND
+	default "ugw5.1-vrx288" if PLATFORM_UGW51_VRX288
+	default "ugw5.1-gw188" if PLATFORM_UGW51_GW188
+	default "ugw5.1-arx188" if PLATFORM_UGW51_ARX188
+	default "ugw5.1-grx168" if PLATFORM_UGW51_GRX168
+	default "ugw5.1-grx288-nand" if PLATFORM_UGW51_GRX288_NAND
+	default "ugw5.2-grx288-nand" if PLATFORM_UGW52_GRX288_NAND
+	default "ugw5.2-vrx288-nand" if PLATFORM_UGW52_VRX288
+	default "ugw5.2-gw188" if PLATFORM_UGW52_GW188
+	default "ugw5.2-arx188" if PLATFORM_UGW52_ARX188
+	default "ugw5.2-grx168-vb" if PLATFORM_UGW52_GRX168
+	default "ppc405-linux26" if PLATFORM_AMCC405EX
+	default "deca-linux26" if PLATFORM_AMCC405_DECA
+	default "vb300-linux26" if PLATFORM_VB300
+	default "ugw5.2-vb300-linux26" if PLATFORM_LQ_UGW52_VB300
+	default "gen35-fpga-linux26" if PLATFORM_GEN35FPGA
+
+config HOST_TYPE
+	string
+	default "arm-linux" if PLATFORM_DONGLE
+	default "x86-linux" if PLATFORM_PC_KERN26
+	default "arm-linux" if PLATFORM_STAR4MB
+	default "mips-linux" if PLATFORM_UGW51_VRX288_NAND
+	default "mips-linux" if PLATFORM_UGW51_VRX288
+	default "mips-linux" if PLATFORM_UGW51_GW188
+	default "mips-linux" if PLATFORM_UGW51_ARX188
+	default "mips-linux" if PLATFORM_UGW51_GRX168
+	default "mips-linux" if PLATFORM_UGW51_GRX288_NAND
+	default "mips-linux" if PLATFORM_UGW52_GRX288_NAND
+	default "mips-linux" if PLATFORM_UGW52_VRX288
+	default "mips-linux" if PLATFORM_UGW52_ARX188
+	default "mips-linux" if PLATFORM_UGW52_GW188
+	default "mips-linux" if PLATFORM_UGW52_GRX168
+	default "powerpc-linux" if PLATFORM_AMCC405EX
+	default "powerpc-greenwave-linux-gnu" if PLATFORM_AMCC405_DECA
+	default "mips-linux" if PLATFORM_VB300
+	default "mips-linux" if PLATFORM_LQ_UGW52_VB300
+	default "mips-linux" if PLATFORM_GEN35FPGA
+
+endmenu
+

@@ -1,0 +1,47 @@
+# $Id: Makefile.am.target_apps 11884 2011-11-01 19:34:28Z fleytman $
+
+include $(top_srcdir)/Makefile.am.common
+
+AM_CFLAGS=$(MTLK_COMMON_C_FLAGS)
+AM_CXXFLAGS=$(MTLK_COMMON_CXX_FLAGS)
+AM_CPPFLAGS=$(MTLK_COMMON_CPP_FLAGS) -I$(rtlogger_shared_srcdir)
+AM_LDFLAGS=$(MTLK_COMMON_LD_FLAGS)
+
+.PHONY: always
+.PRECIOUS: app_info.c %app_info.c
+
+%app_toolchain_info: %app_info.c
+	@echo Generating app_toolchain_info...
+	@($(TOOLCHAIN_INFO_FILTER_CMD)) < $< > $@
+
+%app_info.c: always
+	@echo Generating app_info.c...
+	@echo "const char *mtlk_app_info[] = {" > $@.new
+	@echo -n "  \"CONFIG=" >> $@.new
+	@echo -n "$(MTLK_COMPRESSED_CONFIG)" >> $@.new
+	@echo "\"," >> $@.new
+	@echo "  \"TOOLCHAIN_PATH=@APP_TOOLCHAIN_PATH@\"," >> $@.new
+	@echo "  \"CFLAGS=$(subst \",',$(CFLAGS))\"," >> $@.new
+	@echo "@CUSTOM_APP_ENV_INFO@" | awk '{for (i=1; i<=NF; i++){ print "  \"" $$i "\","; }}' >> $@.new
+	@echo "  \"HOSTNAME=$(HOSTNAME)\"," >> $@.new
+	@echo "  (const char *)0" >> $@.new
+	@echo "};" >> $@.new
+	@echo "" >> $@.new
+	@diff -q $@.new $@ >/dev/null 2>&1 || cp -f $@.new $@
+	@rm -f $@.new
+
+app_info.c: temp_app_info.c
+	@diff -q temp_app_info.c app_info.c >/dev/null 2>&1 || $(rebase_copy_cmd) temp_app_info.c app_info.c
+
+app_toolchain_info: temp_app_toolchain_info
+	@diff -q temp_app_toolchain_info app_toolchain_info >/dev/null 2>&1 || mv -f temp_app_toolchain_info app_toolchain_info
+
+clean-local:
+	rm -rf ./.logprep_ts
+	rm -f loggroups.h logmacros.h logmacros.c \
+  $(firstword $(logger_origin_name) UNKNOWN_ORIGIN).scd \
+  app_info.c temp_app_info.c \
+  app_toolchain_info temp_app_toolchain_info
+	$(clean_local_hook)
+
+

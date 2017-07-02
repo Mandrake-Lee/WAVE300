@@ -1,0 +1,31 @@
+# $Id: Makefile.am.kbuild 11047 2011-04-24 06:58:59Z dmitryf $
+
+include $(abs_top_srcdir)/Makefile.am.common
+
+EXTRA_CFLAGS+=$(MTLK_COMMON_CPP_FLAGS) $(MTLK_COMMON_KERNEL_C_FLAGS)
+
+.PHONY: always
+.PRECIOUS: %drv_info.c
+
+%drv_info.c: always
+	@echo Generating drv_info.c...
+	@mkdir -p `dirname $@`
+	@echo "const char *mtlk_drv_info[] = {" > $@.new
+	@echo -n "  \"CONFIG=" >> $@.new
+	@echo -n "$(MTLK_COMPRESSED_CONFIG)" >> $@.new
+	@echo "\"," >> $@.new
+	@echo "  \"CFLAGS=$(subst \",',$(CFLAGS))\"," >> $@.new
+	@echo "  \"MTLK_KERNEL_CFLAGS=$(subst \",',$(MTLK_KERNEL_CFLAGS))\"," >> $@.new
+	@echo "  \"KERNELDIR=$(KERNELDIR)\"," >> $@.new
+	@echo "  \"CROSS_COMPILE=$(CROSS_COMPILE)\"," >> $@.new
+	@echo "  \"HOSTNAME=$(HOSTNAME)\"," >> $@.new
+ifneq ($(CUSTOM_DRV_ENV_INFO), )
+	@echo "$(CUSTOM_DRV_ENV_INFO)" | awk '{for (i=1; i<=NF; i++){ print "  \"" $$i "\","; }}' >> $@.new
+endif
+	@echo "  (const char *)0" >> $@.new
+	@echo "};" >> $@.new
+	@echo "" >> $@.new
+	@diff -q $@.new $@ >/dev/null 2>&1 || cp -f $@.new $@
+	@rm -f $@.new
+	@echo Generating drv_toolchain_info...
+	@cat $@ | $(TOOLCHAIN_INFO_FILTER_CMD) > $(abs_builddir)/drv_toolchain_info

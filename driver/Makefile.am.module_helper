@@ -1,0 +1,33 @@
+# $Id: Makefile.am.module_helper 11328 2011-06-30 11:36:06Z fleytman $
+
+.PRECIOUS: $(abs_builddir)%.c
+
+# Rule for repository sources
+$(abs_builddir)%.c:: $(abs_top_srcdir)%.c
+	@mkdir -p `dirname $@`
+	@ln -s $< $@
+
+ifeq ($(mtlk_build_kernel_library),y)
+ binary_name := driver_lib
+ orig_list_var := lib-y
+else
+ binary_name := $(basename $(notdir $(obj-m) ))
+ orig_list_var := $(binary_name)-objs
+endif
+
+orig_list := drv_info.o $($(orig_list_var))
+
+ifeq ($(CONFIG_RT_LOGGER_FUNCTIONS),y)
+  orig_list += $(rtlogger_shared_builddir)/logmacro_database.o
+endif
+
+rebased_list := $(abspath $(addprefix $(abs_srcdir)/, $(orig_list)))
+rebased_list := $(subst $(abspath $(abs_top_srcdir))/,, $(rebased_list) )
+
+$(orig_list_var) := $(rebased_list) $($(binary_name)-libs)
+
+
+$(abs_builddir)$(filter %logmacro_database.o, $($(orig_list_var))): \
+    $(addprefix $(abs_builddir), $(filter-out %logmacro_database.o, $($(orig_list_var))))
+
+EXTRA_CFLAGS := -I$(abs_builddir) -I$(abs_srcdir) $(EXTRA_CFLAGS) $(MTLK_KERNEL_CFLAGS)

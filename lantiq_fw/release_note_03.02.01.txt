@@ -1,0 +1,54 @@
+ #########################################################
+  Date: 15 Feb 12
+  Combined version: 03.02.01.57
+  Based on version: 03.02.01.56
+  Version Path: G:\ CombinedVersions\ 0-WLS_Versions\ Integration\ 03.02.01\ 03.02.01.57
+  Author: valdman
+ #########################################################
+
+  Version contains:
+	 FW:		FW_3.2.1_r5233
+	 Driver:	03.02.01.01.43.12630
+	 PROGMODEL_VERSION_wave300: 11592
+	 PROGMODEL_VERSION_wave400: 1443
+	 WLS_ENV:	integration_wave_3.2.1
+	 SDK_TAG:	built_ugw_5.1.1_20110917T040609
+
+  Details:
+
+ #########################################################
+  Date: 15 Feb 12
+  Combined version: 03.02.01.57_Dev
+  Based on version: 03.02.01.56
+  Version Path: G:\ CombinedVersions\ 0-WLS_Versions\ Development\ 03.02.01\ 03.02.01.57_Dev
+  Author: valdman
+ #########################################################
+
+  Version contains:
+	 FW:		FW_3.2.1_r5233
+	 Driver:	03.02.01.01.43.12630
+	 PROGMODEL_VERSION_wave300: 11592
+	 PROGMODEL_VERSION_wave400: 1443
+	 WLS_ENV:	integration_wave_3.2.1
+	 SDK_TAG:	built_ugw_5.1.1_20110917T040609
+
+  Details:
+
+   FW:
+	 URL: http://narnia.tlv.lantiq.com/svn/software/WL3/branches/FW_3.2.1/firmware/MacHostShared/header@ 5193
+	 --fix task r5231 to reset retry counters only when FSDU is taken from queue
+	 --reset FSDU's retry counters when getting next-next FSDU
+	 --remove probe response logs
+	 --change reason code in disassociate request send during disconnect to unspecified
+	 --fixing bug 1131
+	 --fix bug 1131
+	 -- WAVE300_SW-1482 - fix backward compatibility with 3.1.0 of Lantiq's vendor IE.
+	 --add log on disconnect request with MAC address
+	 --one more correction in ACK outcomes
+	 --use correct FSR in ACK/NACK outcomes, use corerct rate for SIFS
+	 --use accurate rate to be use when retrieving TTCS
+	 --add statistic on LBF probing and temporary assert to ensure that implicit LBF isn't enabled
+	 --compile out disconnection on consecutive NACKs
+	 --update capabilities field in beacon template
+
+
