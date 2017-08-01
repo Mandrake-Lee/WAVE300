@@ -1,0 +1,117 @@
+﻿============================================================
+ Lantiq Wave300 - Wireless Driver & Tools – Development Kit
+============================================================
+REVISION
+01	2017-08-01	First issue by Mandrake
+
+
+FOREWORD
+============================================================
+The information contained in this file have been deducted from
+the sources; no contact at all with original authors.
+
+The code and information are released “as is”, with no guarantees.
+
+Also the code is released with Dual BSD/GPL license although 
+this original statement is missing in the original tarball.
+
+However, the dual license has been found in previous tarballs thus
+it sounds logical that the license must be kept throughout all
+evolutions of the sources.
+
+SCOPE
+============================================================
+This document are instructions in order to setup and run
+the Lantiq Wave300 development kit that includes drivers and misc
+tools.
+
+
+INTRODUCTION
+============================================================
+Base sources are those of wave300-3.2.1.1.48.tar.gz
+
+Code has been up-ported to Linux 4.4 whenever needed, mostly 
+with the syntax.
+
+The code was successfully compiled with Ubuntu 16.04.
+
+
+SETUP
+============================================================
+[0] Prerequisites
+	Have a Linux environment
+	Have a crosscompiler SDK (e.g. LEDE or Openwrt)
+	Have header files for libnl-tiny
+
+	NOTE: In order to run the wifi driver in your target machine
+	you need also to have the firmware files:
+		sta_upper.bin
+		ap_upper.bin
+		contr_lm.bin
+
+[1] Set crosscompiler variables
+	Edit file driver/support/ugw.env.common and tune-up upon your
+	system and needs.
+
+	Almost certain that these paths must be redefined:
+	STAGING_DIR
+	DEFAULT_TOOLCHAIN_PATH
+	DEFAULT_KERNEL_DIR
+	Set local directory for ../libnl-tiny/include
+
+[2] Run menu
+	At driver/, enter into the menu:
+
+		>make menuconfig
+
+	You should see the classical blue screen menu.
+
+	Choose your platform.
+
+	Tip: ugw 5.1 has been extensibly tested. You can try that one
+	first if you want to know if your system/variables are well
+	defined.
+
+	Also ugw5.1-vrx288 will be used as example for the rest of the document.
+
+
+[3] Check results
+	For your information, the studio has automatically created
+	a new folder based on your choice under /driver/builds.
+
+	In this folder, some source files are automatically generated.
+
+	Some other are copied or soft linked from the code sources under
+	driver/wireless/… or spreaded over.
+
+[4] Make
+	Under /driver, run the machine:
+		>make
+
+	After a couple of minutes, the file “mtlkroot.ko” should appear in your build directory:
+	/driver/builds/ugw5.1-vrx288
+
+[5] Make the proper driver
+	So far, only half of the job is done.
+
+	In order to run this driver, 2 modules are needed: mtlkroot.ko & mtlk.ko
+
+	Probably the script that generates the build directory is trunkated.
+
+	Therefore, go to folder 
+	/driver/builds/ugw5.1-vrx288/wireless/driver/linux
+
+	and run:
+		>make
+
+	After few minutes, but more time that step 4, a new file named “mtlk.ko”
+	should appear.
+
+[6] Test your machine
+	Bring those files to your platform (router, embedded system…) and
+	insert the modules (insmod) in the following order:
+		[1] mtlkroot.ko
+		[2] mtlk.ko
+	NOTE: Wireless wave300 needs of firmware files to be available in your platform.
+	These files must be copies into your target /lib/firmware folder
+
