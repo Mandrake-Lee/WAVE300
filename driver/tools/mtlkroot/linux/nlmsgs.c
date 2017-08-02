@@ -101,7 +101,12 @@ int mtlk_nl_send_brd_msg(void *data, int length, gfp_t flags, u32 dst_group, u8 
 #else
   NETLINK_CB(skb).dst_group = dst_group;
 #endif
-  NETLINK_CB(skb).pid = 0;  /* from kernel */
+
+#if LINUX_VERSION_CODE < KERNEL_VERSION(3,0,0)
+  NETLINK_CB(skb).pid = 0;/* from kernel */
+#else
+  NETLINK_CB(skb).portid = 0;
+#endif
   
 #if LINUX_VERSION_CODE < KERNEL_VERSION(2,6,0)
   /* void return value in 2.4 kernels */
@@ -132,9 +137,13 @@ int mtlk_nl_init(void)
 #elif LINUX_VERSION_CODE < KERNEL_VERSION(2,6,24)
   nl_sock = netlink_kernel_create(NETLINK_USERSOCK, 3, nl_input, 
                                                        &nl_mutex, THIS_MODULE);
-#else
-  nl_sock = netlink_kernel_create(&init_net, NETLINK_USERSOCK, 3, nl_input,
-                                                       &nl_mutex, THIS_MODULE);
+#elif LINUX_VERSION_CODE < KERNEL_VERSION(4,5,0)
+
+	struct netlink_kernel_cfg cfg = {
+    	.input = nl_input,
+	.cb_mutex = &nl_mutex,
+	};
+  nl_sock = netlink_kernel_create(&init_net, NETLINK_USERSOCK, &cfg);
 #endif
 
   if (!nl_sock) {
@@ -203,17 +212,21 @@ int mtlk_nl_send_brd_msg(void *data, int length, gfp_t flags, u32 dst_group, u8 
   memcpy((char *)mhdr + sizeof(*mhdr), data, length);
 
   /* send multicast genetlink message */
+#if LINUX_VERSION_CODE < KERNEL_VERSION(4,0,0)
   genl_res = genlmsg_end(skb, msg_header);
   if (genl_res < 0)
     goto out_free_skb;
-  
+#else
+	genlmsg_end(skb, msg_header);
+#endif
   /* the group to broadcast on is calculated on base of family id */
   send_group = mtlk_genl_family.id + dst_group - 1;
 
 #if LINUX_VERSION_CODE < KERNEL_VERSION(2,6,19)
   genl_res = genlmsg_multicast(skb, 0, send_group);
 #else
-  genl_res = genlmsg_multicast(skb, 0, send_group, flags);
+	/*Might be needed just to overcome kernek 3.18*/
+  genl_res = genlmsg_multicast(NULL,skb, 0, send_group, flags);
 #endif
   if (genl_res)
     return MTLK_ERR_UNKNOWN;
