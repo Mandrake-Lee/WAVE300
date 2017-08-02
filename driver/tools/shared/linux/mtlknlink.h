@@ -8,14 +8,16 @@ typedef void (*mtlk_netlink_callback_t)(void* ctx, void* data);
 
 #ifdef MTCFG_USE_GENL
 
+#include <linux/socket.h>
 #include <netlink/netlink.h>
 #include <netlink/genl/genl.h>
 #include <netlink/genl/ctrl.h>
+#include <netlink/socket.h>
 
 typedef struct _mtlk_nlink_socket_t
 {
   int family;
-  struct nl_handle *sock;
+  struct nl_sock *sock;
   mtlk_netlink_callback_t receive_callback;
   void* receive_callback_ctx;
 } mtlk_nlink_socket_t;

@@ -132,7 +132,7 @@ mtlk_nlink_create(mtlk_nlink_socket_t* nlink_socket,
   nlink_socket->receive_callback_ctx = receive_callback_ctx;
 
   /* Allocate a new netlink socket */
-  nlink_socket->sock = nl_handle_alloc();
+  nlink_socket->sock = nl_socket_alloc();
   if (NULL == nlink_socket->sock) {
     ELOG_V("Generic netlink socket allocation failed");
     res = -1;
@@ -167,7 +167,7 @@ mtlk_nlink_create(mtlk_nlink_socket_t* nlink_socket,
   /* This socket have to process all messages and not 
      only explicitly requested as it is should be in 
      event processing */
-  nl_disable_sequence_check(nlink_socket->sock);
+  nl_socket_disable_seq_check(nlink_socket->sock);
 
   /* set callback for all valid messages */
   nl_socket_modify_cb(nlink_socket->sock, NL_CB_VALID, 
@@ -177,7 +177,7 @@ mtlk_nlink_create(mtlk_nlink_socket_t* nlink_socket,
 
 err_dealloc:
   nl_close(nlink_socket->sock);
-  nl_handle_destroy(nlink_socket->sock);
+  nl_socket_free(nlink_socket->sock);
 end:
   return res;
 }
@@ -214,7 +214,7 @@ mtlk_nlink_cleanup(mtlk_nlink_socket_t* nlink_socket)
 {
   MTLK_ASSERT(NULL != nlink_socket);
   nl_close(nlink_socket->sock);
-  nl_handle_destroy(nlink_socket->sock);
+  nl_socket_free(nlink_socket->sock);
 }
 
 #else /* MTCFG_USE_GENL */
