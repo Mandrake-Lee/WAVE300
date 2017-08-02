@@ -141,12 +141,9 @@ static void usp_queue_release_entries(void);
 static int setup_cdev(void);
 
 static int logger_debug_write(struct file *file, const char *buffer,
-  unsigned long count, void *data);
-static int logger_debug_read (char *page, char **start, off_t off,
-  int count, int *eof, void *data);
-static int logger_stat_read (char *page, char **start, off_t off,
-  int count, int *eof, void *data);
-
+  size_t count, loff_t *data);
+static int logger_debug_read(struct file *filp,char *page,size_t count,loff_t *offp );
+static int logger_stat_read (struct file *filp,char *page,size_t count,loff_t *offp );
 // ----------------
 // Global variables
 // ----------------
@@ -174,6 +171,19 @@ struct file_operations mtlk_log_fops =
   .ioctl = cdev_ioctl,
 #endif
 };
+
+struct file_operations logger_debug_proc_fops =
+{
+  .read =	logger_debug_read,
+  .write =	logger_debug_write,
+};
+
+struct file_operations logger_stat_proc_fops =
+{
+  .read =	logger_stat_read,
+  .write =	NULL,
+};
+
 
 // -------------------
 // Interface functions
@@ -248,11 +258,11 @@ mtlk_log_on_cleanup(void)
     MTLK_CLEANUP_STEP(logdrv_osdep, LOGDRV_CDEV_INIT, MTLK_OBJ_PTR(&log_data_osdep),
                       log_cdev_cleanup, ());
     MTLK_CLEANUP_STEP(logdrv_osdep, LOGDRV_PROC_STAT, MTLK_OBJ_PTR(&log_data_osdep),
-                      remove_proc_entry, (log_data_osdep.pstat_entry->name, log_data_osdep.pstat_entry->parent));
+                      proc_remove, (log_data_osdep.pstat_entry));
     MTLK_CLEANUP_STEP(logdrv_osdep, LOGDRV_PROC_DEBUG, MTLK_OBJ_PTR(&log_data_osdep),
-                      remove_proc_entry, (log_data_osdep.pdebug_entry->name, log_data_osdep.pdebug_entry->parent));
+                      proc_remove, (log_data_osdep.pdebug_entry));
     MTLK_CLEANUP_STEP(logdrv_osdep, LOGDRV_PROC_DIR, MTLK_OBJ_PTR(&log_data_osdep),
-                      remove_proc_entry, (log_data_osdep.pnet_procfs_dir->name, log_data_osdep.pnet_procfs_dir->parent));
+                      proc_remove, (log_data_osdep.pnet_procfs_dir));
     MTLK_CLEANUP_STEP(logdrv_osdep, LOGDRV_WAIT_QUEUE, MTLK_OBJ_PTR(&log_data_osdep),
                       MTLK_NOACTION, ());
     MTLK_CLEANUP_STEP(logdrv_osdep, LOGDRV_USP_QUEUE_ENTRIES, MTLK_OBJ_PTR(&log_data_osdep),
@@ -280,27 +290,23 @@ mtlk_log_on_init(void)
     MTLK_INIT_STEP_EX(logdrv_osdep, LOGDRV_PROC_DIR, MTLK_OBJ_PTR(&log_data_osdep),
                       proc_mkdir, ("mtlk_log", PROC_NET), log_data_osdep.pnet_procfs_dir,
                       NULL != log_data_osdep.pnet_procfs_dir, MTLK_ERR_NO_RESOURCES);
-    log_data_osdep.pnet_procfs_dir->uid = 0;
-    log_data_osdep.pnet_procfs_dir->gid = 0;
-
+   
+    proc_set_user(log_data_osdep.pnet_procfs_dir,KUIDT_INIT(0),KGIDT_INIT(0));
 
     MTLK_INIT_STEP_EX(logdrv_osdep, LOGDRV_PROC_DEBUG, MTLK_OBJ_PTR(&log_data_osdep),
-                      create_proc_entry, ("debug", S_IFREG|S_IRUSR|S_IRGRP, log_data_osdep.pnet_procfs_dir),
+                      proc_create_data, ("debug", S_IFREG|S_IRUSR|S_IRGRP, log_data_osdep.pnet_procfs_dir,&logger_debug_proc_fops,NULL),
                       log_data_osdep.pdebug_entry, NULL != log_data_osdep.pdebug_entry,
                       MTLK_ERR_NO_RESOURCES);
-    log_data_osdep.pdebug_entry->uid = 0;
-    log_data_osdep.pdebug_entry->gid = 0;
-    log_data_osdep.pdebug_entry->read_proc = logger_debug_read;
-    log_data_osdep.pdebug_entry->write_proc = logger_debug_write;
+
+    proc_set_user(log_data_osdep.pdebug_entry,KUIDT_INIT(0),KGIDT_INIT(0));
 
     MTLK_INIT_STEP_EX(logdrv_osdep, LOGDRV_PROC_STAT, MTLK_OBJ_PTR(&log_data_osdep),
-                      create_proc_entry, ("statistics", S_IFREG|S_IRUSR|S_IRGRP, log_data_osdep.pnet_procfs_dir),
+                      proc_create_data, ("statistics", S_IFREG|S_IRUSR|S_IRGRP, log_data_osdep.pnet_procfs_dir,&logger_stat_proc_fops,NULL),
                       log_data_osdep.pstat_entry, NULL != log_data_osdep.pstat_entry,
                       MTLK_ERR_NO_RESOURCES);
-    log_data_osdep.pstat_entry->uid = 0;
-    log_data_osdep.pstat_entry->gid = 0;
-    log_data_osdep.pstat_entry->read_proc = logger_stat_read;
-    log_data_osdep.pstat_entry->write_proc = NULL;
+
+    proc_set_user(log_data_osdep.pstat_entry,KUIDT_INIT(0),KGIDT_INIT(0));    
+
 
     MTLK_INIT_STEP_VOID(logdrv_osdep, LOGDRV_CDEV_INIT, MTLK_OBJ_PTR(&log_data_osdep),
                         log_cdev_init, ());
@@ -652,7 +658,7 @@ usp_queue_release_entries(void)
 }
 
 static int logger_debug_write(struct file *file, const char *buffer,
-  unsigned long count, void *data)
+  size_t count, loff_t *data)
 {
   char *debug_conf = NULL;
   int result = 0;
@@ -675,17 +681,16 @@ FINISH:
     kfree(debug_conf);
   return result;
 }
-static int logger_debug_read (char *page, char **start, off_t off,
-  int count, int *eof, void *data)
+static int logger_debug_read(struct file *filp,char *page,size_t count,loff_t *offp )
 {
     char *p = page;
 
     p += mtlk_log_get_conf(p, count);
-    *eof = 1;
+	*offp =1;
     return p - page;
 }
-static int logger_stat_read (char *page, char **start, off_t off,
-  int count, int *eof, void *data)
+
+static int logger_stat_read (struct file *filp,char *page,size_t count,loff_t *offp )
 {
   int bytes_written = 0;
   
@@ -702,7 +707,7 @@ static int logger_stat_read (char *page, char **start, off_t off,
 
   mtlk_osal_lock_release(&log_data.data_lock);
 
-  *eof = 1;
+  *offp =1;
   return bytes_written;
 }
 
