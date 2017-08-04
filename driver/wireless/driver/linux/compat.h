@@ -272,8 +272,10 @@ static inline unsigned long msecs_to_jiffies(const unsigned int m)
        return (m * HZ + 999) / 1000;
 #endif
 }
-#else
+#elif LINUX_VERSION_CODE < KERNEL_VERSION(3,10,0)
 #include <linux/delay.h>
+#else
+#include <linux/jiffies.h>
 #endif
 
 #if LINUX_VERSION_CODE < KERNEL_VERSION(2,4,27)
