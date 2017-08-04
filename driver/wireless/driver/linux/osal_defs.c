@@ -85,7 +85,11 @@ int __MTLK_IFUNC
 _mtlk_osal_timer_cancel_sync (mtlk_osal_timer_t *timer)
 {
   timer->stop = TRUE; /* Mark timer stopped */
+#ifdef CONFIG_SMP
   if (del_timer_sync(&timer->os_timer)) {
+#else
+  if (del_timer(&timer->os_timer)) {
+#endif
     /* del_timer_sync (and del_timer) returns whether it has 
      * deactivated a pending timer or not. (ie. del_timer() 
      * of an inactive timer returns 0, del_timer() of an

@@ -31,6 +31,7 @@
 #include <linux/string.h>
 #include <linux/ip.h>
 #include <linux/ipv6.h>
+#include <linux/etherdevice.h>
 
 
 #include "mem_leak.h"
@@ -345,7 +346,7 @@ static __INLINE int
 mtlk_osal_compare_eth_addresses (const uint8* addr1, 
                                  const uint8* addr2)
 {
-  return compare_ether_addr(addr1, addr2);
+	return ether_addr_equal_unaligned( addr1, addr2);
 }
 
 static __INLINE int
