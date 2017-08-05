@@ -233,8 +233,13 @@ _mtlk_bus_drv_setup_interrupts(mtlk_pci_drv_t *obj, struct pci_dev *dev)
 static void* __init
 _mtlk_bus_drv_map_resource(struct pci_dev *dev, int res_id)
 {
-  void* ptr = ioremap(pci_resource_start(dev, res_id), 
-                      pci_resource_len(dev, res_id));
+
+  void __iomem *ptr = pcim_iomap_table(dev)[res_id];
+
+if (ptr == NULL){
+	ELOG_D("Failed to enable pcim_iomap_table() for BAR=%i", res_id);
+	}
+
 
   ILOG2_DHHP("BAR%d=0x%llX Len=0x%llX VA=0x%p", res_id, 
                (uint64) pci_resource_start(dev, res_id), 
@@ -260,7 +265,7 @@ _mtlk_bus_drv_init(mtlk_pci_drv_t *bus_obj, struct pci_dev *dev, const struct pc
 
   MTLK_INIT_TRY(bus_drv, MTLK_OBJ_PTR(bus_obj))
     MTLK_INIT_STEP_EX(bus_drv, BUS_ENABLE_DEVICE, MTLK_OBJ_PTR(bus_obj),
-                      pci_enable_device, (dev), result, 0 == result, 
+                      pcim_enable_device, (dev), result, 0 == result, 
                       MTLK_ERR_UNKNOWN);
 
     pci_set_drvdata(dev, bus_obj);
@@ -271,6 +276,13 @@ _mtlk_bus_drv_init(mtlk_pci_drv_t *bus_obj, struct pci_dev *dev, const struct pc
                       MTLK_ERR_UNKNOWN);
 
     pci_set_master(dev);
+
+/*Request iomem regions*/
+    result = pcim_iomap_regions(dev,0x01 | 0x02,"mtlk");
+    if (result) {
+        dev_err(&dev->dev,"Failed to request and map BAR's.\n");
+        return result;
+    }
 
     MTLK_INIT_STEP_EX(bus_drv, BUS_MAP_BAR0, MTLK_OBJ_PTR(bus_obj),
                       _mtlk_bus_drv_map_resource, (dev, 0),
@@ -367,7 +379,7 @@ err_bus_alloc:
   return -ENODEV;
 }
 
-static void __devexit
+static void 
 _mtlk_bus_drv_remove(struct pci_dev *pdev)
 {
   mtlk_pci_drv_t *bus_drv = pci_get_drvdata(pdev);
@@ -397,7 +409,7 @@ static struct pci_driver mtlk_bus_driver = {
   .name     = "mtlk",
   .id_table = mtlk_dev_tbl,
   .probe    = _mtlk_bus_drv_probe,
-  .remove   = __devexit_p(_mtlk_bus_drv_remove),
+  .remove   = _mtlk_bus_drv_remove,
 };
 
 struct mtlk_drv_state

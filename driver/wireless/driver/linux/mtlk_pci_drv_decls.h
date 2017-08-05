@@ -17,8 +17,8 @@ struct _mtlk_pci_drv_t
   /* in struct pci_dev member irq has unsigned int type,
    * we need it to be signed for -1 (was not requested)
    */
-  unsigned char        *bar0;
-  unsigned char        *bar1;
+  void __iomem         *bar0;
+  void __iomem         *bar1;
 
   mtlk_ccr_t            ccr;
   mtlk_card_type_t      card_type;
