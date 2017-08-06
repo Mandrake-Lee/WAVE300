@@ -175,14 +175,14 @@ driver_ioctl(int id, char *buf, size_t len)
     /* this is wireless extensions private ioctl */
     memset(&wreq, 0, sizeof(wreq));
     memcpy(wreq.ifr_ifrn.ifrn_name, gifs[ifconnected].name, IFNAMSIZ);
-    wreq.u.data.pointer = (caddr_t) buf;
+    wreq.u.data.pointer = (void *) buf;
     retval = ioctl(gsocket, id, &wreq);
   } else {
     struct ifreq req;
 
     memset(&req, 0, sizeof(req));
     memcpy(req.ifr_name, gifs[ifconnected].name, IFNAMSIZ);
-    req.ifr_data = (caddr_t) buf;
+    req.ifr_data = (void *) buf;
     retval = ioctl(gsocket, id, &req);
   }
   if (retval == -1) {
