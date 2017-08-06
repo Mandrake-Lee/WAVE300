@@ -21,8 +21,6 @@
 #define   MTLK_IDEFS_ON
 #include "mtlkidefs.h"
 
-#include <linux/proc_fs.h>
-
 /**********************************************************************
  * Data types declaration
 ***********************************************************************/
@@ -452,20 +450,15 @@ mtlk_df_ui_notify_notify_fw_hang(mtlk_df_t *df, uint32 fw_cpu, uint32 sw_watchdo
 typedef struct _mtlk_df_proc_fs_node_t mtlk_df_proc_fs_node_t;
 
 /* read proc handler type */
-typedef int (*mtlk_df_proc_entry_read_f)(struct file *file, char __user *buffer,
-                                         size_t count, loff_t *off);
+typedef int (*mtlk_df_proc_entry_read_f)(char *page, char **start, off_t off,
+                                        int count, int *eof, void *data);
 
 /* write proc handler type */
 typedef int (*mtlk_df_proc_entry_write_f)(struct file *file, const char __user *buffer,
-                                         size_t count, loff_t *off);
+                                         unsigned long count, void *data);
 
 /* seq file show handler type */
 typedef int (*mtlk_df_proc_seq_entry_show_f)(mtlk_seq_entry_t *seq_ctx, void *data);
-
-/*Define seq_operations API*/
-void* _mtlk_df_proc_seq_entry_start_ops(struct seq_file *s, loff_t *pos);
-void* _mtlk_df_proc_seq_entry_next_ops(struct seq_file *s, void *v, loff_t *pos);
-void _mtlk_df_proc_seq_entry_stop_ops(struct seq_file *s, void *v);
 
 
 
@@ -493,20 +486,13 @@ mtlk_df_proc_node_add_rw_entry(char *name,
                                void *df,
                                mtlk_df_proc_entry_read_f  read_func,
                                mtlk_df_proc_entry_write_f write_func);
-#if LINUX_VERSION_CODE < KERNEL_VERSION(3,1,0)
+
 int __MTLK_IFUNC
 mtlk_df_proc_node_add_seq_entry(char *name,
                                  mtlk_df_proc_fs_node_t *parent_node,
                                  void *df,
                                  mtlk_df_proc_seq_entry_show_f show_func);
-#else
-int __MTLK_IFUNC
-mtlk_df_proc_node_add_seq_entry(char *name,
-                                 mtlk_df_proc_fs_node_t *parent_node,
-                                 void *df,
-                                 struct seq_operations *seq_ops);
 
-#endif
 void __MTLK_IFUNC
 mtlk_df_proc_node_remove_entry(char *name,
                                mtlk_df_proc_fs_node_t *parent_node);
@@ -514,9 +500,8 @@ mtlk_df_proc_node_remove_entry(char *name,
 void* __MTLK_IFUNC
 mtlk_df_proc_seq_entry_get_df(mtlk_seq_entry_t *seq_ctx);
 
-#if LINUX_VERSION_CODE <= KERNEL_VERSION(2,6,16)
 int mtlk_aux_seq_printf(mtlk_seq_entry_t *seq_ctx, const char *fmt, ...);
-#endif
+
 
 
 #define   MTLK_IDEFS_OFF
