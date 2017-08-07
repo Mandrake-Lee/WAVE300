@@ -18,6 +18,7 @@
 
 #include <linux/wireless.h>
 #include <linux/if_arp.h>
+#include <linux/proc_fs.h>
 #include <net/iw_handler.h>
 #include <asm/unaligned.h>
 #ifdef CONFIG_IFX_PPA_API_DIRECTPATH
@@ -4119,7 +4120,7 @@ err_ret:
 
 static int
 mtlk_df_do_debug_assert_write (struct file *file, const char *buf,
-                               unsigned long count, void *data)
+                               size_t count, loff_t *data)
 {
   int          res = MTLK_ERR_PARAMS;
   char         str[MAX_PROC_STR_LEN];
@@ -4200,11 +4201,11 @@ mtlk_df_do_debug_assert_write (struct file *file, const char *buf,
 
 end:
   /* need to return counter, not result in this type of proc */
-  return count;
+  return (int)count;
 }
 
 static int
-_mtlk_df_ui_proc_bcl_read (char *page, char **start, off_t off, int count, int *eof,
+_mtlk_df_ui_proc_bcl_read (char *page, char **start, loff_t * off, int count, int *eof,
   void *data, int io_base, int io_size)
 {
   int res = MTLK_ERR_NOT_SUPPORTED;
@@ -4214,12 +4215,12 @@ _mtlk_df_ui_proc_bcl_read (char *page, char **start, off_t off, int count, int *
   UMI_BCL_REQUEST *req_result;
 
   /* Calculate io offset */
-  if (off >= io_size) {
+  if (*off >= io_size) {
     *eof = 1;
     return 0;
   }
 
-  if ((off & (sizeof(req.Data) - 1)) || (count < sizeof(req.Data)))
+  if ((*off & (sizeof(req.Data) - 1)) || (count < sizeof(req.Data)))
     return -EIO;
 
   count = 0;
@@ -4230,7 +4231,7 @@ _mtlk_df_ui_proc_bcl_read (char *page, char **start, off_t off, int count, int *
    * Unit field and check&subtract it in core  */
   req.Unit = BCL_UNIT_INT_RAM + BCL_UNIT_MAX;
   req.Size = sizeof(req.Data);
-  req.Address = io_base + off;
+  req.Address = io_base + *off;
   memset(req.Data, 0x5c, sizeof(req.Data)); /* poison */
 
   /* Send request to core */
@@ -4254,22 +4255,25 @@ err_ret:
   return count;
 }
 
-static int mtlk_df_ui_lm(char *page, char **start, off_t off,
-                         int count, int *eof, void *data)
+/* These variables are global */
+char **start;
+int *eof;
+
+static int mtlk_df_ui_lm(struct file *file, char __user *buffer, size_t count, loff_t *off)
 {
-  return _mtlk_df_ui_proc_bcl_read(page, start, off, count, eof, data, LM_DATA_BASE, LM_DATA_SIZE);
+  void *data = PDE_DATA(file_inode(file));
+  return _mtlk_df_ui_proc_bcl_read(buffer, start, off, count, eof, data, LM_DATA_BASE, LM_DATA_SIZE);
 }
                  
-static int mtlk_df_ui_um(char *page, char **start, off_t off,
-                         int count, int *eof, void *data)
+static int mtlk_df_ui_um(struct file *file, char __user *buffer, size_t count, loff_t *off)
 {
-  return _mtlk_df_ui_proc_bcl_read(page, start, off, count, eof, data, UM_DATA_BASE, UM_DATA_SIZE);
+  void *data = PDE_DATA(file_inode(file));
+  return _mtlk_df_ui_proc_bcl_read(buffer, start, off, count, eof, data, UM_DATA_BASE, UM_DATA_SIZE);
 }
-
-static int mtlk_df_ui_shram(char *page, char **start, off_t off,
-                            int count, int *eof, void *data)
+static int mtlk_df_ui_shram(struct file *file,char __user *buffer, size_t count, loff_t *off)
 {
-  return _mtlk_df_ui_proc_bcl_read(page, start, off, count, eof, data, SHRAM_DATA_BASE, SHRAM_DATA_SIZE);
+  void *data = PDE_DATA(file_inode(file));
+  return _mtlk_df_ui_proc_bcl_read(buffer, start, off, count, eof, data, SHRAM_DATA_BASE, SHRAM_DATA_SIZE);
 }
 
 static int
@@ -4346,14 +4350,14 @@ mtlk_df_ui_reset_stats(mtlk_df_t* df)
 }
 
 int _mtlk_df_ui_reset_stats_proc(struct file *file, const char __user *buffer,
-                                 unsigned long count, void *data)
+                                 size_t count, loff_t *data)
 {
   mtlk_df_ui_reset_stats((mtlk_df_t*)data);
   return count;
 }
 
 static int _mtlk_df_ui_l2nat_clear_table(struct file *file, const char __user *buffer,
-                                 unsigned long count, void *data)
+                                 size_t count, loff_t *data)
 {
   mtlk_clpb_t *clpb = NULL;
   mtlk_df_t *df = (mtlk_df_t*) data;
@@ -4366,7 +4370,7 @@ static int _mtlk_df_ui_l2nat_clear_table(struct file *file, const char __user *b
 
 #ifdef AOCS_DEBUG
 static int mtlk_df_ui_aocs_proc_cl(struct file *file, const char __user *buffer,
-                                   unsigned long count, void *data)
+                                   size_t count, loff_t *data)
 {
   int res = MTLK_ERR_OK;
   mtlk_clpb_t *clpb = NULL;

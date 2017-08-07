@@ -110,8 +110,12 @@ mtlk_df_proc_node_create(const uint8 *name, mtlk_df_proc_fs_node_t* parent)
       goto create_err;
     }
 
-    proc_node->dir->uid = MTLK_PROCFS_UID;
-    proc_node->dir->gid = MTLK_PROCFS_GID;
+#if LINUX_VERSION_CODE < KERNEL_VERSION(3,10,00)
+    proc_node->dir->uid.val = MTLK_PROCFS_UID;
+    proc_node->dir->gid.val = MTLK_PROCFS_GID;
+#else
+    proc_set_user(proc_node->dir,KUIDT_INIT(MTLK_PROCFS_UID),KGIDT_INIT(MTLK_PROCFS_GID));
+#endif
   }
 
   /* initialize list of seq_ops structures */
@@ -187,27 +191,38 @@ _mtlk_df_proc_node_add_entry(char *name,
                             mtlk_df_proc_entry_write_f write_func)
 {
   struct proc_dir_entry *pde;
+  struct file_operations *tmp_fops;
 
   MTLK_ASSERT(NULL != parent_node);
   MTLK_ASSERT(NULL != name);
 
-  pde = create_proc_entry(name, mode, parent_node->dir);
+  tmp_fops = mtlk_osal_mem_alloc(sizeof(*tmp_fops), MTLK_MEM_TAG_PROC);
+  if (NULL == tmp_fops){
+    ELOG_V("Cannot allocate memory for file_operations structure.");
+    goto alloc_err;
+  }
+  memset(tmp_fops, 0, sizeof(*tmp_fops));
+
+  *tmp_fops = ( struct  file_operations ) {
+    .read   =  read_func,
+    .write  =  write_func
+  };
+
+  pde = proc_create_data(name, mode, parent_node->dir, tmp_fops, df );
   if (NULL == pde) {
     goto pde_err;
   };
 
-  pde->uid = MTLK_PROCFS_UID;
-  pde->gid = MTLK_PROCFS_GID;
-  pde->read_proc = read_func;
-  pde->write_proc = write_func;
-  pde->data = df;
-
-#if LINUX_VERSION_CODE < KERNEL_VERSION(2,6,30)
-  /* set the .owner field, so that reference count of the
-   * module increment when this file is opened
-   */
-  pde->owner = THIS_MODULE;
-#endif
+  #if LINUX_VERSION_CODE < KERNEL_VERSION(3,10,00)
+    pde->uid.val = MTLK_PROCFS_UID;
+    pde->gid.val = MTLK_PROCFS_GID;
+    /* set the .owner field, so that reference count of the
+     * module increment when this file is opened
+     */
+    pde->owner = THIS_MODULE;
+  #else
+    proc_set_user(pde,KUIDT_INIT(MTLK_PROCFS_UID),KGIDT_INIT(MTLK_PROCFS_GID));
+  #endif
 
   parent_node->num_entries++;
 
@@ -216,6 +231,10 @@ _mtlk_df_proc_node_add_entry(char *name,
   return MTLK_ERR_OK;
 
 pde_err:
+  ELOG_S("Failed to create proc entry for %s", name);
+  return MTLK_ERR_UNKNOWN;
+
+alloc_err:
   ELOG_S("Failed to create proc entry for %s", name);
   return MTLK_ERR_UNKNOWN;
 }
@@ -312,9 +331,13 @@ _mtlk_df_proc_seq_entry_stop_ops(struct seq_file *s, void *v)
 static int
 _mtlk_df_proc_seq_entry_open_ops(struct inode *inode, struct file *file)
 {
-  struct mtlk_seq_ops *ops = (PDE(inode))->data;
+  #if LINUX_VERSION_CODE < KERNEL_VERSION(3,10,0)
+    struct mtlk_seq_ops *ops = (PDE(inode))->data;
+  #else
+    struct mtlk_seq_ops *ops = PDE_DATA(inode);
+  #endif
 
-  /* try to get semaphore without sleep first */
+/* try to get semaphore without sleep first */
   if(down_trylock(&ops->sem)) {
     if(file->f_flags & O_NONBLOCK)
       return -EAGAIN;
@@ -330,7 +353,11 @@ _mtlk_df_proc_seq_entry_open_ops(struct inode *inode, struct file *file)
 static int
 _mtlk_df_proc_seq_entry_release_ops(struct inode *inode, struct file *file)
 {
-  struct mtlk_seq_ops *ops = (PDE(inode))->data;
+  #if LINUX_VERSION_CODE < KERNEL_VERSION(3,10,0)
+    struct mtlk_seq_ops *ops = (PDE(inode))->data;
+  #else
+    struct mtlk_seq_ops *ops = PDE_DATA(inode);
+  #endif
 
   /* release semaphore acquired in the .open function */
   up(&ops->sem);
@@ -382,15 +409,17 @@ mtlk_df_proc_node_add_seq_entry(char *name,
   };
 
   /* create and init proc entry */
-  pde = create_proc_entry(name, S_IFREG|S_IRUSR|S_IRGRP|S_IROTH, parent_node->dir);
+  pde = proc_create_data(name, S_IFREG|S_IRUSR|S_IRGRP|S_IROTH, parent_node->dir, &_mtlk_df_proc_seq_entry_fops, tmp_seq_ops );
   if (NULL == pde) {
     goto pde_err;
   };
 
-  pde->uid = MTLK_PROCFS_UID;
-  pde->gid = MTLK_PROCFS_GID;
-  pde->data = tmp_seq_ops;
-  pde->proc_fops = &_mtlk_df_proc_seq_entry_fops;
+#if LINUX_VERSION_CODE < KERNEL_VERSION(3,10,00)
+    pde->uid.val = MTLK_PROCFS_UID;
+    pde->gid.val = MTLK_PROCFS_GID;
+#else
+    proc_set_user(pde,KUIDT_INIT(MTLK_PROCFS_UID),KGIDT_INIT(MTLK_PROCFS_GID));
+#endif
 
 #if LINUX_VERSION_CODE < KERNEL_VERSION(2,6,30)
   /* set the .owner field, so that reference count of the

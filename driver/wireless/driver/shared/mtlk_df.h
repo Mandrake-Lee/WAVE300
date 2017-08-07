@@ -450,12 +450,12 @@ mtlk_df_ui_notify_notify_fw_hang(mtlk_df_t *df, uint32 fw_cpu, uint32 sw_watchdo
 typedef struct _mtlk_df_proc_fs_node_t mtlk_df_proc_fs_node_t;
 
 /* read proc handler type */
-typedef int (*mtlk_df_proc_entry_read_f)(char *page, char **start, off_t off,
-                                        int count, int *eof, void *data);
+typedef ssize_t (*mtlk_df_proc_entry_read_f)(struct file *file, char __user *buffer,
+                                         size_t count, loff_t *off);
 
 /* write proc handler type */
-typedef int (*mtlk_df_proc_entry_write_f)(struct file *file, const char __user *buffer,
-                                         unsigned long count, void *data);
+typedef ssize_t (*mtlk_df_proc_entry_write_f)(struct file *file, const char __user *buffer,
+                                         size_t count, loff_t *off);
 
 /* seq file show handler type */
 typedef int (*mtlk_df_proc_seq_entry_show_f)(mtlk_seq_entry_t *seq_ctx, void *data);
@@ -500,7 +500,7 @@ mtlk_df_proc_node_remove_entry(char *name,
 void* __MTLK_IFUNC
 mtlk_df_proc_seq_entry_get_df(mtlk_seq_entry_t *seq_ctx);
 
-int mtlk_aux_seq_printf(mtlk_seq_entry_t *seq_ctx, const char *fmt, ...);
+void mtlk_aux_seq_printf(mtlk_seq_entry_t *seq_ctx, const char *fmt, ...);
 
 
 
