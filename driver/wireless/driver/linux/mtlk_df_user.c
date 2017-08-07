@@ -332,8 +332,12 @@ mtlk_df_ui_is_promiscuous(mtlk_df_t *df)
 void __MTLK_IFUNC
 mtlk_df_ui_notify_tx_start(mtlk_df_t *df)
 {
+  struct netdev_queue *txq;
   MTLK_ASSERT(NULL != df);
-  mtlk_df_get_user(df)->dev->trans_start = jiffies;
+
+  txq = netdev_get_tx_queue(mtlk_df_get_user(df)->dev, 0);
+  if (txq->trans_start != jiffies)
+    txq->trans_start = jiffies;
 }
 
 MTLK_INIT_STEPS_LIST_BEGIN(df_user)
@@ -1274,7 +1278,7 @@ _mtlk_df_user_fill_hw_cfg(mtlk_hw_cfg_t *cfg, char *str)
   char *next_token = str;
   int res = MTLK_ERR_PARAMS;
 
-  memset(cfg, 0, sizeof(cfg));
+  memset(cfg, 0, sizeof(*cfg));
 
   next_token = mtlk_get_token(next_token, buf, sizeof(buf), ',');
   if (next_token) {
@@ -3424,7 +3428,7 @@ mtlk_df_ui_notify_secure_node_connect(mtlk_df_t *df,
 
   MTLK_ASSERT(NULL != df);
 
-  p += sprintf(p, "NEWSTA " MAC_PRINTF_FMT ", RSNIE_LEN %i : ",
+  p += sprintf(p, "NEWSTA " MAC_PRINTF_FMT ", RSNIE_LEN %lu : ",
                MAC_PRINTF_ARG(node_addr), rsnie_len);
 
   MTLK_ASSERT(buf - p + rsnie_len*2 < IW_CUSTOM_MAX);
@@ -4118,7 +4122,7 @@ err_ret:
   return _mtlk_df_mtlk_to_linux_error_code(res);
 }
 
-static int
+static ssize_t
 mtlk_df_do_debug_assert_write (struct file *file, const char *buf,
                                size_t count, loff_t *data)
 {
@@ -4201,7 +4205,7 @@ mtlk_df_do_debug_assert_write (struct file *file, const char *buf,
 
 end:
   /* need to return counter, not result in this type of proc */
-  return (int)count;
+  return count;
 }
 
 static int
@@ -4259,18 +4263,18 @@ err_ret:
 char **start;
 int *eof;
 
-static int mtlk_df_ui_lm(struct file *file, char __user *buffer, size_t count, loff_t *off)
+static ssize_t mtlk_df_ui_lm(struct file *file, char __user *buffer, size_t count, loff_t *off)
 {
   void *data = PDE_DATA(file_inode(file));
   return _mtlk_df_ui_proc_bcl_read(buffer, start, off, count, eof, data, LM_DATA_BASE, LM_DATA_SIZE);
 }
                  
-static int mtlk_df_ui_um(struct file *file, char __user *buffer, size_t count, loff_t *off)
+static ssize_t mtlk_df_ui_um(struct file *file, char __user *buffer, size_t count, loff_t *off)
 {
   void *data = PDE_DATA(file_inode(file));
   return _mtlk_df_ui_proc_bcl_read(buffer, start, off, count, eof, data, UM_DATA_BASE, UM_DATA_SIZE);
 }
-static int mtlk_df_ui_shram(struct file *file,char __user *buffer, size_t count, loff_t *off)
+static ssize_t mtlk_df_ui_shram(struct file *file,char __user *buffer, size_t count, loff_t *off)
 {
   void *data = PDE_DATA(file_inode(file));
   return _mtlk_df_ui_proc_bcl_read(buffer, start, off, count, eof, data, SHRAM_DATA_BASE, SHRAM_DATA_SIZE);
@@ -4349,14 +4353,14 @@ mtlk_df_ui_reset_stats(mtlk_df_t* df)
   return res;
 }
 
-int _mtlk_df_ui_reset_stats_proc(struct file *file, const char __user *buffer,
+ssize_t _mtlk_df_ui_reset_stats_proc(struct file *file, const char __user *buffer,
                                  size_t count, loff_t *data)
 {
   mtlk_df_ui_reset_stats((mtlk_df_t*)data);
   return count;
 }
 
-static int _mtlk_df_ui_l2nat_clear_table(struct file *file, const char __user *buffer,
+static ssize_t _mtlk_df_ui_l2nat_clear_table(struct file *file, const char __user *buffer,
                                  size_t count, loff_t *data)
 {
   mtlk_clpb_t *clpb = NULL;
@@ -4369,7 +4373,7 @@ static int _mtlk_df_ui_l2nat_clear_table(struct file *file, const char __user *b
 }
 
 #ifdef AOCS_DEBUG
-static int mtlk_df_ui_aocs_proc_cl(struct file *file, const char __user *buffer,
+static ssize_t mtlk_df_ui_aocs_proc_cl(struct file *file, const char __user *buffer,
                                    size_t count, loff_t *data)
 {
   int res = MTLK_ERR_OK;

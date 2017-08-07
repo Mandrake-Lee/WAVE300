@@ -100,7 +100,7 @@ mtlk_node_get_nof_sons (mtlk_node_t *node)
   return node->nof_sons;
 }
 
-#define NO_BY_SON(son) ((int)(son) - 1)
+#define NO_BY_SON(son) ((uintptr_t)(son) - 1)
 #define SON_BY_NO(no)  ((mtlk_node_son_t *)((no) + 1))
 
 mtlk_node_son_t *__MTLK_IFUNC
@@ -115,7 +115,7 @@ mtlk_node_son_t *__MTLK_IFUNC
 mtlk_node_son_get_next (mtlk_node_t     *node,
                         mtlk_node_son_t *prev_son)
 {
-  int next_son_no;
+  uintptr_t next_son_no;
 
   MTLK_ASSERT(node != NULL);
   MTLK_ASSERT(prev_son != NULL);

@@ -31,7 +31,7 @@ pmatch(char *pattern, char *string)
             while (*q != c) {
 	      if (*q == '\0')
 	        return FALSE;
-	        q++;
+	      q++;
 	    }
           }
           do {
