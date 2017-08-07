@@ -365,7 +365,7 @@ mtlk_cli_srv_create (void)
   if (srv) {
     int res;
 
-    memset(srv, 0, sizeof(srv));
+    memset(srv, 0, sizeof(*srv));
 
     res = _mtlk_cli_srv_init(srv);
     if (res != MTLK_ERR_OK) {
