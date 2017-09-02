@@ -3,7 +3,8 @@
 ============================================================
 REVISION
 01	2017-08-01	First issue by Mandrake
-
+02	2017-09-02	Details for linking against tiny-libnl, 
+			issues and workaround. Vittorio88 & Mandrake
 
 FOREWORD
 ============================================================
@@ -48,7 +49,13 @@ SETUP
 		./scripts/feeds install libnl-tiny
 		make package/libnl-tiny/{clean,compile,install} V=99
 
-	NOTE: In order to run the wifi driver in your target machine
+	NOTE1: The step above will install the library related to
+	libnl-tiny. This library is only needed if MTTOOLS are to be
+	built, which is an independent option from the drivers. You can
+	skip it if you only want the drivers
+
+
+	NOTE2: In order to run the wifi driver in your target machine
 	you need also to have the firmware files:
 		sta_upper.bin
 		ap_upper.bin
@@ -63,6 +70,7 @@ SETUP
 	DEFAULT_TOOLCHAIN_PATH
 	DEFAULT_KERNEL_DIR
 	Set local directory for ../libnl-tiny/include
+	Set local directory for static libraries
 
 [2] Run menu
 	At driver/, enter into the menu:
@@ -96,6 +104,13 @@ SETUP
 	After a couple of minutes, the file “mtlkroot.ko” should appear in your build directory:
 	/driver/builds/ugw5.1-vrx288
 
+	[BUG & WORKAROUND!] If MTTOOLS are to be built, then an error message will pop up:
+		"cannot find -lnl"
+	By default the sources will search for libnl.so library in your path. Usually
+	we will be using the efficient libnl-tiny.a package and hence the error.
+	WORKAROUND = rename libnl-tiny.so to libnl.so
+	CORRECTIVE = add a menuconfig option to use either tiny-libnl or libnl
+
 [5] Make the proper driver
 	So far, only half of the job is done.
 
@@ -118,5 +133,5 @@ SETUP
 		[1] mtlkroot.ko
 		[2] mtlk.ko
 	NOTE: Wireless wave300 needs of firmware files to be available in your platform.
-	These files must be copies into your target /lib/firmware folder
+	These files must be copied into your target /lib/firmware folder
 
