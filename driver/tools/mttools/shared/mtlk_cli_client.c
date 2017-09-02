@@ -160,7 +160,7 @@ mtlk_cli_clt_create (void)
   mtlk_cli_clt_t *clt = (mtlk_cli_clt_t *)mtlk_osal_mem_alloc(sizeof(*clt), 
                                                               MTLK_MEM_TAG_CLI_CLT);
   if (clt) {
-    memset(clt, 0, sizeof(clt));
+    memset(clt, 0, sizeof(*clt));
   }
 
   return clt;

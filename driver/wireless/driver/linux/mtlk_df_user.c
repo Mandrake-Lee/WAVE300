@@ -18,6 +18,7 @@
 
 #include <linux/wireless.h>
 #include <linux/if_arp.h>
+#include <linux/proc_fs.h>
 #include <net/iw_handler.h>
 #include <asm/unaligned.h>
 #ifdef CONFIG_IFX_PPA_API_DIRECTPATH
@@ -215,7 +216,7 @@ _mtlk_df_user_get_core_slave_vap_index_by_iwpriv_param (uint32 iwpriv_slave_vap_
 {
   /* DF iwpriv commands use 0-based VAP index for Slave VAPs, while Core 
    * uses 0-based numeration for *all* the VAPs, including the Master.
-   * This function translates the DFÂ’s Slave VAP Index to a CoreÂ’s one.
+   * This function translates the DF’s Slave VAP Index to a Core’s one.
    */
   return (iwpriv_slave_vap_index + 1);
 }
@@ -331,8 +332,12 @@ mtlk_df_ui_is_promiscuous(mtlk_df_t *df)
 void __MTLK_IFUNC
 mtlk_df_ui_notify_tx_start(mtlk_df_t *df)
 {
+  struct netdev_queue *txq;
   MTLK_ASSERT(NULL != df);
-  mtlk_df_get_user(df)->dev->trans_start = jiffies;
+
+  txq = netdev_get_tx_queue(mtlk_df_get_user(df)->dev, 0);
+  if (txq->trans_start != jiffies)
+    txq->trans_start = jiffies;
 }
 
 MTLK_INIT_STEPS_LIST_BEGIN(df_user)
@@ -1273,7 +1278,7 @@ _mtlk_df_user_fill_hw_cfg(mtlk_hw_cfg_t *cfg, char *str)
   char *next_token = str;
   int res = MTLK_ERR_PARAMS;
 
-  memset(cfg, 0, sizeof(cfg));
+  memset(cfg, 0, sizeof(*cfg));
 
   next_token = mtlk_get_token(next_token, buf, sizeof(buf), ',');
   if (next_token) {
@@ -3423,7 +3428,7 @@ mtlk_df_ui_notify_secure_node_connect(mtlk_df_t *df,
 
   MTLK_ASSERT(NULL != df);
 
-  p += sprintf(p, "NEWSTA " MAC_PRINTF_FMT ", RSNIE_LEN %i : ",
+  p += sprintf(p, "NEWSTA " MAC_PRINTF_FMT ", RSNIE_LEN %lu : ",
                MAC_PRINTF_ARG(node_addr), rsnie_len);
 
   MTLK_ASSERT(buf - p + rsnie_len*2 < IW_CUSTOM_MAX);
@@ -4117,9 +4122,9 @@ err_ret:
   return _mtlk_df_mtlk_to_linux_error_code(res);
 }
 
-static int
+static ssize_t
 mtlk_df_do_debug_assert_write (struct file *file, const char *buf,
-                               unsigned long count, void *data)
+                               size_t count, loff_t *data)
 {
   int          res = MTLK_ERR_PARAMS;
   char         str[MAX_PROC_STR_LEN];
@@ -4203,17 +4208,8 @@ end:
   return count;
 }
 
-/*Interface functions to deal with kernel >3.1 proc API*/
 static int
-mtlk_df_do_debug_assert_write_proc_fop (struct file *file, const char *buf,
-                               size_t count, loff_t *off){
-	mtlk_df_t   *df = (mtlk_df_t *)PDE_DATA(file_inode(file));
-
-	return mtlk_df_do_debug_assert_write (file, buf, count, df);
-}
-
-static int
-_mtlk_df_ui_proc_bcl_read (char *page, char **start, off_t off, int count, int *eof,
+_mtlk_df_ui_proc_bcl_read (char *page, char **start, loff_t * off, int count, int *eof,
   void *data, int io_base, int io_size)
 {
   int res = MTLK_ERR_NOT_SUPPORTED;
@@ -4223,12 +4219,12 @@ _mtlk_df_ui_proc_bcl_read (char *page, char **start, off_t off, int count, int *
   UMI_BCL_REQUEST *req_result;
 
   /* Calculate io offset */
-  if (off >= io_size) {
+  if (*off >= io_size) {
     *eof = 1;
     return 0;
   }
 
-  if ((off & (sizeof(req.Data) - 1)) || (count < sizeof(req.Data)))
+  if ((*off & (sizeof(req.Data) - 1)) || (count < sizeof(req.Data)))
     return -EIO;
 
   count = 0;
@@ -4239,7 +4235,7 @@ _mtlk_df_ui_proc_bcl_read (char *page, char **start, off_t off, int count, int *
    * Unit field and check&subtract it in core  */
   req.Unit = BCL_UNIT_INT_RAM + BCL_UNIT_MAX;
   req.Size = sizeof(req.Data);
-  req.Address = io_base + off;
+  req.Address = io_base + *off;
   memset(req.Data, 0x5c, sizeof(req.Data)); /* poison */
 
   /* Send request to core */
@@ -4254,8 +4250,7 @@ _mtlk_df_ui_proc_bcl_read (char *page, char **start, off_t off, int count, int *
 
   if (NULL != req_result) {
     count = sizeof(req_result->Data);
-/*Needs copy_to_user() below?*/
-    memcpy(page, req_result->Data, count); 
+    memcpy(page, req_result->Data, count);
     *start = (char*)sizeof(req_result->Data);
   }
 
@@ -4264,30 +4259,26 @@ err_ret:
   return count;
 }
 
-/*Interface functions to meet new kernel 3.10 API*/
+/* These variables are global */
+char **start;
+int *eof;
 
-/*These variables are global*/
-	char **start;
-	int *eof;
-
-static int mtlk_df_ui_lm_proc_fop(struct file *file, char __user *buffer, size_t count, loff_t *off)
+static ssize_t mtlk_df_ui_lm(struct file *file, char __user *buffer, size_t count, loff_t *off)
 {
-	void *data = PDE_DATA(file_inode(file));
-	return _mtlk_df_ui_proc_bcl_read(buffer, start, *off, count, eof, data, LM_DATA_BASE, LM_DATA_SIZE);
+  void *data = PDE_DATA(file_inode(file));
+  return _mtlk_df_ui_proc_bcl_read(buffer, start, off, count, eof, data, LM_DATA_BASE, LM_DATA_SIZE);
 }
-
-static int mtlk_df_ui_um_proc_fop(struct file *file,char __user *buffer, size_t count, loff_t *off)
+                 
+static ssize_t mtlk_df_ui_um(struct file *file, char __user *buffer, size_t count, loff_t *off)
 {
-	void *data = PDE_DATA(file_inode(file));
-  return _mtlk_df_ui_proc_bcl_read(buffer, start, *off, count, eof, data, UM_DATA_BASE, UM_DATA_SIZE);
+  void *data = PDE_DATA(file_inode(file));
+  return _mtlk_df_ui_proc_bcl_read(buffer, start, off, count, eof, data, UM_DATA_BASE, UM_DATA_SIZE);
 }
-
-static int mtlk_df_ui_shram_proc_fop(struct file *file,char __user *buffer, size_t count, loff_t *off)
+static ssize_t mtlk_df_ui_shram(struct file *file,char __user *buffer, size_t count, loff_t *off)
 {
-	void *data = PDE_DATA(file_inode(file));
-  return _mtlk_df_ui_proc_bcl_read(buffer, start, *off, count, eof, data, SHRAM_DATA_BASE, SHRAM_DATA_SIZE);
+  void *data = PDE_DATA(file_inode(file));
+  return _mtlk_df_ui_proc_bcl_read(buffer, start, off, count, eof, data, SHRAM_DATA_BASE, SHRAM_DATA_SIZE);
 }
-/*End of interface functions*/
 
 static int
 _mtlk_df_ui_ee_caps(mtlk_seq_entry_t *s, void *data)
@@ -4362,22 +4353,15 @@ mtlk_df_ui_reset_stats(mtlk_df_t* df)
   return res;
 }
 
-int _mtlk_df_ui_reset_stats_proc(struct file *file, const char __user *buffer,
-                                 unsigned long count, void *data)
+ssize_t _mtlk_df_ui_reset_stats_proc(struct file *file, const char __user *buffer,
+                                 size_t count, loff_t *data)
 {
   mtlk_df_ui_reset_stats((mtlk_df_t*)data);
   return count;
 }
 
-/*Interface functions to deal with kernel >3.1 proc API*/
-int _mtlk_df_ui_reset_stats_proc_fop(struct file *file, const char __user *buffer,
-                                 size_t count, loff_t *off){
-	mtlk_df_t   *df = (mtlk_df_t *)PDE_DATA(file_inode(file));
-	return _mtlk_df_ui_reset_stats_proc(file, buffer, count, df);
-}
-
-static int _mtlk_df_ui_l2nat_clear_table(struct file *file, const char __user *buffer,
-                                 unsigned long count, void *data)
+static ssize_t _mtlk_df_ui_l2nat_clear_table(struct file *file, const char __user *buffer,
+                                 size_t count, loff_t *data)
 {
   mtlk_clpb_t *clpb = NULL;
   mtlk_df_t *df = (mtlk_df_t*) data;
@@ -4388,17 +4372,9 @@ static int _mtlk_df_ui_l2nat_clear_table(struct file *file, const char __user *b
   return count;
 }
 
-/*Interface functions to deal with kernel >3.1 proc API*/
-static int _mtlk_df_ui_l2nat_clear_table_proc_fop(struct file *file, const char __user *buffer,
-                                 size_t count, loff_t *off){
-	mtlk_df_t   *df = (mtlk_df_t *)PDE_DATA(file_inode(file));
-	return _mtlk_df_ui_l2nat_clear_table(file, buffer, count, df);
-}
-
-
 #ifdef AOCS_DEBUG
-static int mtlk_df_ui_aocs_proc_cl(struct file *file, const char __user *buffer,
-                                   unsigned long count, void *data)
+static ssize_t mtlk_df_ui_aocs_proc_cl(struct file *file, const char __user *buffer,
+                                   size_t count, loff_t *data)
 {
   int res = MTLK_ERR_OK;
   mtlk_clpb_t *clpb = NULL;
@@ -4414,172 +4390,50 @@ static int mtlk_df_ui_aocs_proc_cl(struct file *file, const char __user *buffer,
 
   return count;
 }
-
-/*Interface functions to deal with kernel >3.1 proc API*/
-static int mtlk_df_ui_aocs_proc_cl_fop(struct file *file, const char __user *buffer,
-                                   unsigned long count, void *data){
-	mtlk_df_t   *df = (mtlk_df_t *)PDE_DATA(file_inode(file));
-	return mtlk_df_ui_aocs_proc_cl(file, buffer, count, df);
-}
-
 #endif
 /**************************************************************
  * Register handlers
  **************************************************************/
-/*Due to changes in kernel >3.10, create_proc() needs to be updated*/
-/*First creates all struct file_operations for the different procs*/
-/*Functions _mtlk_df_proc_seq_entry_start_ops,_mtlk_df_proc_seq_entry_next_ops &*/
-/*_mtlk_df_proc_seq_entry_stop_ops are defines as static in mtlk_df_proc_impl.c*/
-
-/*Start of declarations struct file_operations*/
-
-static struct seq_operations mtlk_df_ui_aocs_history_seq_ops = {
-	.start = _mtlk_df_proc_seq_entry_start_ops,
-	.next  = _mtlk_df_proc_seq_entry_next_ops,
-	.stop  = _mtlk_df_proc_seq_entry_stop_ops,
-	.show =	mtlk_df_ui_aocs_history
-};
-
-static struct seq_operations mtlk_df_ui_aocs_table_seq_ops = {
-	.start = _mtlk_df_proc_seq_entry_start_ops,
-	.next  = _mtlk_df_proc_seq_entry_next_ops,
-	.stop  = _mtlk_df_proc_seq_entry_stop_ops,
-	.show =	mtlk_df_ui_aocs_table
-};
-
-static struct seq_operations mtlk_df_ui_aocs_channels_seq_ops = {
-	.start = _mtlk_df_proc_seq_entry_start_ops,
-	.next  = _mtlk_df_proc_seq_entry_next_ops,
-	.stop  = _mtlk_df_proc_seq_entry_stop_ops,
-	.show =	mtlk_df_ui_aocs_channels
-};
-
-static struct seq_operations mtlk_df_ui_aocs_penalties_seq_ops = {
-	.start = _mtlk_df_proc_seq_entry_start_ops,
-	.next  = _mtlk_df_proc_seq_entry_next_ops,
-	.stop  = _mtlk_df_proc_seq_entry_stop_ops,
-	.show =	mtlk_df_ui_aocs_penalties
-};
-
-static struct seq_operations mtlk_df_ui_hw_limits_seq_ops = {
-	.start = _mtlk_df_proc_seq_entry_start_ops,
-	.next  = _mtlk_df_proc_seq_entry_next_ops,
-	.stop  = _mtlk_df_proc_seq_entry_stop_ops,
-	.show =	mtlk_df_ui_hw_limits
-};
-
-static struct seq_operations mtlk_df_ui_reg_limits_seq_ops = {
-	.start = _mtlk_df_proc_seq_entry_start_ops,
-	.next  = _mtlk_df_proc_seq_entry_next_ops,
-	.stop  = _mtlk_df_proc_seq_entry_stop_ops,
-	.show =	mtlk_df_ui_reg_limits
-};
-
-static struct seq_operations mtlk_df_ui_ant_gain_seq_ops = {
-	.start = _mtlk_df_proc_seq_entry_start_ops,
-	.next  = _mtlk_df_proc_seq_entry_next_ops,
-	.stop  = _mtlk_df_proc_seq_entry_stop_ops,
-	.show =	mtlk_df_ui_ant_gain
-};
-
-static struct seq_operations mtlk_df_ui_serializer_dump_seq_ops = {
-	.start = _mtlk_df_proc_seq_entry_start_ops,
-	.next  = _mtlk_df_proc_seq_entry_next_ops,
-	.stop  = _mtlk_df_proc_seq_entry_stop_ops,
-	.show =	mtlk_df_ui_serializer_dump
-};
-
-static struct seq_operations mtlk_df_ui_debug_general_seq_ops = {
-	.start = _mtlk_df_proc_seq_entry_start_ops,
-	.next  = _mtlk_df_proc_seq_entry_next_ops,
-	.stop  = _mtlk_df_proc_seq_entry_stop_ops,
-	.show =	mtlk_df_ui_debug_general
-};
-
-static struct seq_operations mtlk_df_ui_reordering_stats_seq_ops = {
-	.start = _mtlk_df_proc_seq_entry_start_ops,
-	.next  = _mtlk_df_proc_seq_entry_next_ops,
-	.stop  = _mtlk_df_proc_seq_entry_stop_ops,
-	.show =	mtlk_df_ui_reordering_stats
-};
-
-static struct seq_operations mtlk_df_ui_debug_l2nat_seq_ops = {
-	.start = _mtlk_df_proc_seq_entry_start_ops,
-	.next  = _mtlk_df_proc_seq_entry_next_ops,
-	.stop  = _mtlk_df_proc_seq_entry_stop_ops,
-	.show =	mtlk_df_ui_debug_l2nat
-};
-
-static struct seq_operations mtlk_df_ui_debug_send_queue_seq_ops = {
-	.start = _mtlk_df_proc_seq_entry_start_ops,
-	.next  = _mtlk_df_proc_seq_entry_next_ops,
-	.stop  = _mtlk_df_proc_seq_entry_stop_ops,
-	.show =	mtlk_df_ui_debug_send_queue
-};
-
-static struct seq_operations mtlk_df_ui_debug_mac_stats_seq_ops = {
-	.start = _mtlk_df_proc_seq_entry_start_ops,
-	.next  = _mtlk_df_proc_seq_entry_next_ops,
-	.stop  = _mtlk_df_proc_seq_entry_stop_ops,
-	.show =	mtlk_df_ui_debug_mac_stats
-};
-
-static struct seq_operations _mtlk_df_ui_ee_caps_seq_ops = {
-	.start = _mtlk_df_proc_seq_entry_start_ops,
-	.next  = _mtlk_df_proc_seq_entry_next_ops,
-	.stop  = _mtlk_df_proc_seq_entry_stop_ops,
-	.show =	_mtlk_df_ui_ee_caps
-};
-
-static struct seq_operations _mtlk_df_ui_debug_igmp_read_seq_ops = {
-	.start = _mtlk_df_proc_seq_entry_start_ops,
-	.next  = _mtlk_df_proc_seq_entry_next_ops,
-	.stop  = _mtlk_df_proc_seq_entry_stop_ops,
-	.show =	_mtlk_df_ui_debug_igmp_read
-};
-
-/*End of declarations struct file_operations*/
-
 static int mtlk_df_ui_reg_aocs_history(mtlk_df_user_t* df_user)
 {
   return mtlk_df_proc_node_add_seq_entry(
-            "aocs_history", df_user->slow_ctx->proc_df_node, df_user->df, &mtlk_df_ui_aocs_history_seq_ops);
+            "aocs_history", df_user->slow_ctx->proc_df_node, df_user->df, mtlk_df_ui_aocs_history);
 }
 
 static int mtlk_df_ui_reg_aocs_table(mtlk_df_user_t* df_user)
 {
   return mtlk_df_proc_node_add_seq_entry(
-            "aocs_table", df_user->slow_ctx->proc_df_node, df_user->df, &mtlk_df_ui_aocs_table_seq_ops);
+            "aocs_table", df_user->slow_ctx->proc_df_node, df_user->df, mtlk_df_ui_aocs_table);
 }
 
 static int mtlk_df_ui_reg_aocs_channels(mtlk_df_user_t* df_user)
 {
   return mtlk_df_proc_node_add_seq_entry(
-            "aocs_channels", df_user->slow_ctx->proc_df_node, df_user->df, &mtlk_df_ui_aocs_channels_seq_ops);
+            "aocs_channels", df_user->slow_ctx->proc_df_node, df_user->df, mtlk_df_ui_aocs_channels);
 }
 
 static int mtlk_df_ui_reg_aocs_penalties(mtlk_df_user_t* df_user)
 {
   return mtlk_df_proc_node_add_seq_entry(
-            "aocs_penalties", df_user->slow_ctx->proc_df_node, df_user->df, &mtlk_df_ui_aocs_penalties_seq_ops);
+            "aocs_penalties", df_user->slow_ctx->proc_df_node, df_user->df, mtlk_df_ui_aocs_penalties);
 }
 
 static int mtlk_df_ui_reg_hw_limits(mtlk_df_user_t* df_user)
 {
   return mtlk_df_proc_node_add_seq_entry(
-            "hw_limits", df_user->slow_ctx->proc_df_node, df_user->df, &mtlk_df_ui_hw_limits_seq_ops);
+            "hw_limits", df_user->slow_ctx->proc_df_node, df_user->df, mtlk_df_ui_hw_limits);
 }
 
 static int mtlk_df_ui_reg_reg_limits(mtlk_df_user_t* df_user)
 {
   return mtlk_df_proc_node_add_seq_entry(
-            "reg_limits", df_user->slow_ctx->proc_df_node, df_user->df, &mtlk_df_ui_reg_limits_seq_ops);
+            "reg_limits", df_user->slow_ctx->proc_df_node, df_user->df, mtlk_df_ui_reg_limits);
 }
 
 static int mtlk_df_ui_reg_ant_gain(mtlk_df_user_t* df_user)
 {
   return mtlk_df_proc_node_add_seq_entry(
-            "antenna_gain", df_user->slow_ctx->proc_df_node, df_user->df, &mtlk_df_ui_ant_gain_seq_ops);
+            "antenna_gain", df_user->slow_ctx->proc_df_node, df_user->df, mtlk_df_ui_ant_gain);
 }
 
 static void mtlk_df_ui_unreg_serializer_dump(mtlk_df_user_t* df_user)
@@ -4590,7 +4444,7 @@ static void mtlk_df_ui_unreg_serializer_dump(mtlk_df_user_t* df_user)
 static int mtlk_df_ui_reg_serializer_dump(mtlk_df_user_t* df_user)
 {
   return mtlk_df_proc_node_add_seq_entry(
-            "serializer_dump", df_user->slow_ctx->proc_df_debug_node, df_user->df, &mtlk_df_ui_serializer_dump_seq_ops);
+            "serializer_dump", df_user->slow_ctx->proc_df_debug_node, df_user->df, mtlk_df_ui_serializer_dump);
 }
 
 static void mtlk_df_ui_unreg_core_status(mtlk_df_user_t* df_user)
@@ -4603,14 +4457,14 @@ static int mtlk_df_ui_reg_core_status(mtlk_df_user_t* df_user)
 {
   int res;
   res = mtlk_df_proc_node_add_seq_entry(
-           "General", df_user->slow_ctx->proc_df_debug_node, df_user->df, &mtlk_df_ui_debug_general_seq_ops);
+           "General", df_user->slow_ctx->proc_df_debug_node, df_user->df, mtlk_df_ui_debug_general);
 
   if (MTLK_ERR_OK == res) {
     res = mtlk_df_proc_node_add_seq_entry(
               "MACStats",
               df_user->slow_ctx->proc_df_debug_node,
               df_user->df,
-              &mtlk_df_ui_debug_mac_stats_seq_ops);
+              mtlk_df_ui_debug_mac_stats);
   }
 
   if (MTLK_ERR_OK != res) {
@@ -4626,58 +4480,55 @@ static int mtlk_df_ui_reg_debug_reordering_stats(mtlk_df_user_t* df_user)
             "ReorderingStats",
             df_user->slow_ctx->proc_df_debug_node,
             df_user->df,
-            &mtlk_df_ui_reordering_stats_seq_ops);
+            mtlk_df_ui_reordering_stats);
 }
 
 static int mtlk_df_ui_reg_debug_l2nat(mtlk_df_user_t* df_user)
 {
   return mtlk_df_proc_node_add_seq_entry(
-            "L2NAT", df_user->slow_ctx->proc_df_debug_node, df_user->df, &mtlk_df_ui_debug_l2nat_seq_ops);
+            "L2NAT", df_user->slow_ctx->proc_df_debug_node, df_user->df, mtlk_df_ui_debug_l2nat);
 }
 
 static int mtlk_df_ui_reg_debug_send_queue(mtlk_df_user_t* df_user)
 {
   return mtlk_df_proc_node_add_seq_entry(
-            "SendQueue", df_user->slow_ctx->proc_df_debug_node, df_user->df, &mtlk_df_ui_debug_send_queue_seq_ops);
+            "SendQueue", df_user->slow_ctx->proc_df_debug_node, df_user->df, mtlk_df_ui_debug_send_queue);
 }
 
 static int mtlk_df_ui_reg_debug_mac_assert(mtlk_df_user_t* df_user)
 {
-
-mtlk_df_proc_node_add_wo_entry(
-            "do_debug_assert", df_user->slow_ctx->proc_df_node, df_user->df, mtlk_df_do_debug_assert_write_proc_fop);
-return 0;
-
+  return mtlk_df_proc_node_add_wo_entry(
+            "do_debug_assert", df_user->slow_ctx->proc_df_node, df_user->df, mtlk_df_do_debug_assert_write);
 }
 
 static int mtlk_df_ui_reg_bcl_read_lm(mtlk_df_user_t* df_user)
 {
   return mtlk_df_proc_node_add_ro_entry(
-            "lm", df_user->slow_ctx->proc_df_node, df_user->df, mtlk_df_ui_lm_proc_fop);
+            "lm", df_user->slow_ctx->proc_df_node, df_user->df, mtlk_df_ui_lm);
 }
 
 static int mtlk_df_ui_reg_bcl_read_um(mtlk_df_user_t* df_user)
 {
   return mtlk_df_proc_node_add_ro_entry(
-            "um", df_user->slow_ctx->proc_df_node, df_user->df, mtlk_df_ui_um_proc_fop);
+            "um", df_user->slow_ctx->proc_df_node, df_user->df, mtlk_df_ui_um);
 }
 
 static int mtlk_df_ui_reg_bcl_read_shram(mtlk_df_user_t* df_user)
 {
   return mtlk_df_proc_node_add_ro_entry(
-            "shram", df_user->slow_ctx->proc_df_node, df_user->df, mtlk_df_ui_shram_proc_fop);
+            "shram", df_user->slow_ctx->proc_df_node, df_user->df, mtlk_df_ui_shram);
 }
 
 static int mtlk_df_ui_reg_ee_caps(mtlk_df_user_t* df_user)
 {
   return mtlk_df_proc_node_add_seq_entry(
-            "EECaps", df_user->slow_ctx->proc_df_node, df_user->df, &_mtlk_df_ui_ee_caps_seq_ops);
+            "EECaps", df_user->slow_ctx->proc_df_node, df_user->df, _mtlk_df_ui_ee_caps);
 }
 
 static int mtlk_df_ui_reg_debug_igmp_read(mtlk_df_user_t* df_user)
 {
   return mtlk_df_proc_node_add_seq_entry(
-            "igmp", df_user->slow_ctx->proc_df_node, df_user->df, &_mtlk_df_ui_debug_igmp_read_seq_ops);
+            "igmp", df_user->slow_ctx->proc_df_node, df_user->df, _mtlk_df_ui_debug_igmp_read);
 }
 
 static int mtlk_df_ui_reg_reset_stats(mtlk_df_user_t* df_user)
@@ -4686,7 +4537,7 @@ static int mtlk_df_ui_reg_reset_stats(mtlk_df_user_t* df_user)
             "ResetStats",
             df_user->slow_ctx->proc_df_debug_node,
             df_user->df,
-            _mtlk_df_ui_reset_stats_proc_fop);
+            _mtlk_df_ui_reset_stats_proc);
 }
 
 static int mtlk_df_ui_reg_l2nat_clear_table(mtlk_df_user_t* df_user)
@@ -4695,14 +4546,14 @@ static int mtlk_df_ui_reg_l2nat_clear_table(mtlk_df_user_t* df_user)
             "L2NAT_ClearTable",
             df_user->slow_ctx->proc_df_debug_node,
             df_user->df,
-            _mtlk_df_ui_l2nat_clear_table_proc_fop);
+            _mtlk_df_ui_l2nat_clear_table);
 }
 
 #ifdef AOCS_DEBUG
 static int mtlk_df_ui_reg_aocs_proc_cl(mtlk_df_user_t* df_user)
 {
   return mtlk_df_proc_node_add_wo_entry(
-            "aocs_cl", df_user->slow_ctx->proc_df_debug_node, df_user->df, mtlk_df_ui_aocs_proc_cl_fop);
+            "aocs_cl", df_user->slow_ctx->proc_df_debug_node, df_user->df, mtlk_df_ui_aocs_proc_cl);
 }
 #endif
 
@@ -6718,7 +6569,6 @@ _mtlk_df_user_init(mtlk_df_user_t *df_user,
 
     _mtlk_df_user_fill_callbacks(df_user);
 
-
 #ifdef MTCFG_IRB_DEBUG
     /* TODO: GS: It's used ROOT IRB ??? Allow it only for MASTER??*/
     MTLK_INIT_STEP(df_user, IRB_PINGER_INIT, MTLK_OBJ_PTR(df_user),
@@ -6727,11 +6577,9 @@ _mtlk_df_user_init(mtlk_df_user_t *df_user,
 #endif /*MTCFG_IRB_DEBUG*/
 
     for(i = 0; i < ARRAY_SIZE(_proc_management_handlers); i++) {
-   
-	MTLK_INIT_STEP_LOOP(df_user, PROC_INIT, MTLK_OBJ_PTR(df_user),
+      MTLK_INIT_STEP_LOOP(df_user, PROC_INIT, MTLK_OBJ_PTR(df_user),
                           _proc_management_handlers[i].on_register, (df_user));
     }
-
     for (i = 0; i < ARRAY_SIZE(df_user->fw_hang_evts); i++) {
       MTLK_INIT_STEP_LOOP(df_user, FW_HANG_EVTs, MTLK_OBJ_PTR(df_user),
         mtlk_osal_event_init, (&df_user->fw_hang_evts[i]));

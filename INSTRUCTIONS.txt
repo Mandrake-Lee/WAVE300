@@ -43,6 +43,11 @@ SETUP
 	Have a crosscompiler SDK (e.g. LEDE or Openwrt)
 	Have header files for libnl-tiny
 
+	Prepare libnl-tiny package with LEDE or Openwrt SDK:
+		./scripts/feeds update -a
+		./scripts/feeds install libnl-tiny
+		make package/libnl-tiny/{clean,compile,install} V=99
+
 	NOTE: In order to run the wifi driver in your target machine
 	you need also to have the firmware files:
 		sta_upper.bin
@@ -50,7 +55,7 @@ SETUP
 		contr_lm.bin
 
 [1] Set crosscompiler variables
-	Edit file driver/support/ugw.env.common and tune-up upon your
+	Edit file driver/support/ugw.env.common and tune to your
 	system and needs.
 
 	Almost certain that these paths must be redefined:

@@ -95,7 +95,7 @@ typedef unsigned long mtlk_handle_t;
 
 #define MTLK_UNREFERENCED_PARAM(x)  ((x) = (x))
 #define MTLK_OFFSET_OF(type, field) \
-  (uint32)(&((type*)0)->field)
+  (uintptr_t)(&((type*)0)->field)
 #define MTLK_CONTAINER_OF(address, type, field) \
   (type *)((uint8 *)(address) - MTLK_OFFSET_OF(type, field))
 

@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <errno.h>
 #include <ctype.h>
+#include <fcntl.h> // for open
 
 #include <asm/types.h>
 #include <sys/socket.h>

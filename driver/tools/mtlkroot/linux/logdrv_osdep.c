@@ -140,10 +140,10 @@ static void release_usp_entry(mtlk_usp_entry_t *usp_entry);
 static void usp_queue_release_entries(void);
 static int setup_cdev(void);
 
-static int logger_debug_write(struct file *file, const char *buffer,
+static ssize_t logger_debug_write(struct file *file, const char *buffer,
   size_t count, loff_t *data);
-static int logger_debug_read(struct file *filp,char *page,size_t count,loff_t *offp );
-static int logger_stat_read (struct file *filp,char *page,size_t count,loff_t *offp );
+static ssize_t logger_debug_read(struct file *filp,char *page,size_t count,loff_t *offp );
+static ssize_t logger_stat_read (struct file *filp,char *page,size_t count,loff_t *offp );
 // ----------------
 // Global variables
 // ----------------
@@ -657,7 +657,7 @@ usp_queue_release_entries(void)
   }
 }
 
-static int logger_debug_write(struct file *file, const char *buffer,
+static ssize_t logger_debug_write(struct file *file, const char *buffer,
   size_t count, loff_t *data)
 {
   char *debug_conf = NULL;
@@ -681,7 +681,7 @@ FINISH:
     kfree(debug_conf);
   return result;
 }
-static int logger_debug_read(struct file *filp,char *page,size_t count,loff_t *offp )
+static ssize_t logger_debug_read(struct file *filp,char *page,size_t count,loff_t *offp )
 {
     char *p = page;
 
@@ -690,7 +690,7 @@ static int logger_debug_read(struct file *filp,char *page,size_t count,loff_t *o
     return p - page;
 }
 
-static int logger_stat_read (struct file *filp,char *page,size_t count,loff_t *offp )
+static ssize_t logger_stat_read (struct file *filp,char *page,size_t count,loff_t *offp )
 {
   int bytes_written = 0;
   

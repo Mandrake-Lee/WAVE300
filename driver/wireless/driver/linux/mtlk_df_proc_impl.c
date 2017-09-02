@@ -18,7 +18,6 @@
 
 #include "mtlk_df.h"
 
-#include <linux/uidgid.h>
 
 /********************************************************************
  * Local definitions
@@ -33,15 +32,18 @@
 /***
  * Linux OS related definitions
  ***/
-#if LINUX_VERSION_CODE < KERNEL_VERSION(3,10,0)
+
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,24)
 #define PROC_NET init_net.proc_net
+#else
+#define PROC_NET proc_net
+#endif
+
+#if LINUX_VERSION_CODE < KERNEL_VERSION(2,4,23)
 static inline struct proc_dir_entry *PDE(const struct inode *inode)
 {
   return inode->u.generic_ip;
 }
-#else
-#define PROC_NET init_net.proc_net
-
 #endif
 
 /********************************************************************
@@ -107,11 +109,12 @@ mtlk_df_proc_node_create(const uint8 *name, mtlk_df_proc_fs_node_t* parent)
     if (NULL == proc_node->dir) {
       goto create_err;
     }
+
 #if LINUX_VERSION_CODE < KERNEL_VERSION(3,10,00)
     proc_node->dir->uid.val = MTLK_PROCFS_UID;
     proc_node->dir->gid.val = MTLK_PROCFS_GID;
 #else
-	proc_set_user(proc_node->dir,KUIDT_INIT(MTLK_PROCFS_UID),KGIDT_INIT(MTLK_PROCFS_GID));
+    proc_set_user(proc_node->dir,KUIDT_INIT(MTLK_PROCFS_UID),KGIDT_INIT(MTLK_PROCFS_GID));
 #endif
   }
 
@@ -188,39 +191,38 @@ _mtlk_df_proc_node_add_entry(char *name,
                             mtlk_df_proc_entry_write_f write_func)
 {
   struct proc_dir_entry *pde;
-  struct file_operations *mtlk_file_ops;
+  struct file_operations *tmp_fops;
 
   MTLK_ASSERT(NULL != parent_node);
   MTLK_ASSERT(NULL != name);
 
-#if LINUX_VERSION_CODE < KERNEL_VERSION(3,10,00)
-  pde = create_proc_entry(name, mode, parent_node->dir);
-#else
-  mtlk_file_ops = kmalloc (sizeof(struct file_operations),GFP_KERNEL);
-  mtlk_file_ops->read = read_func;
-  mtlk_file_ops->write = write_func;
+  tmp_fops = mtlk_osal_mem_alloc(sizeof(*tmp_fops), MTLK_MEM_TAG_PROC);
+  if (NULL == tmp_fops){
+    ELOG_V("Cannot allocate memory for file_operations structure.");
+    goto alloc_err;
+  }
+  memset(tmp_fops, 0, sizeof(*tmp_fops));
 
-  pde = proc_create_data(name, mode, parent_node->dir,mtlk_file_ops,df);
+  *tmp_fops = ( struct  file_operations ) {
+    .read   =  read_func,
+    .write  =  write_func
+  };
 
-#endif
-
-
+  pde = proc_create_data(name, mode, parent_node->dir, tmp_fops, df );
   if (NULL == pde) {
     goto pde_err;
   };
-#if LINUX_VERSION_CODE < KERNEL_VERSION(3,10,00)
-  pde->uid.val = MTLK_PROCFS_UID;
-  pde->gid.val = MTLK_PROCFS_GID;
-  pde->read_proc = read_func;
-  pde->write_proc = write_func;
-  pde->data = df;
-  /* set the .owner field, so that reference count of the
-   * module increment when this file is opened
-   */
-  pde->owner = THIS_MODULE;
-#else
-  proc_set_user(pde,KUIDT_INIT(MTLK_PROCFS_UID),KGIDT_INIT(MTLK_PROCFS_GID));
-#endif
+
+  #if LINUX_VERSION_CODE < KERNEL_VERSION(3,10,00)
+    pde->uid.val = MTLK_PROCFS_UID;
+    pde->gid.val = MTLK_PROCFS_GID;
+    /* set the .owner field, so that reference count of the
+     * module increment when this file is opened
+     */
+    pde->owner = THIS_MODULE;
+  #else
+    proc_set_user(pde,KUIDT_INIT(MTLK_PROCFS_UID),KGIDT_INIT(MTLK_PROCFS_GID));
+  #endif
 
   parent_node->num_entries++;
 
@@ -229,6 +231,10 @@ _mtlk_df_proc_node_add_entry(char *name,
   return MTLK_ERR_OK;
 
 pde_err:
+  ELOG_S("Failed to create proc entry for %s", name);
+  return MTLK_ERR_UNKNOWN;
+
+alloc_err:
   ELOG_S("Failed to create proc entry for %s", name);
   return MTLK_ERR_UNKNOWN;
 }
@@ -279,7 +285,7 @@ mtlk_df_proc_node_add_rw_entry(char *name,
  * we have older kernels (e.g. 2.4.20 on cavium) which
  * lack this functionality.
  */
-void*
+static void*
 _mtlk_df_proc_seq_entry_start_ops(struct seq_file *s, loff_t *pos)
 {
   /* this function must return non-NULL pointer
@@ -299,7 +305,7 @@ _mtlk_df_proc_seq_entry_start_ops(struct seq_file *s, loff_t *pos)
   }
 }
 
-void*
+static void*
 _mtlk_df_proc_seq_entry_next_ops(struct seq_file *s, void *v, loff_t *pos)
 {
   /* increase position, so the next invokation of
@@ -311,7 +317,7 @@ _mtlk_df_proc_seq_entry_next_ops(struct seq_file *s, void *v, loff_t *pos)
   return NULL;
 }
 
-void
+static void
 _mtlk_df_proc_seq_entry_stop_ops(struct seq_file *s, void *v)
 {
   /* do nothing here */
@@ -325,12 +331,13 @@ _mtlk_df_proc_seq_entry_stop_ops(struct seq_file *s, void *v)
 static int
 _mtlk_df_proc_seq_entry_open_ops(struct inode *inode, struct file *file)
 {
-#if LINUX_VERSION_CODE < KERNEL_VERSION(3,10,0)
-  struct mtlk_seq_ops *ops = (PDE(inode))->data;
-#else
-  struct mtlk_seq_ops *ops = PDE_DATA(inode);
-#endif
-  /* try to get semaphore without sleep first */
+  #if LINUX_VERSION_CODE < KERNEL_VERSION(3,10,0)
+    struct mtlk_seq_ops *ops = (PDE(inode))->data;
+  #else
+    struct mtlk_seq_ops *ops = PDE_DATA(inode);
+  #endif
+
+/* try to get semaphore without sleep first */
   if(down_trylock(&ops->sem)) {
     if(file->f_flags & O_NONBLOCK)
       return -EAGAIN;
@@ -346,11 +353,12 @@ _mtlk_df_proc_seq_entry_open_ops(struct inode *inode, struct file *file)
 static int
 _mtlk_df_proc_seq_entry_release_ops(struct inode *inode, struct file *file)
 {
-#if LINUX_VERSION_CODE < KERNEL_VERSION(3,10,0)
-  struct mtlk_seq_ops *ops = (PDE(inode))->data;
-#else
-  struct mtlk_seq_ops *ops = PDE_DATA(inode);
-#endif
+  #if LINUX_VERSION_CODE < KERNEL_VERSION(3,10,0)
+    struct mtlk_seq_ops *ops = (PDE(inode))->data;
+  #else
+    struct mtlk_seq_ops *ops = PDE_DATA(inode);
+  #endif
+
   /* release semaphore acquired in the .open function */
   up(&ops->sem);
   return seq_release(inode, file);
@@ -362,7 +370,7 @@ _mtlk_df_proc_seq_entry_release_ops(struct inode *inode, struct file *file)
  * method releases per-file semaphore and calls
  * seq_release.
  */
-static struct file_operations _mtlk_df_proc_seq_entry_fops = {
+struct file_operations _mtlk_df_proc_seq_entry_fops = {
   .owner   = THIS_MODULE,
   .open    = _mtlk_df_proc_seq_entry_open_ops,
   .read    = seq_read,
@@ -375,7 +383,7 @@ int __MTLK_IFUNC
 mtlk_df_proc_node_add_seq_entry(char *name,
                                  mtlk_df_proc_fs_node_t *parent_node,
                                  void *df,
-                                 struct seq_operations *seq_ops)
+                                 mtlk_df_proc_seq_entry_show_f show_func)
 {
   struct mtlk_seq_ops *tmp_seq_ops;
   struct proc_dir_entry *pde;
@@ -393,20 +401,24 @@ mtlk_df_proc_node_add_seq_entry(char *name,
   /* initialize newly allocated mtlk_seq_ops structure */
   sema_init(&tmp_seq_ops->sem, 1);
   tmp_seq_ops->df = df;
-  tmp_seq_ops->seq_ops = *seq_ops;
-
+  tmp_seq_ops->seq_ops = (struct seq_operations) {
+    .start = _mtlk_df_proc_seq_entry_start_ops,
+    .next  = _mtlk_df_proc_seq_entry_next_ops,
+    .stop  = _mtlk_df_proc_seq_entry_stop_ops,
+    .show  = show_func
+  };
 
   /* create and init proc entry */
-  pde = proc_create_data(name, S_IFREG|S_IRUSR|S_IRGRP|S_IROTH, parent_node->dir,&_mtlk_df_proc_seq_entry_fops,tmp_seq_ops);
+  pde = proc_create_data(name, S_IFREG|S_IRUSR|S_IRGRP|S_IROTH, parent_node->dir, &_mtlk_df_proc_seq_entry_fops, tmp_seq_ops );
   if (NULL == pde) {
     goto pde_err;
   };
+
 #if LINUX_VERSION_CODE < KERNEL_VERSION(3,10,00)
-  pde->uid.val = MTLK_PROCFS_UID;
-  pde->gid.val = MTLK_PROCFS_GID;
-  pde->data = tmp_seq_ops;
+    pde->uid.val = MTLK_PROCFS_UID;
+    pde->gid.val = MTLK_PROCFS_GID;
 #else
-	proc_set_user(pde,KUIDT_INIT(MTLK_PROCFS_UID),KGIDT_INIT(MTLK_PROCFS_GID));
+    proc_set_user(pde,KUIDT_INIT(MTLK_PROCFS_UID),KGIDT_INIT(MTLK_PROCFS_GID));
 #endif
 
 #if LINUX_VERSION_CODE < KERNEL_VERSION(2,6,30)

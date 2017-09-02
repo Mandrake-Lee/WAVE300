@@ -56,7 +56,9 @@ static void nl_input (struct sock *sk, int len)
 
 }
 #else /* kernel version >=  2.6.24 */
+#if LINUX_VERSION_CODE < KERNEL_VERSION(4,5,0)
 static void nl_input (struct sk_buff *inskb) {}
+#endif
 #endif
 
 #endif /* MTCFG_USE_GENL */

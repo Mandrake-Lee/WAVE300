@@ -435,77 +435,12 @@ static int mtlk_df_ui_debug_pp_stats_reset(struct file *file, const char *buffer
 }
 #endif
 
-/*Start of definition of .show functions of seq_operations*/
 static int _mtlk_dfg_version_dump(mtlk_seq_entry_t *s, void *v)
 {
   mtlk_aux_seq_printf(s, "\n%s\n", mtlk_core_get_version_str());
 
   return 0;
 }
-/*End of definition of .show functions of seq_operations*/
-
-
-/*Due to changes in kernel >3.10, create_proc() needs to be updated*/
-/*First creates all struct file_operations for the different procs*/
-/*Functions _mtlk_df_proc_seq_entry_start_ops,_mtlk_df_proc_seq_entry_next_ops &*/
-/*_mtlk_df_proc_seq_entry_stop_ops are defines as static in mtlk_df_proc_impl.c*/
-
-/*Start of declarations struct seq_operations*/
-static struct seq_operations _mtlk_dfg_version_dump_seq_ops = {
-	.start = _mtlk_df_proc_seq_entry_start_ops,
-	.next  = _mtlk_df_proc_seq_entry_next_ops,
-	.stop  = _mtlk_df_proc_seq_entry_stop_ops,
-	.show =	_mtlk_dfg_version_dump
-};
-
-#ifdef MTCFG_ENABLE_OBJPOOL
-static struct seq_operations debug_mem_alloc_dump_seq_ops = {
-	.start = _mtlk_df_proc_seq_entry_start_ops,
-	.next  = _mtlk_df_proc_seq_entry_next_ops,
-	.stop  = _mtlk_df_proc_seq_entry_stop_ops,
-	.show =	debug_mem_alloc_dump
-};
-static struct seq_operations debug_objpool_dump_seq_ops = {
-	.start = _mtlk_df_proc_seq_entry_start_ops,
-	.next  = _mtlk_df_proc_seq_entry_next_ops,
-	.stop  = _mtlk_df_proc_seq_entry_stop_ops,
-	.show =	debug_objpool_dump
-};
-#endif
-
-static struct seq_operations debug_irb_topology_dump_seq_ops = {
-	.start = _mtlk_df_proc_seq_entry_start_ops,
-	.next  = _mtlk_df_proc_seq_entry_next_ops,
-	.stop  = _mtlk_df_proc_seq_entry_stop_ops,
-	.show =	debug_irb_topology_dump
-};
-
-#ifdef MTCFG_CPU_STAT
-static struct seq_operations cpu_stats_seq_show_seq_ops = {
-	.start = _mtlk_df_proc_seq_entry_start_ops,
-	.next  = _mtlk_df_proc_seq_entry_next_ops,
-	.stop  = _mtlk_df_proc_seq_entry_stop_ops,
-	.show =	cpu_stats_seq_show
-};
-static struct seq_operations _mtlk_dfg_cpu_stats_max_id_read_seq_ops = {
-	.start = _mtlk_df_proc_seq_entry_start_ops,
-	.next  = _mtlk_df_proc_seq_entry_next_ops,
-	.stop  = _mtlk_df_proc_seq_entry_stop_ops,
-	.show =	_mtlk_dfg_cpu_stats_max_id_read
-};
-#endif
-
-#ifdef MTCFG_PER_PACKET_STATS
-static struct seq_operations mtlk_df_ui_debug_pp_stats_seq_ops = {
-	.start = _mtlk_df_proc_seq_entry_start_ops,
-	.next  = _mtlk_df_proc_seq_entry_next_ops,
-	.stop  = _mtlk_df_proc_seq_entry_stop_ops,
-	.show =	mtlk_df_ui_debug_pp_stats
-};
-#endif
-
-
-/*End of declarations struct file_operations*/
 
 static int mtlk_dfg_proc_init(mtlk_dfg_t *dfg)
 {
@@ -525,20 +460,20 @@ static int mtlk_dfg_proc_init(mtlk_dfg_t *dfg)
     }
 
     res = mtlk_df_proc_node_add_seq_entry(
-            "version", dfg->proc_mtlk_node, dfg, &_mtlk_dfg_version_dump_seq_ops);
+            "version", dfg->proc_mtlk_node, dfg, _mtlk_dfg_version_dump);
     if (MTLK_ERR_OK != res) {
       goto ERROR_PROC_RET;
     }
 
 #ifdef MTCFG_ENABLE_OBJPOOL
     res = mtlk_df_proc_node_add_seq_entry(
-            "mem_alloc_dump", dfg->proc_mtlk_node, dfg, &debug_mem_alloc_dump_seq_ops);
+            "mem_alloc_dump", dfg->proc_mtlk_node, dfg, debug_mem_alloc_dump);
     if (MTLK_ERR_OK != res) {
       goto ERROR_PROC_RET;
     }
 
     res = mtlk_df_proc_node_add_seq_entry(
-            "objpool_dump", dfg->proc_mtlk_node, dfg, &debug_objpool_dump_seq_ops);
+            "objpool_dump", dfg->proc_mtlk_node, dfg, debug_objpool_dump);
     if (MTLK_ERR_OK != res) {
         goto ERROR_PROC_RET;
     }
@@ -546,14 +481,14 @@ static int mtlk_dfg_proc_init(mtlk_dfg_t *dfg)
 
     /* create IRB topology file */
     res = mtlk_df_proc_node_add_seq_entry(
-            MTLK_IRB_INI_NAME, dfg->proc_mtlk_node, dfg, &debug_irb_topology_dump_seq_ops);
+            MTLK_IRB_INI_NAME, dfg->proc_mtlk_node, dfg, debug_irb_topology_dump);
     if (MTLK_ERR_OK != res) {
       goto ERROR_PROC_RET;
     }
 
 #ifdef MTCFG_CPU_STAT
     res = mtlk_df_proc_node_add_seq_entry(
-            "cpu_stats", dfg->proc_mtlk_node, dfg, &cpu_stats_seq_show_seq_ops);
+            "cpu_stats", dfg->proc_mtlk_node, dfg, cpu_stats_seq_show);
     if (MTLK_ERR_OK != res) {
       goto ERROR_PROC_RET;
     }
@@ -571,13 +506,13 @@ static int mtlk_dfg_proc_init(mtlk_dfg_t *dfg)
     }
 
     res = mtlk_df_proc_node_add_wo_entry(
-            "cpu_stats_delay", dfg->proc_mtlk_node, dfg, &cpu_stats_delay_write_seq_ops);
+            "cpu_stats_delay", dfg->proc_mtlk_node, dfg, cpu_stats_delay_write);
     if (MTLK_ERR_OK != res) {
       goto ERROR_PROC_RET;
     }
 
     res = mtlk_df_proc_node_add_seq_entry(
-            "cpu_stats_max_id", dfg->proc_mtlk_node, dfg, &_mtlk_dfg_cpu_stats_max_id_read_seq_ops);
+            "cpu_stats_max_id", dfg->proc_mtlk_node, dfg, _mtlk_dfg_cpu_stats_max_id_read);
     if (MTLK_ERR_OK != res) {
       goto ERROR_PROC_RET;
     }
@@ -585,7 +520,7 @@ static int mtlk_dfg_proc_init(mtlk_dfg_t *dfg)
 
 #ifdef MTCFG_PER_PACKET_STATS
     res = mtlk_df_proc_node_add_seq_entry(
-          "ppkt_stats", dfg->proc_mtlk_node, dfg, &mtlk_df_ui_debug_pp_stats_seq_ops);
+          "ppkt_stats", dfg->proc_mtlk_node, dfg, mtlk_df_ui_debug_pp_stats);
     if (MTLK_ERR_OK != res) {
       goto ERROR_PROC_RET;
     }
