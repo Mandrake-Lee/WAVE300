@@ -1,0 +1,32 @@
+﻿============================================================
+ Lantiq Wave300 - Wireless Driver & Tools – Development Kit
+		README_FW
+============================================================
+REVISION
+01	2017-09-24	First issue by Mandrake
+
+FIRMWARE
+============================================================
+In practice, it seems there must be a match between the driver
+version release and the firmware (*.bin) files that are 
+uploaded to the wave3000 chip during bootup.
+
+The only successful binaries found up to date are embedded into image:
+	TD-W8980_V1_131012.zip
+
+More conveniently, just the interesting binaries have been ripped off:
+	https://ufile.io/yha8i
+
+In the latter link one can find the folling files:
+	ap_upper.bin
+	contr_lm.bin
+	ProgModel_A_CB_38_RevA.bin
+	ProgModel_A_CB.bin
+	ProgModel_A_nCB_38_RevA.bin
+	ProgModel_A_nCB.bin
+	sta_upper.bin
+
+During driver bootup, the internal release of these binaries is:
+	ap_upper.bin: @@@ VERSION INFO @@@ version number: FW_3.2.1_r5437 MIPS:  Upper CPU(TMC AGG AP) interface: PCI  phy type: real phy on Mar 28 2012 at 11:00:01@@@ END @@@
+
+	contr_lm.bin: @@@ VERSION INFO @@@ version number: FW_3.2.1_r5437 MIPS:  Lower MAC  interface: --  phy type: real phy on Mar 28 2012 at 10:59:46@@@ END @@@

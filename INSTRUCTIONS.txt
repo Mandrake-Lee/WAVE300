@@ -5,7 +5,8 @@ REVISION
 01	2017-08-01	First issue by Mandrake
 02	2017-09-02	Details for linking against tiny-libnl, 
 			issues and workaround. Vittorio88 & Mandrake
-
+03	2017-09-24	Fimware files list extended. Syntax for
+			insmod corrected to boot ap
 FOREWORD
 ============================================================
 The information contained in this file have been deducted from
@@ -60,6 +61,8 @@ SETUP
 		sta_upper.bin
 		ap_upper.bin
 		contr_lm.bin
+		Progmodel_*.bin
+	Check README_FW in /lantiq_fw for help.
 
 [1] Set crosscompiler variables
 	Edit file driver/support/ugw.env.common and tune to your
@@ -130,8 +133,26 @@ SETUP
 [6] Test your machine
 	Bring those files to your platform (router, embedded system…) and
 	insert the modules (insmod) in the following order:
-		[1] mtlkroot.ko
-		[2] mtlk.ko
-	NOTE: Wireless wave300 needs of firmware files to be available in your platform.
+		[1] insmod mtlkroot.ko
+		[2] insmod mtlk.ko ap=1
+	NOTE 1: Wireless wave300 needs of firmware files to be available in your platform.
 	These files must be copied into your target /lib/firmware folder
+
+	NOTE 2: It is critical to bootup as ap, therefore to add ap=1 during insmod.
+	Otherwise it will simply not work.
+
+[7] Further tweaks (advanced)
+	The modules generated accept some parameters, most of them are unexplored.
+
+	We will describe here what we know so far:
+
+	[1] DEBUG MESSAGES
+		We can set debugging level of the modules by compiling & inserting later
+		as follows:
+			[1] At menuconfig level, set debug level, being 9 the highest. Beware
+			because the size of the drivers will grow.
+			[2] Insert the root driver with desired debug level e.g. 3
+				insmod mtlkroot.ko cdebug=3
+			[3] Insert next driver in a standard way:
+				insmod mtlk.ko ap=1
 
