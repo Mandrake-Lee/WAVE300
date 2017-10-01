@@ -7,6 +7,7 @@ REVISION
 			issues and workaround. Vittorio88 & Mandrake
 03	2017-09-24	Fimware files list extended. Syntax for
 			insmod corrected to boot ap
+04	2017-10-01	Wireless tools instructions
 FOREWORD
 ============================================================
 The information contained in this file have been deducted from
@@ -41,11 +42,11 @@ The code was successfully compiled with Ubuntu 16.04.
 SETUP
 ============================================================
 [0] Prerequisites
-	Have a Linux environment
-	Have a crosscompiler SDK (e.g. LEDE or Openwrt)
-	Have header files for libnl-tiny
-
-	Prepare libnl-tiny package with LEDE or Openwrt SDK:
+	* Have a Linux environment
+	* Have a crosscompiler SDK (e.g. LEDE or Openwrt)
+	* Have header files for libnl-tiny
+	* Have wireless tools (iwpriv, etc) in target machine
+	* Prepare libnl-tiny package with LEDE or Openwrt SDK:
 		./scripts/feeds update -a
 		./scripts/feeds install libnl-tiny
 		make package/libnl-tiny/{clean,compile,install} V=99
@@ -135,6 +136,17 @@ SETUP
 	insert the modules (insmod) in the following order:
 		[1] insmod mtlkroot.ko
 		[2] insmod mtlk.ko ap=1
+
+	A new wifi interface should appear, usually named wlan0.
+	Now setup that interface via wireless tools. Change parameters as per your need.
+	Below lines are just an example:
+		[3] iwpriv wlan0 sCountry GB
+		[4] iwconfig wlan0 essid test
+		[5] iwconfig wlan0 channel 52
+
+	Finally bring up the interface:
+		[6] ifconfig wlan0 up
+
 	NOTE 1: Wireless wave300 needs of firmware files to be available in your platform.
 	These files must be copied into your target /lib/firmware folder
 
