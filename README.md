@@ -71,9 +71,9 @@ We are now ready to build the driver.
 You should see the classical blue screen menu.
 Choose your target platform.
 
-Tip: ugw 5.1 has been more thoroughly tested.
+Tip: ugw 5.1 has been more thoroughly tested.  
 
-ugw5.1-vrx288 will be used as example for the rest of the document.
+ugw5.1-vrx288 will be used as example for the rest of the document.  
 
 Note: This step will also perform ./configure. Do not run it on your own.
 Note: If this step fails, then maybe you have multiple toolchains in openwrt/staging_dir. Remove all but the latest.
@@ -100,12 +100,12 @@ Check README_FW in /lantiq_fw for help.
 
 ## Test your machine
 Bring those files to your platform (router, embedded system, etc) and
-insert the modules (insmod) in the following order:
+insert the modules (insmod) in the following order:  
 `insmod mtlkroot.ko`  
 `insmod mtlk.ko ap=1`  
 
 A new wifi interface should appear, usually named wlan0.
-Now setup that interface via wireless tools. Change parameters as per your need.
+Now setup that interface via wireless tools. Change parameters as per your need.  
 Below lines are just an example using 5GHz:  
 `iwpriv wlan0 sCountry GB`  
 `iwconfig wlan0 essid test`  
