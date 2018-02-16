@@ -90,7 +90,7 @@ Drivers will be available at:
 
 ### Prepare firmware files
 In order to run the wifi driver in your target machine
-you need to have the following firmware files:
+you need to have the following firmware files:  
 `/lib/firmware/sta_upper.bin`  
 `/lib/firmware/ap_upper.bin`  
 `/lib/firmware/contr_lm.bin`  
@@ -99,19 +99,19 @@ you need to have the following firmware files:
 Check README_FW in /lantiq_fw for help.
 
 ## Test your machine
-Bring those files to your platform (router, embedded system…) and
+Bring those files to your platform (router, embedded system, etc) and
 insert the modules (insmod) in the following order:
 `insmod mtlkroot.ko`  
 `insmod mtlk.ko ap=1`  
 
 A new wifi interface should appear, usually named wlan0.
 Now setup that interface via wireless tools. Change parameters as per your need.
-Below lines are just an example using 5GHz:
+Below lines are just an example using 5GHz:  
 `iwpriv wlan0 sCountry GB`  
 `iwconfig wlan0 essid test`  
 `iwconfig wlan0 channel 52`  
 
-Finally bring up the interface:
+Finally bring up the interface:  
 `ifconfig wlan0 up`  
 
 ## Troubleshooting
