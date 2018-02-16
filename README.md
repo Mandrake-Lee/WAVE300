@@ -45,6 +45,13 @@ immediatly turn down this git.
 `git clone https://github.com/openwrt/openwrt.git`  
 `cd openwrt`  
 
+### Select target and subtarget
+`make menuconfig`  
+
+### Build OpenWRT
+This step is necessary to populate toolchain and kernel directories  
+`make`  
+
 ### Install libnl in OpenWRT
 `./scripts/feeds update -a`  
 `./scripts/feeds install libnl`  
@@ -75,7 +82,7 @@ Tip: ugw 5.1 has been more thoroughly tested.
 
 ugw5.1-vrx288 will be used as example for the rest of the document.  
 
-Note: This step will also perform ./configure. Do not run it on your own.
+Note: This step will also perform ./configure. Do not run it on your own.  
 Note: If this step fails, then maybe you have multiple toolchains in openwrt/staging_dir. Remove all but the latest.
 
 ### Build driver
@@ -118,7 +125,7 @@ Finally bring up the interface:
 The generated modules accept some parameters, most of them are unexplored.
 
 ### Increase logging verbosity
-At menuconfig level, set debug level, 9 being the highest.
+At menuconfig level, set debug level, 9 being the highest.  
 Beware, because the size of the drivers will grow.
 
 ### Insert driver(s) with increased logging verbosity
