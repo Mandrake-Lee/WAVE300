@@ -81,7 +81,7 @@ Note: If this step fails, then maybe you have multiple toolchains in openwrt/sta
 ### Build driver
 `make`  
 
-Drivers will be available at:
+Drivers will be available at:  
 `./builds/ugw5.1-vrx288/binaries/wls/driver/mtlk.ko`  
 `./builds/ugw5.1-vrx288/binaries/wls/driver/mtlkroot.ko`  
 
