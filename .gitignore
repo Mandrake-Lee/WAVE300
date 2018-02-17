@@ -1,0 +1,15 @@
+driver/.build_tree_ts
+driver/.config.old
+driver/\[config.h\].in
+driver/tools/kconfig/conf
+driver/tools/kconfig/conf.d
+driver/tools/kconfig/conf.o
+driver/tools/kconfig/lxdialog/checklist.o
+driver/tools/kconfig/lxdialog/inputbox.o
+driver/tools/kconfig/lxdialog/menubox.o
+driver/tools/kconfig/lxdialog/textbox.o
+driver/tools/kconfig/lxdialog/util.o
+driver/tools/kconfig/lxdialog/yesno.o
+driver/tools/kconfig/mconf
+driver/tools/kconfig/mconf.o
+driver/tools/kconfig/zconf.tab.o
