@@ -142,8 +142,9 @@ int mtlk_nl_init(void)
                                                        &nl_mutex, THIS_MODULE);
 #else
 	struct netlink_kernel_cfg cfg = {
-    	.input = nl_input,
-	.cb_mutex = &nl_mutex,
+    	.groups = 3,
+	.input = nl_input,
+	.cb_mutex = &nl_mutex
 	};
   nl_sock = netlink_kernel_create(&init_net, NETLINK_USERSOCK, &cfg);
 #endif
