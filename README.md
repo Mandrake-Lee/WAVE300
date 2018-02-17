@@ -70,19 +70,19 @@ We are now ready to build the driver.
 `cd driver`  
 
 ### Set variable to point to cloned OpenWRT SDK repository
-`export BSP_BUILD_ROOT=/home/vitto/src/openwrt`  
+`export BSP_BUILD_ROOT=~/src/openwrt`  
 
 ### Configure build
 `make menuconfig`  
 
-You should see the classical blue screen menu.
-Choose your target platform.
+You should see the classical blue screen menu.  
+1. Choose your target platform<sup>1</sup>  
+2. Under features, make sure "Don't Use Generic netlink socket" is enabled [*] <sup>2</sup>
 
-Tip: ugw 5.1 has been more thoroughly tested.  
+<sup>1</sup> ugw5.1-vrx288 has been more thoroughly tested and will be used as example for the rest of the document.  
+<sup>2</sup> With Don't Use Generic disabled (the default) I get a kernel panic on mtlk_nl_send_brd_msg().  
 
-ugw5.1-vrx288 will be used as example for the rest of the document.  
-
-Note: This step will also perform ./configure. Do not run it on your own.  
+Upon exiting make menuconfig, ./configure will be run automatically. Do not run it on your own.  
 Note: If this step fails, then maybe you have multiple toolchains in openwrt/staging_dir. Remove all but the latest.
 
 ### Build driver
