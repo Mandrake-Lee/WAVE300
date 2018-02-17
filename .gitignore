@@ -13,3 +13,5 @@ driver/tools/kconfig/lxdialog/yesno.o
 driver/tools/kconfig/mconf
 driver/tools/kconfig/mconf.o
 driver/tools/kconfig/zconf.tab.o
+*\.o
+*\.d
