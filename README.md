@@ -105,17 +105,24 @@ you need to have the following firmware files:
 
 Check README_FW in /lantiq_fw for help.
 
-## Test your machine
+## Load driver
 Bring those files to your platform (router, embedded system, etc) and
 insert the modules (insmod) in the following order:  
 `insmod mtlkroot.ko`  
 `insmod mtlk.ko ap=1`  
 
-A new wifi interface should appear, usually named wlan0.
-Now setup that interface via wireless tools. Change parameters as per your need.  
-Below lines are just an example using 5GHz:  
+A new wifi interface should be visible with iw, usually named wlan0.  
+`iw`  
+
+## Configure wireless interface
+Below lines are an example if your radio is 2.4GHz:  
+`iwpriv wlan0 sCountry IT`  
+`iwconfig wlan0 essid test-24ghz`  
+`iwconfig wlan0 channel 1`  
+
+Below lines are an example if your radio is 5GHz:  
 `iwpriv wlan0 sCountry GB`  
-`iwconfig wlan0 essid test`  
+`iwconfig wlan0 essid test-5ghz`  
 `iwconfig wlan0 channel 52`  
 
 Finally bring up the interface:  
@@ -129,5 +136,5 @@ At menuconfig level, set debug level, 9 being the highest.
 Beware, because the size of the drivers will grow.
 
 ### Insert driver(s) with increased logging verbosity
-insmod mtlkroot.ko cdebug=3
+`insmod mtlkroot.ko cdebug=3`
 
