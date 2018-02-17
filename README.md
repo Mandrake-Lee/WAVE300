@@ -111,8 +111,8 @@ insert the modules (insmod) in the following order:
 `insmod mtlkroot.ko`  
 `insmod mtlk.ko ap=1`  
 
-A new wifi interface should be visible with iw, usually named wlan0.  
-`iw`  
+A new wifi interface should be visible with iwconfig, usually named wlan0.  
+`iwconfig`  
 
 ## Configure wireless interface
 Below lines are an example if your radio is 2.4GHz:  
