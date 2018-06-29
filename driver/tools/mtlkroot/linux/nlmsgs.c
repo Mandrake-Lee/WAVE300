@@ -56,9 +56,7 @@ static void nl_input (struct sock *sk, int len)
 
 }
 #else /* kernel version >=  2.6.24 */
-#if LINUX_VERSION_CODE < KERNEL_VERSION(4,5,0)
 static void nl_input (struct sk_buff *inskb) {}
-#endif
 #endif
 
 #endif /* MTCFG_USE_GENL */
@@ -139,8 +137,10 @@ int mtlk_nl_init(void)
 #elif LINUX_VERSION_CODE < KERNEL_VERSION(2,6,24)
   nl_sock = netlink_kernel_create(NETLINK_USERSOCK, 3, nl_input, 
                                                        &nl_mutex, THIS_MODULE);
-#elif LINUX_VERSION_CODE < KERNEL_VERSION(4,5,0)
-
+#elif LINUX_VERSION_CODE < KERNEL_VERSION(3,2,0)
+  nl_sock = netlink_kernel_create(&init_net, NETLINK_USERSOCK, 3, nl_input,
+                                                       &nl_mutex, THIS_MODULE);
+#else
 	struct netlink_kernel_cfg cfg = {
     	.input = nl_input,
 	.cb_mutex = &nl_mutex,

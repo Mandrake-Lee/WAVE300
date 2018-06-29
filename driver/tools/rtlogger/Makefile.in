@@ -300,7 +300,7 @@ LD_LIBRARY_PATH = @env_lib_path@
 @BUILD_RTLOGGER_FALSE@SUBDIRS = shared
 
 # $Id: Makefile.am 11049 2011-04-24 09:29:12Z dmitryf $
-@BUILD_RTLOGGER_TRUE@SUBDIRS = logserver logcnv prebuilt shared
+@BUILD_RTLOGGER_TRUE@SUBDIRS = logserver logcnv  shared
 DIST_SUBDIRS = $(SUBDIRS)
 EXTRA_DIST = logprep/logprep.pl
 all: all-recursive

@@ -2,7 +2,7 @@
 include $(top_srcdir)/Makefile.am.common
 
 if BUILD_RTLOGGER
-SUBDIRS = logserver logcnv prebuilt shared
+SUBDIRS = logserver logcnv shared
 else
 SUBDIRS = shared
 endif
