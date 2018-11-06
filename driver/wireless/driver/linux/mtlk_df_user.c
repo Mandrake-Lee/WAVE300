@@ -3428,8 +3428,8 @@ mtlk_df_ui_notify_secure_node_connect(mtlk_df_t *df,
 
   MTLK_ASSERT(NULL != df);
 
-  p += sprintf(p, "NEWSTA " MAC_PRINTF_FMT ", RSNIE_LEN %lu : ",
-               MAC_PRINTF_ARG(node_addr), (unsigned long)rsnie_len);
+  p += sprintf(p, "NEWSTA " MAC_PRINTF_FMT ", RSNIE_LEN %zu : ",
+               MAC_PRINTF_ARG(node_addr), rsnie_len);
 
   MTLK_ASSERT(buf - p + rsnie_len*2 < IW_CUSTOM_MAX);
 
