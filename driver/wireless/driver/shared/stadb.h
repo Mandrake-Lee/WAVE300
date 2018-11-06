@@ -313,7 +313,7 @@ void __MTLK_IFUNC
 __mtlk_sta_on_unref_private(sta_entry *sta);
 /********************************************************/
 
-//#define STA_REF_DBG
+#define STA_REF_DBG
 
 #ifndef STA_REF_DBG
 static __INLINE void
@@ -339,22 +339,22 @@ __mtlk_sta_incref_dbg (mtlk_slid_t slid, sta_entry *sta)
 {
   uint32 ref_cnt = mtlk_osal_atomic_inc(&sta->ref_cnt);
   ILOG0_DDDD("STA referenced from G:%d F:%d L:%d. The new refcount is %d",
-            mtlk_slid_get_gid(ainfo->allocator_slid),
-            mtlk_slid_get_fid(ainfo->allocator_slid),
-            mtlk_slid_get_lid(ainfo->allocator_slid),
+            mtlk_slid_get_gid(slid),
+            mtlk_slid_get_fid(slid),
+            mtlk_slid_get_lid(slid),
             ref_cnt);
 }
 
 #define mtlk_sta_decref(sta) __mtlk_sta_decref_dbg(MTLK_SLID, (sta))
 
 static __INLINE void
-__mtlk_sta_decref_dbg (const char *f, int l, sta_entry *sta)
+__mtlk_sta_decref_dbg (mtlk_slid_t slid, sta_entry *sta)
 {
   uint32 ref_cnt = mtlk_osal_atomic_dec(&sta->ref_cnt);
   ILOG0_DDDD("STA dereferenced from G:%d F:%d L:%d. The new refcount is %d",
-            mtlk_slid_get_gid(ainfo->allocator_slid),
-            mtlk_slid_get_fid(ainfo->allocator_slid),
-            mtlk_slid_get_lid(ainfo->allocator_slid),
+            mtlk_slid_get_gid(slid),
+            mtlk_slid_get_fid(slid),
+            mtlk_slid_get_lid(slid),
             ref_cnt);
 
   if (ref_cnt == 0) {
@@ -527,7 +527,6 @@ mtlk_stadb_add_sta(sta_db *stadb, const unsigned char *mac,
 void __MTLK_IFUNC
 mtlk_stadb_remove_sta(sta_db *stadb, sta_entry *sta);
 
-#ifndef STA_REF_DBG
 static __INLINE sta_entry *
 mtlk_stadb_find_sta (sta_db *stadb, const unsigned char *mac)
 {
@@ -539,32 +538,13 @@ mtlk_stadb_find_sta (sta_db *stadb, const unsigned char *mac)
   if (h) {
     sta = MTLK_CONTAINER_OF(h, sta_entry, hentry);
     mtlk_sta_incref(sta); /* Reference by caller */
+  } else {
+    ILOG4_V("Could not find find hash of ieee addr!");
   }
   mtlk_osal_lock_release(&stadb->lock);
 
   return sta;
 }
-#else
-#define mtlk_stadb_find_sta(stadb, mac) \
-  __mtlk_stadb_find_sta_dbg(__FUNCTION__, __LINE__, (stadb), (mac))
-
-static __INLINE sta_entry *
-__mtlk_stadb_find_sta_dbg (const char *f, int l, sta_db *stadb, const unsigned char *mac)
-{
-  sta_entry                    *sta = NULL;
-  MTLK_HASH_ENTRY_T(ieee_addr) *h;
-    
-  mtlk_osal_lock_acquire(&stadb->lock);
-  h = mtlk_hash_find_ieee_addr(&stadb->hash, (IEEE_ADDR *)mac);
-  if (h) {
-    sta = MTLK_CONTAINER_OF(h, sta_entry, hentry);
-    __mtlk_sta_incref_dbg(f, l, sta); /* Reference by caller */
-  }
-  mtlk_osal_lock_release(&stadb->lock);
-
-  return sta;
-}
-#endif
 
 static __INLINE sta_entry *
 mtlk_stadb_get_ap (sta_db *stadb)
