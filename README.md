@@ -7,7 +7,7 @@ the Lantiq Wave 300 development kit that includes drivers and misc
 tools.
 
 The aim of this project is to upbring the sources to newer Linux kernels 
-as original sources available seem to be compatible with older kernels.
+as original sources available seem to be compatible only with older kernels.
 
 ## LEGAL DISCLAIMER
 The original sources for this git (wave300-3.2.1.1.48.tar.gz), upon which 
@@ -29,15 +29,19 @@ immediatly turn down this git.
 - The code has been up-ported to latest OpenWRT trunk using kernel 4.9 or later
 - The code was successfully compiled using Ubuntu 16.04
 - The compiled kernel module is successfully loaded, and network device initiated.
+- The driver communicates with a custom hostapd that contains mtlk primitives.
+- There is no IP communication, this is likely related to "SOURCE of RX packet not found!" issue.
 
 ## TODO
-- Integrate driver with hostapd and /lib/functions.sh of OpenWRT using mtlk.sh
-- On some targets, the driver is stopped during PCI MSI request. 
-	Further investigations indicates this is a system issue, 
-	nothing to do with the driver
+- Diagnose "SOURCE of RX packet not found!" issue which is likely why there is no IP connectivity.
+
 
 ## HOWTO: setup build environment
-* Any recent linux should do, for testing Ubuntu 16.04 LTS is ideal.
+* Build using OpenWRT 18.06.1 on Ubuntu 16.04 LTS.
+* The driver did not build on Ubuntu 18.04 for me due to: 
+  error: conflicting types for 'copy_file_range()' which was 
+         introduced by glibc 2.2.7 used in Ubuntu 18.04
+
 
 ### Clone the OpenWRT development environment
 `mkdir ~/src`  
@@ -59,14 +63,27 @@ This step is necessary to populate toolchain and kernel directories
 
 Note: libnl-tiny does not work by default
 
+I also added the following options to my .config :
+
+For lspci:
+`CONFIG_PACKAGE_pciutils=y`  
+
+I like vim:
+`CONFIG_PACKAGE_vim-full=y`  
+
+For iwconfig:
+`CONFIG_PACKAGE_wireless-tools=y`  
+
+For hostapd:
+`CONFIG_PACKAGE_libopenssl=y` 
+
+
 ## HOWTO: Build driver
 We are now ready to build the driver.
 
 ### Clone WAVE300 git repository
 `cd ~/src`  
 `git clone https://github.com/vittorio88/WAVE300.git`  
-`cd WAVE300`  
-`git checkout Dual-license-BSD_GPL`  
 `cd driver`  
 
 ### Set variable to point to cloned OpenWRT SDK repository
@@ -77,10 +94,8 @@ We are now ready to build the driver.
 
 You should see the classical blue screen menu.  
 1. Choose your target platform<sup>1</sup>  
-2. Under features, make sure "Don't Use Generic netlink socket" is enabled [*] <sup>2</sup>
 
 <sup>1</sup> ugw5.1-vrx288 has been more thoroughly tested and will be used as example for the rest of the document.  
-<sup>2</sup> With Don't Use Generic disabled (the default) I get a kernel panic on mtlk_nl_send_brd_msg().  
 
 Upon exiting make menuconfig, ./configure will be run automatically. Do not run it on your own.  
 Note: If this step fails, then maybe you have multiple toolchains in openwrt/staging_dir. Remove all but the latest.
@@ -103,7 +118,14 @@ you need to have the following firmware files:
 `/lib/firmware/contr_lm.bin`  
 `/lib/firmware/Progmodel_*.bin`  
 
+You can retrieve these from:
+1. your running stock firmare
+2. using fmk (firmware-mod-kit) to extract them from a stock firmware image
+3. Retrieving them from a GPL dump of your image
+
 Check README_FW in /lantiq_fw for help.
+They may need to be renamed, you will see in kernel log if it doesn't find an
+adequate firmware image.
 
 ## Load driver
 Bring those files to your platform (router, embedded system, etc) and
@@ -127,6 +149,11 @@ Below lines are an example if your radio is 5GHz:
 
 Finally bring up the interface:  
 `ifconfig wlan0 up`  
+
+Here is it possible to see the wireless network and connect, yet 
+there is not IP connectivity.
+
+It is also possible to use hostapd if patched with mtlk primitives.
 
 ## Troubleshooting
 The generated modules accept some parameters, most of them are unexplored.
