@@ -26,12 +26,19 @@
 
 #ifdef MTCFG_USE_GENL
 
+
+static const struct genl_multicast_group config_multicast_group[] = {
+	{ .name = MTLK_GENL_MCGROUP_NAME },
+};
+
 /* family structure */
 static struct genl_family mtlk_genl_family = {
         .id = GENL_ID_GENERATE,
         .name = MTLK_GENL_FAMILY_NAME,
         .version = MTLK_GENL_FAMILY_VERSION,
         .maxattr = MTLK_GENL_ATTR_MAX,
+	.mcgrps = config_multicast_group,
+	.n_mcgrps = 1
 };
 
 #else /* MTCFG_USE_GENL */
@@ -228,8 +235,9 @@ int mtlk_nl_send_brd_msg(void *data, int length, gfp_t flags, u32 dst_group, u8 
 #if LINUX_VERSION_CODE < KERNEL_VERSION(2,6,19)
   genl_res = genlmsg_multicast(skb, 0, send_group);
 #else
-	/*Might be needed just to overcome kernek 3.18*/
-  genl_res = genlmsg_multicast(NULL,skb, 0, send_group, flags);
+     /* Possible bug, using 0 instead of send_group
+     not using send_group will probably dump all netlink msgs together */
+  genl_res = genlmsg_multicast(&mtlk_genl_family, skb, 0, 0, flags);
 #endif
   if (genl_res)
     return MTLK_ERR_UNKNOWN;

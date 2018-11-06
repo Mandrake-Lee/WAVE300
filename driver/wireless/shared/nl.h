@@ -5,6 +5,7 @@
 
 #define MTLK_GENL_FAMILY_NAME     "MTLK_WLS"
 #define MTLK_GENL_FAMILY_VERSION  1
+#define MTLK_GENL_MCGROUP_NAME    "MTLK_MCGROUP"
 
 /* attributes of the family */
 enum {
